@@ -38,6 +38,7 @@ from PyQt6.QtWidgets import (
 )
 
 from novelwriter import CONFIG, SHARED, __hexversion__, __version__
+from novelwriter.ai.config import AIConfig
 from novelwriter.common import formatFileFilter, formatVersion, hexToInt, minmax, safeIsFile
 from novelwriter.constants import nwConst
 from novelwriter.dialogs.about import GuiAbout
@@ -58,6 +59,7 @@ from novelwriter.gui.outline import GuiOutlineView
 from novelwriter.gui.projtree import GuiProjectView
 from novelwriter.gui.search import GuiProjectSearch
 from novelwriter.gui.sidebar import GuiSideBar
+from novelwriter.gui.status_bar_ai import AIIndicatorState
 from novelwriter.gui.statusbar import GuiMainStatus
 from novelwriter.tools.dictionaries import GuiDictionaries
 from novelwriter.tools.manuscript import GuiManuscript
@@ -752,7 +754,15 @@ class GuiMain(QMainWindow):
         """Open the preferences dialog."""
         dialog = GuiPreferences(self, gotoSection=gotoSection)
         dialog.newPreferencesReady.connect(self._processConfigChanges)
+        dialog.aiConfigChanged.connect(self._onAiConfigChanged)
         dialog.exec()
+
+    @pyqtSlot(AIConfig)
+    def _onAiConfigChanged(self, cfg: AIConfig) -> None:
+        # Sprint 1: only the mock provider exists, so "enabled" maps to
+        # READY_LOCAL. Sprint 2 will distinguish READY_CLOUD per provider.
+        state = AIIndicatorState.READY_LOCAL if cfg.enabled else AIIndicatorState.OFF
+        self.mainStatus.setAiIndicatorState(state)
 
     @pyqtSlot()
     @pyqtSlot(int)

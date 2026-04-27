@@ -34,6 +34,8 @@ from PyQt6.QtWidgets import (
 )
 
 from novelwriter import CONFIG, SHARED
+from novelwriter.ai.config import AIConfig
+from novelwriter.ai.persistence import load_ai_config, save_ai_config
 from novelwriter.common import compact, describeFont, processDialogSymbols, uniqueCompact
 from novelwriter.config import DEF_GUI_DARK, DEF_GUI_LIGHT, DEF_ICONS, DEF_TREECOL
 from novelwriter.constants import nwLabels, nwQuotes, nwUnicode, trConst
@@ -55,11 +57,13 @@ class GuiPreferences(NDialog):
     """GUI: Preferences Dialog."""
 
     newPreferencesReady = pyqtSignal(bool, bool, bool, bool)
+    aiConfigChanged = pyqtSignal(AIConfig)
 
     def __init__(self, parent: QWidget, gotoSection: str | None = None) -> None:
         super().__init__(parent=parent)
 
         self._gotoSection = gotoSection
+        self._aiInitial = self._loadInitialAiConfig()
         logger.debug("Create: GuiPreferences")
         self.setObjectName("GuiPreferences")
         self.setWindowTitle(self.tr("Preferences"))
@@ -900,7 +904,7 @@ class GuiPreferences(NDialog):
 
         # AI
         # ==
-        self.aiPanel = AIPreferencesPanel(self)
+        self.aiPanel = AIPreferencesPanel(self, initial=self._aiInitial)
         section += 1
         self.aiPanel.build(section)
 
@@ -1186,8 +1190,27 @@ class GuiPreferences(NDialog):
         self.vimMode.setChecked(vimMode)
         CONFIG.vimMode = vimMode
 
+        # AI
+        aiCfg = self.aiPanel.applyTo(self.aiPanel.config)
+        if SHARED.hasProject and SHARED.project.storagePath is not None:
+            try:
+                save_ai_config(SHARED.project.storagePath, aiCfg)
+            except OSError as exc:
+                logger.warning("Could not save AI config: %s", exc)
+        self.aiConfigChanged.emit(aiCfg)
+
         # Finalise
         CONFIG.saveConfig()
         self.newPreferencesReady.emit(needsRestart, refreshTree, updateTheme, updateSyntax)
 
         self.close()
+
+    ##
+    #  AI helpers
+    ##
+
+    def _loadInitialAiConfig(self) -> AIConfig:
+        """Load the project's AI config, or a fresh default if no project."""
+        if SHARED.hasProject and SHARED.project.storagePath is not None:
+            return load_ai_config(SHARED.project.storagePath)
+        return AIConfig()
