@@ -1,0 +1,24 @@
+{
+  "outcome": "success",
+  "canonical_paths": [
+    ".planning/current/qa/completion-advisor.json",
+    ".planning/current/qa/qa-report.md",
+    ".planning/current/qa/design-verification.md"
+  ],
+  "verification_count": 0,
+  "defect_count": 0,
+  "learning_candidates_path": null,
+  "learnings_recorded": false,
+  "status": {
+    "state": "completed",
+    "decision": "qa_recorded",
+    "ready": true,
+    "design_impact": "none",
+    "design_contract_path": null,
+    "design_verified": true,
+    "learning_candidates_path": null,
+    "learnings_recorded": false,
+    "review_scope": null,
+    "advisory_count": 8
+  }
+}

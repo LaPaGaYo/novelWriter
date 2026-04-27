@@ -1,0 +1,8 @@
+{
+  "stage": "qa",
+  "adapter": "local",
+  "kind": "backend_conflict",
+  "message": "Malformed QA response: learning_candidates[0] must match the LearningCandidate shape",
+  "canonical_paths": [],
+  "trace_paths": []
+}

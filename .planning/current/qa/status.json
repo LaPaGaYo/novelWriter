@@ -1,0 +1,87 @@
+{
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "stage": "qa",
+  "execution_mode": "local_provider",
+  "primary_provider": "claude",
+  "provider_topology": "single_agent",
+  "workspace": {
+    "path": "/Users/henry/Documents/novelWriter/.nexus-worktrees/run-2026-04-26T08-32-35-381Z",
+    "kind": "worktree",
+    "branch": "codex/run-2026-04-26T08-32-35-381Z",
+    "source": "allocated:fresh_run",
+    "run_id": "run-2026-04-26T08-32-35-381Z",
+    "retirement_state": "active"
+  },
+  "session_root": {
+    "path": "/Users/henry",
+    "kind": "repo_root",
+    "source": "ccb_root"
+  },
+  "requested_execution_path": "claude-local-single_agent",
+  "actual_execution_path": "claude-local-single_agent-qa",
+  "design_impact": "none",
+  "design_contract_path": null,
+  "design_verified": true,
+  "state": "completed",
+  "decision": "qa_recorded",
+  "ready": true,
+  "inputs": [
+    {
+      "kind": "json",
+      "path": ".planning/current/review/status.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/plan/verification-matrix.json"
+    }
+  ],
+  "outputs": [
+    {
+      "kind": "markdown",
+      "path": ".planning/current/qa/qa-report.md"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/current/qa/design-verification.md"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/qa/completion-advisor.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/qa/status.json"
+    }
+  ],
+  "started_at": "2026-04-27T07:30:30.656Z",
+  "completed_at": "2026-04-27T07:30:30.656Z",
+  "errors": [],
+  "requested_route": {
+    "command": "qa",
+    "governed": false,
+    "execution_mode": "local_provider",
+    "primary_provider": "claude",
+    "provider_topology": "single_agent",
+    "planner": null,
+    "generator": "claude-local-single_agent-qa",
+    "evaluator_a": null,
+    "evaluator_b": null,
+    "synthesizer": null,
+    "substrate": "superpowers-core",
+    "transport": "local",
+    "fallback_policy": "disabled"
+  },
+  "actual_route": {
+    "provider": "claude",
+    "route": "claude-local-single_agent-qa",
+    "substrate": "superpowers-core",
+    "transport": "local",
+    "receipt_path": ".planning/current/qa/adapter-output.json"
+  },
+  "review_scope": null,
+  "verification_count": 0,
+  "defect_count": 0,
+  "advisory_count": 8,
+  "learning_candidates_path": null,
+  "learnings_recorded": false
+}
