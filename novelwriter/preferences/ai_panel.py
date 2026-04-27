@@ -47,12 +47,16 @@ class AIPreferencesPanel:
         self.aiEnabled: NSwitch | None = None
         self.featureRewrite: NSwitch | None = None
         self.featureConsistency: NSwitch | None = None
+        self.section_index: int = -1  # set by build()
 
     def build(self, section_index: int) -> int:
         """Add the AI section to the dialog's sidebar + form.
 
         Returns the section index used so the caller can keep counting.
+        Also stored as :attr:`section_index` so callers can later route
+        the dialog directly to this section (e.g. status-bar AI click).
         """
+        self.section_index = section_index
         dialog = self._dialog
         title = dialog.tr(self.SECTION_TITLE)
         dialog.sidebar.addButton(title, section_index)

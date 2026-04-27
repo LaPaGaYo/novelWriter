@@ -254,7 +254,9 @@ class GuiMain(QMainWindow):
         self.docEditor.closeEditorRequest.connect(self.closeDocEditor)
         self.docEditor.docTextChanged.connect(self.projSearch.textChanged)
         self.docEditor.editedStatusChanged.connect(self.mainStatus.updateDocumentStatus)
-        self.mainStatus.aiIndicatorClicked.connect(self.showPreferencesDialog)
+        self.mainStatus.aiIndicatorClicked.connect(
+            lambda: self.showPreferencesDialog(gotoSection="ai")
+        )
         self.docEditor.itemHandleChanged.connect(self.novelView.setActiveHandle)
         self.docEditor.itemHandleChanged.connect(self.projView.setActiveHandle)
         self.docEditor.loadDocumentTagRequest.connect(self._followTag)
@@ -746,9 +748,9 @@ class GuiMain(QMainWindow):
         dialog.exec()
 
     @pyqtSlot()
-    def showPreferencesDialog(self) -> None:
+    def showPreferencesDialog(self, gotoSection: str | None = None) -> None:
         """Open the preferences dialog."""
-        dialog = GuiPreferences(self)
+        dialog = GuiPreferences(self, gotoSection=gotoSection)
         dialog.newPreferencesReady.connect(self._processConfigChanges)
         dialog.exec()
 

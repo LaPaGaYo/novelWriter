@@ -56,9 +56,10 @@ class GuiPreferences(NDialog):
 
     newPreferencesReady = pyqtSignal(bool, bool, bool, bool)
 
-    def __init__(self, parent: QWidget) -> None:
+    def __init__(self, parent: QWidget, gotoSection: str | None = None) -> None:
         super().__init__(parent=parent)
 
+        self._gotoSection = gotoSection
         logger.debug("Create: GuiPreferences")
         self.setObjectName("GuiPreferences")
         self.setWindowTitle(self.tr("Preferences"))
@@ -904,7 +905,10 @@ class GuiPreferences(NDialog):
         self.aiPanel.build(section)
 
         self.mainForm.finalise()
-        self.sidebar.setSelected(1)
+        if self._gotoSection == "ai":
+            self.sidebar.setSelected(self.aiPanel.section_index)
+        else:
+            self.sidebar.setSelected(1)
 
     ##
     #  Events
