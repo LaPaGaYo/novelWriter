@@ -1,0 +1,173 @@
+{
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "continuation_mode": "project_reset",
+  "status": "active",
+  "current_command": "build",
+  "current_stage": "build",
+  "previous_stage": "handoff",
+  "allowed_next_stages": [
+    "review"
+  ],
+  "command_history": [
+    {
+      "command": "discover",
+      "at": "2026-04-26T08:32:35.596Z",
+      "via": null
+    },
+    {
+      "command": "frame",
+      "at": "2026-04-26T08:56:53.928Z",
+      "via": null
+    },
+    {
+      "command": "plan",
+      "at": "2026-04-26T16:24:58.365Z",
+      "via": null
+    },
+    {
+      "command": "handoff",
+      "at": "2026-04-26T16:54:47.580Z",
+      "via": null
+    },
+    {
+      "command": "build",
+      "at": "2026-04-27T05:45:34.801Z",
+      "via": null
+    }
+  ],
+  "artifact_index": {
+    "docs/product/idea-brief.md": {
+      "kind": "markdown",
+      "path": "docs/product/idea-brief.md"
+    },
+    ".planning/current/discover/status.json": {
+      "kind": "json",
+      "path": ".planning/current/discover/status.json"
+    },
+    "docs/product/decision-brief.md": {
+      "kind": "markdown",
+      "path": "docs/product/decision-brief.md"
+    },
+    "docs/product/prd.md": {
+      "kind": "markdown",
+      "path": "docs/product/prd.md"
+    },
+    ".planning/current/frame/design-intent.json": {
+      "kind": "json",
+      "path": ".planning/current/frame/design-intent.json"
+    },
+    ".planning/current/frame/completion-advisor.json": {
+      "kind": "json",
+      "path": ".planning/current/frame/completion-advisor.json"
+    },
+    ".planning/current/frame/status.json": {
+      "kind": "json",
+      "path": ".planning/current/frame/status.json"
+    },
+    ".planning/current/plan/execution-readiness-packet.md": {
+      "kind": "markdown",
+      "path": ".planning/current/plan/execution-readiness-packet.md"
+    },
+    ".planning/current/plan/sprint-contract.md": {
+      "kind": "markdown",
+      "path": ".planning/current/plan/sprint-contract.md"
+    },
+    ".planning/current/plan/verification-matrix.json": {
+      "kind": "json",
+      "path": ".planning/current/plan/verification-matrix.json"
+    },
+    ".planning/current/plan/completion-advisor.json": {
+      "kind": "json",
+      "path": ".planning/current/plan/completion-advisor.json"
+    },
+    ".planning/current/plan/status.json": {
+      "kind": "json",
+      "path": ".planning/current/plan/status.json"
+    },
+    ".planning/current/handoff/governed-execution-routing.md": {
+      "kind": "markdown",
+      "path": ".planning/current/handoff/governed-execution-routing.md"
+    },
+    ".planning/current/handoff/governed-handoff.md": {
+      "kind": "markdown",
+      "path": ".planning/current/handoff/governed-handoff.md"
+    },
+    ".planning/current/handoff/completion-advisor.json": {
+      "kind": "json",
+      "path": ".planning/current/handoff/completion-advisor.json"
+    },
+    ".planning/current/handoff/status.json": {
+      "kind": "json",
+      "path": ".planning/current/handoff/status.json"
+    },
+    ".planning/current/build/build-request.json": {
+      "kind": "json",
+      "path": ".planning/current/build/build-request.json"
+    },
+    ".planning/current/build/build-result.md": {
+      "kind": "markdown",
+      "path": ".planning/current/build/build-result.md"
+    },
+    ".planning/current/build/completion-advisor.json": {
+      "kind": "json",
+      "path": ".planning/current/build/completion-advisor.json"
+    },
+    ".planning/current/build/status.json": {
+      "kind": "json",
+      "path": ".planning/current/build/status.json"
+    }
+  },
+  "execution": {
+    "mode": "local_provider",
+    "primary_provider": "claude",
+    "provider_topology": "single_agent",
+    "workspace": {
+      "path": "/Users/henry/Documents/novelWriter/.nexus-worktrees/run-2026-04-26T08-32-35-381Z",
+      "kind": "worktree",
+      "branch": "codex/run-2026-04-26T08-32-35-381Z",
+      "source": "allocated:fresh_run",
+      "run_id": "run-2026-04-26T08-32-35-381Z",
+      "retirement_state": "active"
+    },
+    "session_root": {
+      "path": "/Users/henry",
+      "kind": "repo_root",
+      "source": "ccb_root"
+    },
+    "requested_path": "claude-local-single_agent",
+    "actual_path": "claude-local-single_agent"
+  },
+  "route_intent": {
+    "planner": "claude+pm-gsd",
+    "generator": "claude-local-single_agent",
+    "evaluator_a": "claude-local-single_agent-audit-a",
+    "evaluator_b": "claude-local-single_agent-audit-b",
+    "synthesizer": "claude",
+    "substrate": "superpowers-core",
+    "fallback_policy": "disabled"
+  },
+  "route_check": {
+    "checked_at": "2026-04-26T16:54:47.580Z",
+    "requested_route": {
+      "command": "build",
+      "governed": false,
+      "execution_mode": "local_provider",
+      "primary_provider": "claude",
+      "provider_topology": "single_agent",
+      "planner": "claude+pm-gsd",
+      "generator": "claude-local-single_agent",
+      "evaluator_a": "claude-local-single_agent-audit-a",
+      "evaluator_b": "claude-local-single_agent-audit-b",
+      "synthesizer": "claude",
+      "substrate": "superpowers-core",
+      "transport": "local",
+      "fallback_policy": "disabled"
+    },
+    "route_validation": {
+      "transport": "local",
+      "available": true,
+      "approved": true,
+      "reason": "Nexus approved the requested local provider route"
+    }
+  }
+}

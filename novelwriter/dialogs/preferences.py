@@ -45,6 +45,7 @@ from novelwriter.extensions.modified import (
 )
 from novelwriter.extensions.pagedsidebar import NPagedSideBar
 from novelwriter.extensions.switch import NSwitch
+from novelwriter.preferences.ai_panel import AIPreferencesPanel
 from novelwriter.types import QtAlignCenter, QtRoleAccept, QtRoleReject
 
 logger = logging.getLogger(__name__)
@@ -895,6 +896,12 @@ class GuiPreferences(NDialog):
             self.tr("Enable Vim mode"), self.vimMode,
             self.tr("Switch the editor to use Vim editor commands."),
         )
+
+        # AI
+        # ==
+        self.aiPanel = AIPreferencesPanel(self)
+        section += 1
+        self.aiPanel.build(section)
 
         self.mainForm.finalise()
         self.sidebar.setSelected(1)

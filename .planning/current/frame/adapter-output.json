@@ -1,0 +1,26 @@
+{
+  "adapter_id": "pm",
+  "outcome": "success",
+  "raw_output": {
+    "decision_brief_markdown": "# Decision Brief\n\n## Overview\n\nNexus-owned framing guidance for scope, non-goals, and success criteria.\n\n## Nexus Execution Context\n\n- Run ID: run-2026-04-26T08-32-35-381Z\n- Command: frame\n- Stage: frame\n- Continuation mode: project_reset\n- Execution mode: local_provider\n- Primary provider: claude\n- Provider topology: single_agent\n\n### Predecessor Artifacts\n\n- docs/product/idea-brief.md\n\n## Framing Checklist\n\n- define scope\n- define non-goals\n- define success criteria\n\n## Canonical Artifact Contract\n\nWrites `docs/product/decision-brief.md`, `docs/product/prd.md`, `.planning/current/frame/design-intent.json`, and `.planning/current/frame/status.json`.\n\n## Transition Rule\n\nAdvance to `/plan` only after Nexus writes the framing artifacts.\n",
+    "prd_markdown": "# PRD\n\n## Scope and Success\n\nNexus-owned framing guidance for scope, non-goals, and success criteria.\n\n## Success Criteria\n\n- define scope\n- define non-goals\n- define success criteria\n\n## Routing\n\nAdvance to `/plan` only after Nexus writes the framing artifacts.\n",
+    "design_intent": {
+      "impact": "none",
+      "affected_surfaces": [],
+      "design_system_source": "none",
+      "contract_required": false,
+      "verification_required": false
+    }
+  },
+  "requested_route": null,
+  "actual_route": null,
+  "notices": [],
+  "conflict_candidates": [],
+  "traceability": {
+    "nexus_stage_pack": "nexus-frame-pack",
+    "absorbed_capability": "pm-frame",
+    "source_map": [
+      "upstream/pm-skills/commands/write-prd.md"
+    ]
+  }
+}

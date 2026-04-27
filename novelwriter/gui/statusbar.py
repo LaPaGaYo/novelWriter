@@ -29,7 +29,7 @@ from datetime import datetime
 from time import time
 from typing import TYPE_CHECKING
 
-from PyQt6.QtCore import QTimer, pyqtSlot
+from PyQt6.QtCore import QTimer, pyqtSignal, pyqtSlot
 from PyQt6.QtWidgets import QApplication, QHBoxLayout, QLabel, QStatusBar, QWidget
 
 from novelwriter import CONFIG, SHARED
@@ -37,6 +37,7 @@ from novelwriter.common import formatTime, languageName
 from novelwriter.constants import nwConst, nwLabels, nwStats, trStats
 from novelwriter.extensions.modified import NClickableLabel
 from novelwriter.extensions.statusled import StatusLED
+from novelwriter.gui.status_bar_ai import AIIndicatorState, GuiStatusBarAI
 
 if TYPE_CHECKING:
     from novelwriter.types import T_MsgSeverity
@@ -46,6 +47,10 @@ logger = logging.getLogger(__name__)
 
 class GuiMainStatus(QStatusBar):
     """GUI: Main Window Status Bar."""
+
+    #: Emitted when the user clicks the status-bar AI indicator. Wired by
+    #: ``GuiMain`` to open the Preferences dialog at the AI section.
+    aiIndicatorClicked = pyqtSignal()
 
     def __init__(self, parent: QWidget) -> None:
         super().__init__(parent=parent)
@@ -95,6 +100,12 @@ class GuiMainStatus(QStatusBar):
         self.statsText.setContentsMargins(0, 0, 8, 0)
         self.addPermanentWidget(self.statsIcon)
         self.addPermanentWidget(self.statsText)
+
+        # The AI Status Indicator (fork-specific; Sprint 1 — defaults to OFF).
+        self.aiIndicator = GuiStatusBarAI(self)
+        self.aiIndicator.setContentsMargins(0, 0, 8, 0)
+        self.aiIndicator.clicked.connect(self.aiIndicatorClicked)
+        self.addPermanentWidget(self.aiIndicator)
 
         # The Session Clock
         # Set the minimum width so the label doesn't rescale every second
@@ -170,6 +181,10 @@ class GuiMainStatus(QStatusBar):
     def setDocumentStatus(self, state: bool | None) -> None:
         """Set the document status colour icon."""
         self.docIcon.setState(state)
+
+    def setAiIndicatorState(self, state: AIIndicatorState) -> None:
+        """Update the status-bar AI indicator (e.g. after AIConfig changes)."""
+        self.aiIndicator.setAiState(state)
 
     def setUserIdle(self, idle: bool) -> None:
         """Change the idle status icon."""

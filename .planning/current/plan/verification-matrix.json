@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "generated_at": "2026-04-26T16:24:58.365Z",
+  "design_impact": "major",
+  "design_impact_correction_note": "Plan bin scaffolded design_impact=none from frame status.json, but frame design-intent.json was corrected to major after frame ran. Plan-stage author has corrected this matrix to match the actual framing decision.",
+  "verification_required": true,
+  "obligations": {
+    "build": {
+      "owner_stage": "build",
+      "required": true,
+      "gate_affecting": true,
+      "expected_artifacts": [
+        ".planning/current/build/build-result.md",
+        ".planning/current/build/status.json"
+      ]
+    },
+    "review": {
+      "owner_stage": "review",
+      "required": true,
+      "gate_affecting": true,
+      "mode": "full_acceptance",
+      "expected_artifacts": [
+        ".planning/audits/current/codex.md",
+        ".planning/audits/current/gemini.md",
+        ".planning/audits/current/synthesis.md",
+        ".planning/audits/current/gate-decision.md",
+        ".planning/audits/current/meta.json",
+        ".planning/current/review/status.json"
+      ]
+    },
+    "qa": {
+      "owner_stage": "qa",
+      "required": true,
+      "gate_affecting": true,
+      "design_verification_required": true,
+      "expected_artifacts": [
+        ".planning/current/qa/qa-report.md",
+        ".planning/current/qa/status.json"
+      ]
+    },
+    "ship": {
+      "owner_stage": "ship",
+      "required": true,
+      "gate_affecting": true,
+      "deploy_readiness_required": true,
+      "expected_artifacts": [
+        ".planning/current/ship/release-gate-record.md",
+        ".planning/current/ship/checklist.json",
+        ".planning/current/ship/deploy-readiness.json",
+        ".planning/current/ship/pull-request.json",
+        ".planning/current/ship/status.json"
+      ]
+    }
+  },
+  "attached_evidence": {
+    "benchmark": {
+      "supported": true,
+      "required": true,
+      "reason": "Performance success criteria: rewrite initiates <200ms on warm local; consistency check on 50k-word manuscript <60s local / <30s cloud; idle-cost regression <5% vs upstream baseline."
+    },
+    "canary": {
+      "supported": true,
+      "required": false
+    },
+    "qa_only": {
+      "supported": true,
+      "required": false
+    }
+  },
+  "support_skill_signals": {
+    "design_review": {
+      "suggested": true,
+      "reason": "Frame design-intent flagged major design impact with 8 affected surfaces. Real design contract required before /handoff."
+    },
+    "browse": {
+      "suggested": false,
+      "reason": "Desktop PyQt6 app; no browser-facing surfaces."
+    },
+    "benchmark": {
+      "suggested": true,
+      "reason": "Performance success criteria are explicit and measurable; benchmark evidence should attach at QA."
+    },
+    "cso": {
+      "suggested": true,
+      "reason": "Cloud API key handling, single-egress network module, and privacy-gating contract benefit from a security review pass before ship."
+    },
+    "connect_chrome": {
+      "suggested": false,
+      "reason": "Desktop PyQt6 app; no browser session needed."
+    },
+    "setup_browser_cookies": {
+      "suggested": false,
+      "reason": "Desktop PyQt6 app; no browser session needed."
+    }
+  },
+  "feature_verification": {
+    "feature_inline_rewrite": {
+      "owner_sprint": "S3",
+      "criteria": [
+        {
+          "id": "rewrite-empty-selection-disables",
+          "description": "Selection of zero characters disables the Rewrite menu items.",
+          "method": "ui_test"
+        },
+        {
+          "id": "rewrite-keyboard-only",
+          "description": "Review pane reachable and operable by keyboard alone.",
+          "method": "ui_test"
+        },
+        {
+          "id": "rewrite-reject-leaves-state-unchanged",
+          "description": "Rejecting a proposal leaves document, cursor, undo stack, scroll unchanged.",
+          "method": "regression_test"
+        },
+        {
+          "id": "rewrite-token-estimate-accuracy",
+          "description": "Token estimate within 20% of actual on 95% of cloud calls.",
+          "method": "benchmark"
+        },
+        {
+          "id": "rewrite-quality-panel",
+          "description": "100-sample test panel >=80 accepted-or-edited.",
+          "method": "manual_panel"
+        },
+        {
+          "id": "rewrite-disabled-hidden-not-greyed",
+          "description": "With AI off, Rewrite menu items are hidden, not greyed.",
+          "method": "ui_test"
+        }
+      ]
+    },
+    "feature_consistency_check": {
+      "owner_sprint": "S4",
+      "criteria": [
+        {
+          "id": "consistency-sample-zero-phantoms",
+          "description": "On bundled sample project at default strictness, zero false positives.",
+          "method": "regression_test"
+        },
+        {
+          "id": "consistency-corpus-recall-precision",
+          "description": ">=70% recall, <=20% FPR on test corpus of 3 novels with 30 seeded errors.",
+          "method": "corpus_eval"
+        },
+        {
+          "id": "consistency-output-schema-validates",
+          "description": "Every model output validates against JSON schema before display; malformed surfaces an error.",
+          "method": "regression_test"
+        },
+        {
+          "id": "consistency-cancellation-clean",
+          "description": "Cancelling a check mid-run leaves document and markers untouched.",
+          "method": "regression_test"
+        }
+      ]
+    },
+    "privacy_guarantee": {
+      "owner_sprint": "S1 (foundation), S6 (final)",
+      "criteria": [
+        {
+          "id": "privacy-network-zero-with-ai-off",
+          "description": "60-second scripted session with AI off produces zero outbound TCP/UDP traffic.",
+          "method": "regression_test",
+          "blocking": true
+        },
+        {
+          "id": "privacy-single-egress-enforced",
+          "description": "CI fails if any module imports httpx or requests outside novelwriter/ai/network.py.",
+          "method": "static_check"
+        },
+        {
+          "id": "privacy-keychain-never-plaintext",
+          "description": "Cloud API keys never written to disk in plaintext; verified via grep + integration test.",
+          "method": "static_check_plus_integration"
+        }
+      ]
+    },
+    "provider_parity": {
+      "owner_sprint": "S2 (introduce), S6 (verify)",
+      "criteria": [
+        {
+          "id": "provider-contract-suite-passes-all",
+          "description": "Every provider passes the same contract test suite.",
+          "method": "contract_test"
+        },
+        {
+          "id": "provider-feature-coverage",
+          "description": "Both AI features work with at least one local and one cloud provider.",
+          "method": "smoke_test"
+        }
+      ]
+    },
+    "redesign_legibility": {
+      "owner_sprint": "S5",
+      "criteria": [
+        {
+          "id": "redesign-task-completion-time",
+          "description": "5 plotters with no prior novelWriter exposure complete the new-user task (open project, draft first scene, run consistency check) in <=8 minutes.",
+          "method": "moderated_panel"
+        }
+      ]
+    },
+    "migration_compat": {
+      "owner_sprint": "S5",
+      "criteria": [
+        {
+          "id": "migration-roundtrip-zero-diff",
+          "description": "Open upstream project in fork, save, reopen in upstream — diff is zero.",
+          "method": "regression_test"
+        }
+      ]
+    }
+  },
+  "blocking_gaps": [],
+  "resolved_gaps": [
+    {
+      "id": "design-contract-missing",
+      "resolved_at": "2026-04-26",
+      "resolved_by": "/design-consultation",
+      "artifact": ".planning/current/plan/design-contract.md",
+      "system_spec": "DESIGN.md",
+      "note": "Design contract produced via /design-consultation. DESIGN.md authored at repo root; CLAUDE.md updated to require reading it before UI work."
+    }
+  ]
+}

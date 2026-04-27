@@ -54,7 +54,7 @@ class GuiAbout(NDialog):
         logger.debug("Create: GuiAbout")
         self.setObjectName("GuiAbout")
 
-        self.setWindowTitle(self.tr("About novelWriter"))
+        self.setWindowTitle(self.tr("About {0}").format(CONFIG.appName))
         self.resize(700, 500)
 
         # Logo and Banner
@@ -72,6 +72,18 @@ class GuiAbout(NDialog):
             formatLink("https://www.gnu.org/licenses/gpl-3.0.html", "GPL v3.0")
         ), self)
         self.nwLicence.setOpenExternalLinks(True)
+
+        forkText = self.tr(
+            "{0} is a fork of {1} by Veronica Berglyd Olsen and contributors. "
+            "See {2} for fork status and rationale."
+        ).format(
+            CONFIG.appName,
+            formatLink("https://github.com/vkbo/novelWriter", CONFIG.upstreamApp),
+            formatLink("https://github.com/", "this fork"),
+        )
+        self.nwForkNotice = QLabel(forkText, self)
+        self.nwForkNotice.setWordWrap(True)
+        self.nwForkNotice.setOpenExternalLinks(True)
 
         # Credits
         self.lblCredits = NColorLabel(
@@ -96,6 +108,8 @@ class GuiAbout(NDialog):
         self.innerBox.addWidget(self.nwInfo)
         self.innerBox.addSpacing(8)
         self.innerBox.addWidget(self.nwLicence)
+        self.innerBox.addSpacing(4)
+        self.innerBox.addWidget(self.nwForkNotice)
         self.innerBox.addSpacing(8)
         self.innerBox.addWidget(self.lblCredits)
         self.innerBox.addWidget(self.txtCredits)

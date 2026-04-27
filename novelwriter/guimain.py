@@ -254,6 +254,7 @@ class GuiMain(QMainWindow):
         self.docEditor.closeEditorRequest.connect(self.closeDocEditor)
         self.docEditor.docTextChanged.connect(self.projSearch.textChanged)
         self.docEditor.editedStatusChanged.connect(self.mainStatus.updateDocumentStatus)
+        self.mainStatus.aiIndicatorClicked.connect(self.showPreferencesDialog)
         self.docEditor.itemHandleChanged.connect(self.novelView.setActiveHandle)
         self.docEditor.itemHandleChanged.connect(self.projView.setActiveHandle)
         self.docEditor.loadDocumentTagRequest.connect(self._followTag)

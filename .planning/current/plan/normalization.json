@@ -1,0 +1,13 @@
+{
+  "outcome": "success",
+  "canonical_paths": [
+    ".planning/current/plan/execution-readiness-packet.md",
+    ".planning/current/plan/sprint-contract.md",
+    ".planning/current/plan/verification-matrix.json"
+  ],
+  "status": {
+    "state": "completed",
+    "decision": "ready",
+    "ready": true
+  }
+}

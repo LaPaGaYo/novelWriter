@@ -78,7 +78,7 @@ class Config:
         "_dShortDateTime", "_dataPath", "_errData", "_hasError", "_homePath", "_lastAuthor",
         "_manuals", "_nwLangPath", "_qLocale", "_qtLangPath", "_qtTrans", "_recentPaths",
         "_recentProjects", "_splash", "allowOpenDial", "altDialogClose", "altDialogOpen",
-        "appHandle", "appName", "askBeforeBackup", "askBeforeExit", "autoSaveDoc", "autoSaveProj",
+        "appHandle", "appName", "upstreamApp", "askBeforeBackup", "askBeforeExit", "autoSaveDoc", "autoSaveProj",
         "autoScroll", "autoScrollPos", "autoSelect", "backupOnClose", "countUnit", "cursorWidth",
         "darkTheme", "dialogLine", "dialogStyle", "doJustify", "doReplace", "doReplaceDQuote",
         "doReplaceDash", "doReplaceDots", "doReplaceSQuote", "dottedModCodes", "emphLabels",
@@ -110,8 +110,9 @@ class Config:
         self._splash = None
 
         # Set Application Variables
-        self.appName   = "novelWriter"
-        self.appHandle = "novelwriter"
+        self.appName     = "Plotwright"
+        self.appHandle   = "plotwright"
+        self.upstreamApp = "novelWriter"
         # Set Paths
         confRoot = Path(QStandardPaths.writableLocation(
             QStandardPaths.StandardLocation.ConfigLocation)

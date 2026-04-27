@@ -135,7 +135,7 @@ def testDlgProjSettings_SettingsPage(qtbot, monkeypatch, nwGUI, fncPath, projPat
     assert project.data.doBackup is False
 
     nwGUI._processProjectSettingsChanges()
-    assert nwGUI.windowTitle() == "Project Name - novelWriter"
+    assert nwGUI.windowTitle() == f"Project Name - {CONFIG.appName}"
 
     # qtbot.stop()
 

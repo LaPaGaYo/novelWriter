@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "stage": "build",
+  "generated_at": "2026-04-27T05:45:34.801Z",
+  "stage_outcome": "ready",
+  "interaction_mode": "recommended_choice",
+  "summary": "Build is ready. Formal review is the canonical next stage.",
+  "requires_user_choice": false,
+  "choice_reason": null,
+  "default_action_id": "run_review",
+  "primary_next_actions": [
+    {
+      "id": "run_review",
+      "kind": "canonical_stage",
+      "surface": "/review",
+      "invocation": "/review",
+      "label": "Run `/review`",
+      "description": "Persist the formal audit set before moving deeper into the governed tail.",
+      "recommended": true,
+      "visibility_reason": "Build completed successfully and review is the canonical next stage.",
+      "why_this_skill": null,
+      "evidence_signal": null
+    }
+  ],
+  "alternative_next_actions": [],
+  "recommended_side_skills": [
+    {
+      "id": "run_design_review",
+      "kind": "support_skill",
+      "surface": "/design-review",
+      "invocation": "/design-review",
+      "label": "Run `/design-review`",
+      "description": "Do a focused visual audit on a design-bearing implementation before formal review.",
+      "recommended": false,
+      "visibility_reason": "Frame design-intent flagged major design impact with 8 affected surfaces. Real design contract required before /handoff.",
+      "why_this_skill": "Frame design-intent flagged major design impact with 8 affected surfaces. Real design contract required before /handoff.",
+      "evidence_signal": {
+        "kind": "verification_matrix",
+        "summary": "Frame design-intent flagged major design impact with 8 affected surfaces. Real design contract required before /handoff.",
+        "source_paths": [],
+        "checklist_categories": []
+      }
+    }
+  ],
+  "recommended_external_skills": [
+    {
+      "id": "run_external_finance_based_pricing_advisor",
+      "kind": "external_installed_skill",
+      "surface": "/finance-based-pricing-advisor",
+      "invocation": "/finance-based-pricing-advisor",
+      "label": "Run installed skill `/finance-based-pricing-advisor`",
+      "description": "Evaluate pricing changes using financial impact analysis - ARPU/ARPA, conversion, churn risk, NRR, and payback. Recommends go/no-go on pricing decisions.",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /build because it is tagged risk.",
+      "why_this_skill": "Use this because the installed skill matches risk context for /build.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: risk.",
+        "source_paths": [
+          "/Users/henry/.claude/skills/finance-based-pricing-advisor/SKILL.md"
+        ],
+        "checklist_categories": []
+      }
+    },
+    {
+      "id": "run_external_finance_metrics_quickref",
+      "kind": "external_installed_skill",
+      "surface": "/finance-metrics-quickref",
+      "invocation": "/finance-metrics-quickref",
+      "label": "Run installed skill `/finance-metrics-quickref`",
+      "description": "Fast lookup table for 32+ SaaS finance metrics with formulas, benchmarks, and when to use each. Includes red flags and decision frameworks.",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /build because it is tagged performance.",
+      "why_this_skill": "Use this because the installed skill matches performance context for /build.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: performance.",
+        "source_paths": [
+          "/Users/henry/.claude/skills/finance-metrics-quickref/SKILL.md"
+        ],
+        "checklist_categories": [
+          "performance"
+        ]
+      }
+    },
+    {
+      "id": "run_external_gh_address_comments",
+      "kind": "external_installed_skill",
+      "surface": "/gh-address-comments",
+      "invocation": "/gh-address-comments",
+      "label": "Run installed skill `/gh-address-comments`",
+      "description": "Help address review/issue comments on the open GitHub PR for the current branch using gh CLI; verify gh auth first and prompt the user to authenticate if not logged in.",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /build because it is tagged security.",
+      "why_this_skill": "Use this because the installed skill matches security context for /build.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: security.",
+        "source_paths": [
+          "/Users/henry/.codex/skills/gh-address-comments/SKILL.md"
+        ],
+        "checklist_categories": [
+          "security"
+        ]
+      }
+    }
+  ],
+  "stop_action": {
+    "id": "stop_after_build",
+    "kind": "stop",
+    "surface": "stop",
+    "invocation": null,
+    "label": "Stop here",
+    "description": "Do not advance yet. Keep the current artifacts as-is and decide on the next step later.",
+    "recommended": false,
+    "visibility_reason": "Always available as the minimal non-advancing choice after a completed stage.",
+    "why_this_skill": null,
+    "evidence_signal": null
+  },
+  "project_setup_gaps": [],
+  "hidden_compat_aliases": [
+    "/office-hours",
+    "/autoplan",
+    "/plan-ceo-review",
+    "/plan-eng-review"
+  ],
+  "hidden_utility_skills": [
+    "/careful",
+    "/freeze",
+    "/guard",
+    "/unfreeze",
+    "/nexus-upgrade"
+  ],
+  "suppressed_surfaces": [
+    "/office-hours",
+    "/autoplan",
+    "/plan-ceo-review",
+    "/plan-eng-review",
+    "/careful",
+    "/freeze",
+    "/guard",
+    "/unfreeze",
+    "/nexus-upgrade"
+  ]
+}

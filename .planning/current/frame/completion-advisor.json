@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "stage": "frame",
+  "generated_at": "2026-04-26T08:56:53.928Z",
+  "stage_outcome": "ready",
+  "interaction_mode": "recommended_choice",
+  "summary": "Framing is complete. The canonical next step is planning.",
+  "requires_user_choice": false,
+  "choice_reason": null,
+  "default_action_id": "run_plan",
+  "primary_next_actions": [
+    {
+      "id": "run_plan",
+      "kind": "canonical_stage",
+      "surface": "/plan",
+      "invocation": "/plan",
+      "label": "Run `/plan`",
+      "description": "Turn framing into an execution-ready packet.",
+      "recommended": true,
+      "visibility_reason": "Framing is complete and planning is the canonical next lifecycle step."
+    }
+  ],
+  "alternative_next_actions": [],
+  "recommended_side_skills": [],
+  "recommended_external_skills": [
+    {
+      "id": "run_external_prd_development",
+      "kind": "external_installed_skill",
+      "surface": "/prd-development",
+      "invocation": "/prd-development",
+      "label": "Run installed skill `/prd-development`",
+      "description": "Guide product managers through structured PRD (Product Requirements Document) creation by orchestrating problem framing, user research synthesis, solution definition, and success criteria into a cohes",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /frame because it is tagged framing, requirements."
+    },
+    {
+      "id": "run_external_product_strategy_session",
+      "kind": "external_installed_skill",
+      "surface": "/product-strategy-session",
+      "invocation": "/product-strategy-session",
+      "label": "Run installed skill `/product-strategy-session`",
+      "description": "Guide product managers through a comprehensive product strategy session by orchestrating positioning, problem framing, customer discovery, and roadmap planning skills into a cohesive end-to-end proces",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /frame because it is tagged framing, positioning."
+    },
+    {
+      "id": "run_external_recommendation_canvas",
+      "kind": "external_installed_skill",
+      "surface": "/recommendation-canvas",
+      "invocation": "/recommendation-canvas",
+      "label": "Run installed skill `/recommendation-canvas`",
+      "description": "Evaluate and propose AI product solutions using a structured canvas that assesses business outcomes, customer outcomes, problem framing, solution hypotheses, positioning, risks, and value justificatio",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /frame because it is tagged framing, positioning."
+    }
+  ],
+  "stop_action": {
+    "id": "stop_after_frame",
+    "kind": "stop",
+    "surface": "stop",
+    "invocation": null,
+    "label": "Stop here",
+    "description": "Do not advance yet. Keep the current artifacts as-is and decide on the next step later.",
+    "recommended": false,
+    "visibility_reason": "Always available as the minimal non-advancing choice after a completed stage."
+  },
+  "project_setup_gaps": [],
+  "hidden_compat_aliases": [
+    "/office-hours",
+    "/autoplan",
+    "/plan-ceo-review",
+    "/plan-eng-review"
+  ],
+  "hidden_utility_skills": [
+    "/careful",
+    "/freeze",
+    "/guard",
+    "/unfreeze",
+    "/nexus-upgrade"
+  ],
+  "suppressed_surfaces": [
+    "/office-hours",
+    "/autoplan",
+    "/plan-ceo-review",
+    "/plan-eng-review",
+    "/careful",
+    "/freeze",
+    "/guard",
+    "/unfreeze",
+    "/nexus-upgrade"
+  ]
+}

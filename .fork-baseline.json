@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "fork_name": "Plotwright",
+  "fork_handle": "plotwright",
+  "upstream": {
+    "name": "novelWriter",
+    "repository": "https://github.com/vkbo/novelWriter",
+    "maintainer": "Veronica Berglyd Olsen",
+    "license": "GPL-3.0-or-later"
+  },
+  "baseline": {
+    "commit": "10c8a186e5ad40395c51b1f4140c2e8720605f85",
+    "subject": "Merge release fixes into 26.2 Alpha 0 (#2733)",
+    "version_at_fork": "26.2a0",
+    "branch_at_fork": "main",
+    "tag_at_fork": null,
+    "tag_note": "Pinned by commit; upstream had no signed tag at HEAD when the fork was cut. Promote to a real tag once upstream tags 26.2-alpha-0."
+  },
+  "rebase_strategy": {
+    "policy": "scheduled-quarterly",
+    "approach": "merge",
+    "fork_specific_paths": [
+      "novelwriter/ai/",
+      "novelwriter/preferences/ai_panel.py",
+      "novelwriter/gui/status_bar_ai.py",
+      "tests/test_ai_*.py",
+      "docs/ai/",
+      "docs/fork.md",
+      "DESIGN.md",
+      ".fork-baseline.json"
+    ],
+    "branding_paths": [
+      "pyproject.toml",
+      "novelwriter/config.py (appName, appHandle)",
+      "novelwriter/dialogs/about.py",
+      "README.md",
+      "CREDITS.md"
+    ],
+    "guidance": "Re-apply branding deltas after each merge. Keep AI substrate fork-specific. Avoid divergence in core editor logic where possible."
+  },
+  "created_at": "2026-04-26",
+  "created_by": "/build sprint 1 (run-2026-04-26T08-32-35-381Z)"
+}

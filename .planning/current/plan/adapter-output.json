@@ -1,0 +1,21 @@
+{
+  "adapter_id": "gsd",
+  "outcome": "success",
+  "raw_output": {
+    "execution_readiness_packet": "# Execution Readiness Packet\n\n## Overview\n\nNexus-owned planning guidance for execution readiness and bounded scope.\n\n## Nexus Execution Context\n\n- Run ID: run-2026-04-26T08-32-35-381Z\n- Command: plan\n- Stage: plan\n- Continuation mode: project_reset\n- Execution mode: local_provider\n- Primary provider: claude\n- Provider topology: single_agent\n\n### Predecessor Artifacts\n\n- .planning/current/frame/status.json\n\n## Readiness Checklist\n\n- verify framing inputs\n- produce readiness packet\n- produce sprint contract\n\n## Canonical Artifact Contract\n\nWrites `.planning/current/plan/execution-readiness-packet.md`, `.planning/current/plan/sprint-contract.md`, `.planning/current/plan/verification-matrix.json`, `.planning/current/plan/design-contract.md` when present, and `.planning/current/plan/status.json`.\n",
+    "sprint_contract": "# Sprint Contract\n\n## Bounded Scope\n\nNexus-owned planning guidance for execution readiness and bounded scope.\n\n## Execution Commitments\n\n- verify framing inputs\n- produce readiness packet\n- produce sprint contract\n\n## Transition Rule\n\nAdvance to `/handoff` only after Nexus declares execution ready.\n",
+    "design_contract": null,
+    "ready": true
+  },
+  "requested_route": null,
+  "actual_route": null,
+  "notices": [],
+  "conflict_candidates": [],
+  "traceability": {
+    "nexus_stage_pack": "nexus-plan-pack",
+    "absorbed_capability": "gsd-plan",
+    "source_map": [
+      "upstream/gsd/commands/gsd/plan-phase.md"
+    ]
+  }
+}

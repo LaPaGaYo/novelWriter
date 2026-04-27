@@ -1,0 +1,13 @@
+{
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "inputs": [],
+  "adapter": "pm",
+  "stage": "discover",
+  "continuation_mode": "project_reset",
+  "requested_continuation_mode": null,
+  "effective_continuation_mode": "project_reset",
+  "contract_outputs": [
+    "docs/product/idea-brief.md",
+    ".planning/current/discover/status.json"
+  ]
+}

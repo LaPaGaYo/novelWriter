@@ -1,0 +1,18 @@
+{
+  "adapter_id": "pm",
+  "outcome": "success",
+  "raw_output": {
+    "idea_brief_markdown": "# Idea Brief\n\n## Overview\n\nNexus-owned discovery guidance for clarifying the problem before framing.\n\n## Nexus Execution Context\n\n- Run ID: run-2026-04-26T08-32-35-381Z\n- Command: discover\n- Stage: discover\n- Continuation mode: project_reset\n- Execution mode: local_provider\n- Primary provider: claude\n- Provider topology: single_agent\n\n## Discovery Checklist\n\n- capture goals\n- capture constraints\n- record open questions\n\n## Canonical Artifact Contract\n\nWrites `docs/product/idea-brief.md`, `.planning/current/discover/status.json`, and, for fresh runs seeded from archived closeout, `.planning/current/discover/NEXT-RUN.md`, `.planning/current/discover/next-run-bootstrap.json`, `.planning/current/discover/retro-continuity.json`, `.planning/current/discover/RETRO-CONTINUITY.md`, `.planning/current/discover/session-continuation-advice.json`, and `.planning/current/discover/SESSION-CONTINUATION.md`.\n\n## Transition Rule\n\nAdvance to `/frame` only after Nexus writes the discovery artifacts.\n"
+  },
+  "requested_route": null,
+  "actual_route": null,
+  "notices": [],
+  "conflict_candidates": [],
+  "traceability": {
+    "nexus_stage_pack": "nexus-discover-pack",
+    "absorbed_capability": "pm-discover",
+    "source_map": [
+      "upstream/pm-skills/commands/discover.md"
+    ]
+  }
+}

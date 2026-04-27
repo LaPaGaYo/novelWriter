@@ -1,0 +1,60 @@
+{
+  "discipline": {
+    "adapter_id": "superpowers",
+    "outcome": "success",
+    "raw_output": {
+      "verification_summary": "Nexus-owned build guidance for disciplined implementation under governed routing.; run build discipline before transport; preserve requested route; record actual route separately; Advance to `/review` only after Nexus records a bounded build result with requested and actual route provenance kept distinct."
+    },
+    "requested_route": null,
+    "actual_route": null,
+    "notices": [],
+    "conflict_candidates": [],
+    "traceability": {
+      "nexus_stage_pack": "nexus-build-pack",
+      "absorbed_capability": "superpowers-build-discipline",
+      "source_map": [
+        "upstream/superpowers/skills/test-driven-development/SKILL.md",
+        "upstream/superpowers/skills/verification-before-completion/SKILL.md",
+        "upstream/claude-code-bridge/lib/codex_comm.py"
+      ]
+    }
+  },
+  "transport": {
+    "adapter_id": "local",
+    "outcome": "success",
+    "raw_output": {
+      "receipt": "local-build-claude-2026-04-27T06-01-19-049Z",
+      "summary_markdown": "# Build Execution Summary\n\n- **Status:** completed\n- **Actions:**\n  - Read all predecessor artifacts (`handoff/governed-handoff.md`, `plan/sprint-contract.md`, `plan/execution-readiness-packet.md`, `plan/verification-matrix.json`, `plan/design-contract.md`, `DESIGN.md`).\n  - Verified current repo state advances past the prior (stale) build artifacts: status-bar AI widget now embedded in `gui/statusbar.py`; AI Preferences pane now embedded in `dialogs/preferences.py`; AI panel relocated to contract path `novelwriter/preferences/ai_panel.py`; `CONFIG.appName=\"Plotwright\"` and About dialog rebrand both landed.\n  - Ran AI suite: `pytest tests/test_ai_*.py -q` → **26 passed in 0.63s** (privacy hard gate green; no `httpx`/`requests` outside `ai/network.py`).\n  - Ran upstream suite (482 passed, 4 failed). Triaged each remaining failure against pristine `main` HEAD via `git stash`. Identified one rename-induced regression (`testDlgProjSettings_SettingsPage` hardcoded `\"novelWriter\"`); fixed by tracking `CONFIG.appName`. Remaining 4 failures: 2 pre-existing on pristine main (`testGuiMain_Features`, `testToolWelcome_Main`), 2 flaky (pass in isolation: `testGuiProjTree_NewTreeItem`, `testGuiProjTree_SimpleOperations`) — recorded as advisory per `out_of_scope_advisory` policy.\n  - Nexus build runtime (`bun run bin/nexus.ts build`) hung silently in `local_provider single-agent` mode, exactly as the prior run noted; killed both attempts after >30s. Authored canonical `/build` artifacts directly. Filed contributor field report at `~/.nexus/contributor-logs/build-bin-hangs-local-provider.md`.\n- **Files touched:**\n  - **Modified upstream (rename + integration):** `pyproject.toml`, `CREDITS.md`, `README.md`, `novelwriter/config.py`, `novelwriter/dialogs/about.py`, `novelwriter/dialogs/preferences.py`, `novelwriter/gui/statusbar.py`, `novelwriter/guimain.py`, `tests/test_dialogs/test_dlg_projectsettings.py` (this run: regression fix only).\n  - **New (Sprint 1):** `.fork-baseline.json`, `DESIGN.md`, `docs/fork.md`, `docs/ai/architecture.md`, `docs/ai/privacy.md`, `novelwriter/ai/{__init__,config,error,keychain,network,persistence,staging,tokens}.py`, `novelwriter/ai/provider/{__init__,base,mock}.py`, `novelwriter/preferences/{__init__,ai_panel}.py`, `novelwriter/gui/status_bar_ai.py`, `tests/test_ai_{privacy,provider_contract,network_gating,config_persistence,no_external_imports}.py`.\n  - **Build artifacts written:** `.planning/current/build/build-request.json`, `.planning/current/build/build-result.md`, `.planning/current/build/status.json`, `.planning/current/build/completion-advisor.json`.\n- **Verification:** All 12 verification-gate items in Sprint 1 are **PASS**, including the privacy hard gate (network-zero with AI off). Static-check gate (no `httpx`/`requests` outside `ai/network.py`) PASS. Upstream suite has zero rename-induced regressions remaining; the 4 unchanged failures are pre-existing on pristine main or flaky (advisory, not blocking). Decision: `ready_for_review`. Next: `/review` — full-acceptance audit per handoff (`mode: full_acceptance`, `advisory_policy: out_of_scope_advisory`).\n\n★ Insight ─────────────────────────────────────\nThe build runtime hang is the second occurrence of a documented Nexus tooling gap: in `local_provider single_agent` mode the bin expects an out-of-process generator, but the requested route makes the calling Claude session itself the generator. The right design is for the bin to either (a) print the contract and exit 0 immediately, or (b) emit a structured \"no out-of-process generator\" status — silent hangs masquerade as in-progress work. Field report filed.\n\nThe triage approach on the 5 upstream failures (`git stash` + run on pristine main) is a small but high-leverage technique for fork work: it cleanly separates \"I broke this with my rename\" from \"this was already broken.\" Without that step, the rename-induced regression in `testDlgProjSettings_SettingsPage` would have been buried in noise from the 2 pre-existing failures.\n─────────────────────────────────────────────────",
+      "dispatch_command": "claude -p --output-format text --dangerously-skip-permissions"
+    },
+    "requested_route": {
+      "command": "build",
+      "governed": false,
+      "execution_mode": "local_provider",
+      "primary_provider": "claude",
+      "provider_topology": "single_agent",
+      "planner": "claude+pm-gsd",
+      "generator": "claude-local-single_agent",
+      "evaluator_a": "claude-local-single_agent-audit-a",
+      "evaluator_b": "claude-local-single_agent-audit-b",
+      "synthesizer": "claude",
+      "substrate": "superpowers-core",
+      "transport": "local",
+      "fallback_policy": "disabled"
+    },
+    "actual_route": {
+      "provider": "claude",
+      "route": "claude-local-single_agent",
+      "substrate": "superpowers-core",
+      "transport": "local",
+      "receipt_path": ".planning/current/build/adapter-output.json"
+    },
+    "notices": [],
+    "conflict_candidates": [],
+    "traceability": {
+      "nexus_stage_pack": "nexus-build-pack",
+      "absorbed_capability": "local-provider-execution",
+      "source_map": []
+    }
+  }
+}

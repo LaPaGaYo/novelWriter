@@ -1,0 +1,83 @@
+{
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "stage": "handoff",
+  "execution_mode": "local_provider",
+  "primary_provider": "claude",
+  "provider_topology": "single_agent",
+  "workspace": {
+    "path": "/Users/henry/Documents/novelWriter/.nexus-worktrees/run-2026-04-26T08-32-35-381Z",
+    "kind": "worktree",
+    "branch": "codex/run-2026-04-26T08-32-35-381Z",
+    "source": "allocated:fresh_run",
+    "run_id": "run-2026-04-26T08-32-35-381Z",
+    "retirement_state": "active"
+  },
+  "session_root": {
+    "path": "/Users/henry",
+    "kind": "repo_root",
+    "source": "ccb_root"
+  },
+  "requested_execution_path": "claude-local-single_agent",
+  "actual_execution_path": null,
+  "state": "completed",
+  "decision": "route_recorded",
+  "ready": true,
+  "inputs": [
+    {
+      "kind": "json",
+      "path": ".planning/current/plan/status.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/plan/verification-matrix.json"
+    }
+  ],
+  "outputs": [
+    {
+      "kind": "markdown",
+      "path": ".planning/current/handoff/governed-execution-routing.md"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/current/handoff/governed-handoff.md"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/handoff/completion-advisor.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/handoff/status.json"
+    }
+  ],
+  "started_at": "2026-04-26T16:54:47.580Z",
+  "completed_at": "2026-04-26T16:54:47.580Z",
+  "errors": [],
+  "requested_route": {
+    "command": "build",
+    "governed": false,
+    "execution_mode": "local_provider",
+    "primary_provider": "claude",
+    "provider_topology": "single_agent",
+    "planner": "claude+pm-gsd",
+    "generator": "claude-local-single_agent",
+    "evaluator_a": "claude-local-single_agent-audit-a",
+    "evaluator_b": "claude-local-single_agent-audit-b",
+    "synthesizer": "claude",
+    "substrate": "superpowers-core",
+    "transport": "local",
+    "fallback_policy": "disabled"
+  },
+  "route_validation": {
+    "transport": "local",
+    "available": true,
+    "approved": true,
+    "reason": "Nexus approved the requested local provider route"
+  },
+  "review_scope": {
+    "mode": "full_acceptance",
+    "source_stage": "plan",
+    "blocking_items": [],
+    "advisory_policy": "out_of_scope_advisory"
+  }
+}

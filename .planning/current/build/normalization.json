@@ -1,0 +1,14 @@
+{
+  "outcome": "success",
+  "canonical_paths": [
+    ".planning/current/build/build-request.json",
+    ".planning/current/build/build-result.md",
+    ".planning/current/build/completion-advisor.json"
+  ],
+  "discipline_summary": "Nexus-owned build guidance for disciplined implementation under governed routing.; run build discipline before transport; preserve requested route; record actual route separately; Advance to `/review` only after Nexus records a bounded build result with requested and actual route provenance kept distinct.",
+  "status": {
+    "state": "completed",
+    "decision": "build_recorded",
+    "ready": true
+  }
+}
