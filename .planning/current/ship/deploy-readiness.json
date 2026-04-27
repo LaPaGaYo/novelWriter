@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "generated_at": "2026-04-27T07:45:45.734Z",
+  "configured": false,
+  "source": "none",
+  "contract_path": null,
+  "primary_surface_label": null,
+  "platform": null,
+  "project_type": null,
+  "production_url": null,
+  "health_check": null,
+  "deploy_status_kind": "none",
+  "deploy_status_command": null,
+  "deploy_workflow": null,
+  "staging_detected": false,
+  "secondary_surfaces": [],
+  "notes": []
+}

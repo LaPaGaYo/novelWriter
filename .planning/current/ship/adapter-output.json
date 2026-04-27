@@ -1,0 +1,24 @@
+{
+  "adapter_id": "superpowers",
+  "outcome": "success",
+  "raw_output": {
+    "release_gate_record": "# Release Gate Record\n\n## Overview\n\nNexus-owned ship guidance for governed release gating and explicit merge readiness.\n\n## Gate Checklist\n\n- require completed review artifacts\n- require ready QA when QA was run\n- keep merge and release readiness explicit in canonical gate artifacts\n\n## Canonical Artifact Contract\n\nWrites `.planning/current/ship/release-gate-record.md`,\n`.planning/current/ship/checklist.json`,\n`.planning/current/ship/deploy-readiness.json`,\n`.planning/current/ship/pull-request.json`,\n`.planning/current/ship/status.json`, and optionally\n`.planning/current/ship/learning-candidates.json` when ship raw output contains\nvalid reusable learning candidates. `/closeout` may consume that optional\nartifact when assembling run learnings.\nRequires QA design verification for design-bearing runs before recording a ready ship state.\n\nFollow-on support workflows may attach additional ship evidence without\nchanging canonical ship state, including\n`.planning/current/ship/canary-status.json` from `/canary` and\n`.planning/current/ship/deploy-result.json` from `/land-and-deploy`.\n\n## Routing and Governance\n\nShip content starts only after completed review and optional ready QA. It must not imply any bypass of review, audit persistence, or closeout. Superpowers ship discipline informs the release gate, but Nexus-owned ship artifacts remain the only release authority.\n\nResult: merge ready\n",
+    "checklist": {
+      "review_complete": true,
+      "qa_ready": true,
+      "merge_ready": true
+    },
+    "merge_ready": true
+  },
+  "requested_route": null,
+  "actual_route": null,
+  "notices": [],
+  "conflict_candidates": [],
+  "traceability": {
+    "nexus_stage_pack": "nexus-ship-pack",
+    "absorbed_capability": "superpowers-ship-discipline",
+    "source_map": [
+      "upstream/superpowers/skills/finishing-a-development-branch/SKILL.md"
+    ]
+  }
+}

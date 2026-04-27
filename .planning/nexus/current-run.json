@@ -2,11 +2,10 @@
   "run_id": "run-2026-04-26T08-32-35-381Z",
   "continuation_mode": "project_reset",
   "status": "active",
-  "current_command": "qa",
-  "current_stage": "qa",
+  "current_command": "ship",
+  "current_stage": "ship",
   "previous_stage": "qa",
   "allowed_next_stages": [
-    "ship",
     "closeout"
   ],
   "command_history": [
@@ -48,6 +47,11 @@
     {
       "command": "qa",
       "at": "2026-04-27T07:30:30.656Z",
+      "via": null
+    },
+    {
+      "command": "ship",
+      "at": "2026-04-27T07:45:45.734Z",
       "via": null
     }
   ],
@@ -175,6 +179,30 @@
     ".planning/current/qa/design-verification.md": {
       "kind": "markdown",
       "path": ".planning/current/qa/design-verification.md"
+    },
+    ".planning/current/ship/release-gate-record.md": {
+      "kind": "markdown",
+      "path": ".planning/current/ship/release-gate-record.md"
+    },
+    ".planning/current/ship/checklist.json": {
+      "kind": "json",
+      "path": ".planning/current/ship/checklist.json"
+    },
+    ".planning/current/ship/deploy-readiness.json": {
+      "kind": "json",
+      "path": ".planning/current/ship/deploy-readiness.json"
+    },
+    ".planning/current/ship/pull-request.json": {
+      "kind": "json",
+      "path": ".planning/current/ship/pull-request.json"
+    },
+    ".planning/current/ship/completion-advisor.json": {
+      "kind": "json",
+      "path": ".planning/current/ship/completion-advisor.json"
+    },
+    ".planning/current/ship/status.json": {
+      "kind": "json",
+      "path": ".planning/current/ship/status.json"
     }
   },
   "execution": {

@@ -1,0 +1,11 @@
+{
+  "provider": "github",
+  "status": "unavailable",
+  "number": null,
+  "url": null,
+  "state": null,
+  "head_branch": "codex/run-2026-04-26T08-32-35-381Z",
+  "head_sha": null,
+  "base_branch": null,
+  "reason": "pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between main and codex/run-2026-04-26T08-32-35-381Z, Head ref must be a branch (createPullRequest)"
+}
