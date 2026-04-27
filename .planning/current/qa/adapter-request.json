@@ -1,0 +1,33 @@
+{
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "inputs": [
+    ".planning/current/review/status.json",
+    ".planning/current/plan/verification-matrix.json"
+  ],
+  "adapter_chain": [
+    "local"
+  ],
+  "requested_route": {
+    "command": "qa",
+    "governed": false,
+    "execution_mode": "local_provider",
+    "primary_provider": "claude",
+    "provider_topology": "single_agent",
+    "planner": null,
+    "generator": "claude-local-single_agent-qa",
+    "evaluator_a": null,
+    "evaluator_b": null,
+    "synthesizer": null,
+    "substrate": "superpowers-core",
+    "transport": "local",
+    "fallback_policy": "disabled"
+  },
+  "workspace": {
+    "path": "/Users/henry/Documents/novelWriter/.nexus-worktrees/run-2026-04-26T08-32-35-381Z",
+    "kind": "worktree",
+    "branch": "codex/run-2026-04-26T08-32-35-381Z",
+    "source": "allocated:fresh_run",
+    "run_id": "run-2026-04-26T08-32-35-381Z",
+    "retirement_state": "active"
+  }
+}

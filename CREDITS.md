@@ -1,6 +1,17 @@
 # Credits
 
-## Main Developer
+## Upstream project: novelWriter
+
+Plotwright is a fork of [novelWriter](https://github.com/vkbo/novelWriter).
+All editor, document-format, and project-tree work credited below originated
+in upstream novelWriter under GPL-3.0-or-later.
+
+novelWriter is **AI-free by design and policy**. Plotwright takes a different
+position (privacy-gated optional AI assistance). The fork's AI substrate,
+branding, and design system are fork-specific contributions and are not the
+work of the upstream maintainer.
+
+## Upstream Main Developer
 
 * Veronica Berglyd Olsen
 

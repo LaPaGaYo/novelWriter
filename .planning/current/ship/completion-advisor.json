@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "stage": "ship",
+  "generated_at": "2026-04-27T07:45:45.734Z",
+  "stage_outcome": "ready",
+  "interaction_mode": "recommended_choice",
+  "summary": "Ship recorded the release gate. Close out the governed run or move into landing and deployment.",
+  "requires_user_choice": false,
+  "choice_reason": null,
+  "default_action_id": "run_closeout",
+  "primary_next_actions": [
+    {
+      "id": "run_closeout",
+      "kind": "canonical_stage",
+      "surface": "/closeout",
+      "invocation": "/closeout",
+      "label": "Run `/closeout`",
+      "description": "Conclude the governed run and archive its canonical artifacts.",
+      "recommended": true,
+      "visibility_reason": "Closeout is the canonical next lifecycle step after ship records the release gate.",
+      "why_this_skill": null,
+      "evidence_signal": null
+    },
+    {
+      "id": "run_land_and_deploy",
+      "kind": "support_skill",
+      "surface": "/land-and-deploy",
+      "invocation": "/land-and-deploy",
+      "label": "Run `/land-and-deploy`",
+      "description": "Merge, deploy, and verify the primary deploy surface using the ship handoff.",
+      "recommended": false,
+      "visibility_reason": "Landing and deployment is available now that ship has recorded PR and deploy handoff artifacts.",
+      "why_this_skill": "Use this because landing and deployment is available now that ship has recorded PR and deploy handoff artifacts.",
+      "evidence_signal": {
+        "kind": "stage_status",
+        "summary": "Landing and deployment is available now that ship has recorded PR and deploy handoff artifacts.",
+        "source_paths": [],
+        "checklist_categories": []
+      }
+    }
+  ],
+  "alternative_next_actions": [],
+  "recommended_side_skills": [
+    {
+      "id": "run_setup_deploy",
+      "kind": "support_skill",
+      "surface": "/setup-deploy",
+      "invocation": "/setup-deploy",
+      "label": "Run `/setup-deploy`",
+      "description": "Author the canonical deploy contract before landing and deployment.",
+      "recommended": false,
+      "visibility_reason": "Landing should not rely on inferred deploy behavior when the primary deploy contract is still missing.",
+      "why_this_skill": "Use this because landing should not rely on inferred deploy behavior when the primary deploy contract is still missing.",
+      "evidence_signal": {
+        "kind": "stage_status",
+        "summary": "Landing should not rely on inferred deploy behavior when the primary deploy contract is still missing.",
+        "source_paths": [],
+        "checklist_categories": []
+      }
+    },
+    {
+      "id": "run_document_release",
+      "kind": "support_skill",
+      "surface": "/document-release",
+      "invocation": "/document-release",
+      "label": "Run `/document-release`",
+      "description": "Sync release notes and docs to the shipped surface.",
+      "recommended": false,
+      "visibility_reason": "Release hygiene often continues immediately after ship records the gate.",
+      "why_this_skill": "Use this because release hygiene often continues immediately after ship records the gate.",
+      "evidence_signal": {
+        "kind": "stage_status",
+        "summary": "Release hygiene often continues immediately after ship records the gate.",
+        "source_paths": [],
+        "checklist_categories": []
+      }
+    }
+  ],
+  "recommended_external_skills": [
+    {
+      "id": "run_external_skill_authoring_workflow",
+      "kind": "external_installed_skill",
+      "surface": "/skill-authoring-workflow",
+      "invocation": "/skill-authoring-workflow",
+      "label": "Run installed skill `/skill-authoring-workflow`",
+      "description": "Turn raw PM content into a compliant, publish-ready skill by choosing build/add paths, running conformance checks, and updating docs before commit.",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /ship because it is tagged security, docs.",
+      "why_this_skill": "Use this because the installed skill matches security, docs context for /ship.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: security, docs.",
+        "source_paths": [
+          "/Users/henry/.claude/skills/skill-authoring-workflow/SKILL.md"
+        ],
+        "checklist_categories": [
+          "security"
+        ]
+      }
+    },
+    {
+      "id": "run_external_customer_journey_map",
+      "kind": "external_installed_skill",
+      "surface": "/customer-journey-map",
+      "invocation": "/customer-journey-map",
+      "label": "Run installed skill `/customer-journey-map`",
+      "description": "Create a comprehensive customer journey map that visualizes how customers interact with your brand across all stages—from awareness to loyalty—documenting their actions, touchpoints, emotions, KPI",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /ship because it is tagged docs.",
+      "why_this_skill": "Use this because the installed skill matches docs context for /ship.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: docs.",
+        "source_paths": [
+          "/Users/henry/.claude/skills/customer-journey-map/SKILL.md"
+        ],
+        "checklist_categories": []
+      }
+    },
+    {
+      "id": "run_external_prd_development",
+      "kind": "external_installed_skill",
+      "surface": "/prd-development",
+      "invocation": "/prd-development",
+      "label": "Run installed skill `/prd-development`",
+      "description": "Guide product managers through structured PRD (Product Requirements Document) creation by orchestrating problem framing, user research synthesis, solution definition, and success criteria into a cohes",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /ship because it is tagged docs.",
+      "why_this_skill": "Use this because the installed skill matches docs context for /ship.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: docs.",
+        "source_paths": [
+          "/Users/henry/.claude/skills/prd-development/SKILL.md"
+        ],
+        "checklist_categories": []
+      }
+    }
+  ],
+  "stop_action": {
+    "id": "stop_after_ship",
+    "kind": "stop",
+    "surface": "stop",
+    "invocation": null,
+    "label": "Stop here",
+    "description": "Do not advance yet. Keep the current artifacts as-is and decide on the next step later.",
+    "recommended": false,
+    "visibility_reason": "Always available as the minimal non-advancing choice after a completed stage.",
+    "why_this_skill": null,
+    "evidence_signal": null
+  },
+  "project_setup_gaps": [
+    "Deploy contract is not configured for the primary surface yet."
+  ],
+  "hidden_compat_aliases": [
+    "/office-hours",
+    "/autoplan",
+    "/plan-ceo-review",
+    "/plan-eng-review"
+  ],
+  "hidden_utility_skills": [
+    "/careful",
+    "/freeze",
+    "/guard",
+    "/unfreeze",
+    "/nexus-upgrade"
+  ],
+  "suppressed_surfaces": [
+    "/office-hours",
+    "/autoplan",
+    "/plan-ceo-review",
+    "/plan-eng-review",
+    "/careful",
+    "/freeze",
+    "/guard",
+    "/unfreeze",
+    "/nexus-upgrade"
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "discipline": {
+    "adapter_id": "superpowers",
+    "outcome": "success",
+    "raw_output": {
+      "discipline_summary": "Nexus-owned review guidance for governed dual-audit completion, synthesis, and explicit gate state.; run dual audits through Nexus-owned review completion; verify implementation and audit provenance consistency; synthesize the audit set and record the gate decision; Advance to `/qa`, `/ship`, or `/closeout` only through Nexus-authored review completion state. Superpowers review discipline and CCB dual-audit transport remain subordinate runtime seams and never own lifecycle authority."
+    },
+    "requested_route": null,
+    "actual_route": null,
+    "notices": [],
+    "conflict_candidates": [],
+    "traceability": {
+      "nexus_stage_pack": "nexus-review-pack",
+      "absorbed_capability": "superpowers-review-discipline",
+      "source_map": [
+        "upstream/superpowers/skills/verification-before-completion/SKILL.md"
+      ]
+    }
+  },
+  "audit_a": {
+    "adapter_id": "local",
+    "outcome": "success",
+    "raw_output": {
+      "markdown": "Static check confirmed clean (0 offenders, 93 files scanned). All deliverables present, tests well-formed, branding wired, design tokens match `DESIGN.md`. Ready to issue audit verdict.\n\n# Local Audit A\n\nResult: pass\n\nFindings:\n- Sprint-1 contract deliverables (gate items 1–10) are all materially in place: every `novelwriter/ai/*` module from `sprint-contract.md` exists, the four required tests plus the bonus `test_ai_no_external_imports.py` (gate item 11) are well-formed, `docs/fork.md` / `docs/ai/architecture.md` / `docs/ai/privacy.md` are written, and `.fork-baseline.json` points at a real upstream commit (`10c8a186`, present in `main`).\n- Branding/identity changes are coherent end-to-end: `pyproject.toml` name=`plotwright`, gui-script=`plotwright`, `CONFIG.appName=\"Plotwright\"`/`appHandle=\"plotwright\"`, `_updateWindowTitle` flows through `CONFIG.appName`, `GuiAbout` uses `appName`+`upstreamApp` and shows the fork-vs-upstream notice, and `tests/test_dialogs/test_dlg_projectsettings.py` is the only upstream test edited (and it switches to `CONFIG.appName` correctly).\n- Privacy gate is sound and tested at the boundary: `gated_request` raises `PrivacyGatingError` (subclass of `AIError`) before any I/O on each of the four refusal paths; the gate logs metadata only (endpoint, byte_count, feature) and never reads the body; `tests/test_ai_privacy.py` monkeypatches `socket.connect`/`create_connection`/`getaddrinfo` and asserts zero hits across import, default config, mock provider, config round-trip, and gate evaluation.\n- Static-egress contract holds: I re-walked every `novelwriter/**.py` (93 files) with `ast` and found zero modules outside `novelwriter/ai/network.py` importing `httpx` or `requests`, matching gate item 11 and what `test_ai_no_external_imports.py` enforces.\n- DESIGN.md adherence on the two Sprint-1 surfaces is faithful: `status_bar_ai.py` hardcodes the four states and the documented hex tokens (Foxing `#7A6A4F`, Hooker's Green `#2C5F5D`, Vermilion `#9B2C2C`), uses `PointingHandCursor` with the spec's tooltip, and emits a click signal; `preferences/ai_panel.py` puts the master toggle with the privacy-contract help text in DESIGN.md and greys the per-feature switches with the \"Available in next sprint\" copy. Status-bar click is wired through `GuiMain` to `showPreferencesDialog(gotoSection=\"ai\")`, which routes to the AI section via `aiPanel.section_index`. AI config save emits `aiConfigChanged` and `_onAiConfigChanged` updates the indicator to `READY_LOCAL` when enabled — implementing FINDING-001 + FINDING-002 cleanly.\n- Advisory (Sprint 2 concern, not blocking): `gated_request` requires both `endpoint` and `has_credential` simultaneously, while `sprint-contract.md`/`docs/ai/privacy.md` describe the third precondition as \"non-empty cloud API key **or** a local provider URL\". Today this is consistent (only `MockProvider` runs and never enters the gate), and `architecture.md` already flags that \"Sprint 2 will refine the local-vs-cloud split.\" Worth tracking so an Ollama provider doesn't get false-refused when it lands.\n- Advisory (style, non-blocking): `tests/test_ai_provider_contract.py` types `PROVIDERS_UNDER_TEST` with the builtin `callable` instead of `typing.Callable[..., Provider]`. Runs fine because `tests/*` has `ANN` ignored in `pyproject.toml`; trivial cleanup.\n- Advisory for `/qa` (gate item 1 verification): I could not execute the upstream pytest suite from the audit shell (PyQt6 not installed in the available interpreter). The only upstream test mechanically touched is the title-string check, which was updated correctly, but `/qa` should run the full upstream suite against the renamed package to close gate item 1 with evidence.",
+      "receipt": "local-review-a-claude-2026-04-27T06-27-54-314Z",
+      "dispatch_command": "claude -p --output-format text --dangerously-skip-permissions"
+    },
+    "requested_route": {
+      "command": "build",
+      "governed": false,
+      "execution_mode": "local_provider",
+      "primary_provider": "claude",
+      "provider_topology": "single_agent",
+      "planner": "claude+pm-gsd",
+      "generator": "claude-local-single_agent",
+      "evaluator_a": "claude-local-single_agent-audit-a",
+      "evaluator_b": "claude-local-single_agent-audit-b",
+      "synthesizer": "claude",
+      "substrate": "superpowers-core",
+      "transport": "local",
+      "fallback_policy": "disabled"
+    },
+    "actual_route": {
+      "provider": "claude",
+      "route": "claude-local-single_agent-audit-a",
+      "substrate": "superpowers-core",
+      "transport": "local",
+      "receipt_path": ".planning/current/review/adapter-output.json"
+    },
+    "notices": [],
+    "conflict_candidates": [],
+    "traceability": {
+      "nexus_stage_pack": "nexus-review-pack",
+      "absorbed_capability": "local-provider-review-a",
+      "source_map": []
+    }
+  },
+  "audit_b": {
+    "adapter_id": "local",
+    "outcome": "success",
+    "raw_output": {
+      "markdown": "# Local Audit B\n\nResult: pass\n\nFindings:\n- ADVISORY (medium): `_onAiConfigChanged` only fires on Preferences Save, so when a project is opened whose persisted `AIConfig.enabled is True` the status-bar AI widget keeps reading `AI: off` until the user opens and re-saves Preferences. Gate item 7 (\"default `AI: off`\") is met, but the indicator does not reflect per-project state on project open. Recommend wiring `setAiIndicatorState` from a project-open hook in Sprint 2.\n- ADVISORY (low): `build-request.json` records `design_impact: \"none\"` and `design_contract_path: null` (`.planning/current/build/build-request.json:36-37`) even though `execution-readiness-packet.md` and `verification-matrix.json` correct the impact to `major` with `DESIGN.md` as the contract. The narrative artifacts cover the discrepancy, but the build-request machine-readable fields contradict the actual contract — downstream tooling that trusts `build-request.json` will mis-classify Sprint 1.\n- ADVISORY (low): `GuiPreferences._doSave` (`novelwriter/dialogs/preferences.py:1194-1200`) silently drops the AI-config write when no project is open (`SHARED.hasProject` false) but still emits `aiConfigChanged` and visually updates the indicator. The toggle change is not persisted anywhere and is lost on next project open. Worth handling explicitly (refuse the toggle, or queue it onto next-opened project) in Sprint 2.\n- ADVISORY (low): DESIGN.md specifies the per-feature row labels as `Inline rewrite` / `Consistency check` with help text \"Available in next sprint.\" The implementation embeds the sprint number in the label itself (`\"Inline rewrite (Sprint 3)\"`, `\"Consistency check (Sprint 4)\"` in `novelwriter/preferences/ai_panel.py:81-86`). Minor drift from the contract; consider moving the sprint reference into help text or updating DESIGN.md to match.\n- ADVISORY (low, forward-flag for Sprint 5): `save_ai_config` writes `ai-config.json` directly to `SHARED.project.storagePath` (`novelwriter/dialogs/preferences.py:1197`, `novelwriter/ai/persistence.py:42-50`). The migration round-trip test in Sprint 5 must explicitly exclude this file (or relocate persistence into the `.nwx` XML) to avoid a non-zero diff against upstream novelWriter.\n- INFO: All 10 Sprint 1 gates verifiable from artifacts and code: 26 AI substrate tests pass locally (privacy, provider contract, network gating, config persistence, single-egress static check), upstream `test_dlg_preferences`, `test_dlg_about`, and `test_dlg_projectsettings` pass against the renamed `plotwright` package, `.fork-baseline.json` points at the reachable upstream commit `10c8a186`, and AI Preferences + status-bar indicator are wired to DESIGN.md tokens with the click→Preferences-at-AI-section connection at `novelwriter/guimain.py:259-261`.",
+      "receipt": "local-review-b-claude-2026-04-27T06-26-37-456Z",
+      "dispatch_command": "claude -p --output-format text --dangerously-skip-permissions"
+    },
+    "requested_route": {
+      "command": "build",
+      "governed": false,
+      "execution_mode": "local_provider",
+      "primary_provider": "claude",
+      "provider_topology": "single_agent",
+      "planner": "claude+pm-gsd",
+      "generator": "claude-local-single_agent",
+      "evaluator_a": "claude-local-single_agent-audit-a",
+      "evaluator_b": "claude-local-single_agent-audit-b",
+      "synthesizer": "claude",
+      "substrate": "superpowers-core",
+      "transport": "local",
+      "fallback_policy": "disabled"
+    },
+    "actual_route": {
+      "provider": "claude",
+      "route": "claude-local-single_agent-audit-b",
+      "substrate": "superpowers-core",
+      "transport": "local",
+      "receipt_path": ".planning/current/review/adapter-output.json"
+    },
+    "notices": [],
+    "conflict_candidates": [],
+    "traceability": {
+      "nexus_stage_pack": "nexus-review-pack",
+      "absorbed_capability": "local-provider-review-b",
+      "source_map": []
+    }
+  },
+  "latency_diagnostics": {
+    "audit_a": null,
+    "audit_b": null
+  }
+}

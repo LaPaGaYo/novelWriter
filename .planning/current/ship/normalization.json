@@ -1,0 +1,104 @@
+{
+  "outcome": "success",
+  "canonical_paths": [
+    ".planning/current/ship/release-gate-record.md",
+    ".planning/current/ship/checklist.json",
+    ".planning/current/ship/deploy-readiness.json",
+    ".planning/current/ship/pull-request.json",
+    ".planning/current/ship/completion-advisor.json"
+  ],
+  "learning_candidates_path": null,
+  "learnings_recorded": false,
+  "deploy_readiness_path": ".planning/current/ship/deploy-readiness.json",
+  "deploy_readiness": {
+    "schema_version": 1,
+    "run_id": "run-2026-04-26T08-32-35-381Z",
+    "generated_at": "2026-04-27T07:45:45.734Z",
+    "configured": false,
+    "source": "none",
+    "contract_path": null,
+    "primary_surface_label": null,
+    "platform": null,
+    "project_type": null,
+    "production_url": null,
+    "health_check": null,
+    "deploy_status_kind": "none",
+    "deploy_status_command": null,
+    "deploy_workflow": null,
+    "staging_detected": false,
+    "secondary_surfaces": [],
+    "notes": []
+  },
+  "status": {
+    "state": "completed",
+    "decision": "ship_recorded",
+    "ready": true,
+    "design_impact": "none",
+    "design_contract_path": null,
+    "design_verified": true,
+    "deploy_configured": false,
+    "deploy_config_source": "none",
+    "deploy_contract_path": null,
+    "learning_candidates_path": null,
+    "learnings_recorded": false,
+    "local_persona_ship": null,
+    "pull_request": {
+      "provider": "github",
+      "status": "unavailable",
+      "number": null,
+      "url": null,
+      "state": null,
+      "head_branch": "codex/run-2026-04-26T08-32-35-381Z",
+      "head_sha": null,
+      "base_branch": null,
+      "reason": "pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between main and codex/run-2026-04-26T08-32-35-381Z, Head ref must be a branch (createPullRequest)"
+    }
+  },
+  "pull_request": {
+    "provider": "github",
+    "status": "unavailable",
+    "number": null,
+    "url": null,
+    "state": null,
+    "head_branch": "codex/run-2026-04-26T08-32-35-381Z",
+    "head_sha": null,
+    "base_branch": null,
+    "reason": "pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between main and codex/run-2026-04-26T08-32-35-381Z, Head ref must be a branch (createPullRequest)"
+  },
+  "checklist": {
+    "review_complete": true,
+    "qa_ready": true,
+    "merge_ready": true,
+    "design_impact": "none",
+    "design_contract_path": null,
+    "design_verified": true,
+    "design_verification_path": ".planning/current/qa/design-verification.md",
+    "qa_perf_verification_path": null,
+    "local_persona_ship": null
+  },
+  "local_ship_persona_result": {
+    "adapter_id": "local",
+    "outcome": "success",
+    "raw_output": {
+      "release_gate_record": "",
+      "merge_ready": true,
+      "persona_gates": [],
+      "receipt": "local-ship-personas-claude-2026-04-27T07-45-45-860Z"
+    },
+    "requested_route": null,
+    "actual_route": {
+      "provider": "claude",
+      "route": "claude-local-single_agent-ship",
+      "substrate": "superpowers-core",
+      "transport": "local",
+      "receipt_path": ".planning/current/ship/adapter-output.json"
+    },
+    "notices": [],
+    "conflict_candidates": [],
+    "traceability": {
+      "nexus_stage_pack": "nexus-build-pack",
+      "absorbed_capability": "local-provider-ship-personas",
+      "source_map": []
+    }
+  }
+}

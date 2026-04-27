@@ -1,0 +1,19 @@
+{
+  "outcome": "success",
+  "route_validation": {
+    "transport": "local",
+    "available": true,
+    "approved": true,
+    "reason": "Nexus approved the requested local provider route"
+  },
+  "canonical_paths": [
+    ".planning/current/handoff/governed-execution-routing.md",
+    ".planning/current/handoff/governed-handoff.md",
+    ".planning/current/handoff/completion-advisor.json"
+  ],
+  "status": {
+    "state": "completed",
+    "decision": "route_recorded",
+    "ready": true
+  }
+}

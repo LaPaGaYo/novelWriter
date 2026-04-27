@@ -1,10 +1,48 @@
-# novelWriter
+# Plotwright
 
-[![Linux](https://github.com/vkbo/novelWriter/actions/workflows/test_linux.yml/badge.svg)](https://github.com/vkbo/novelWriter/actions/workflows/test_linux.yml)
-[![Windows](https://github.com/vkbo/novelWriter/actions/workflows/test_win.yml/badge.svg)](https://github.com/vkbo/novelWriter/actions/workflows/test_win.yml)
-[![MacOS](https://github.com/vkbo/novelWriter/actions/workflows/test_mac.yml/badge.svg)](https://github.com/vkbo/novelWriter/actions/workflows/test_mac.yml)
-[![Linting](https://github.com/vkbo/novelWriter/actions/workflows/syntax.yml/badge.svg)](https://github.com/vkbo/novelWriter/actions/workflows/syntax.yml)
-[![CodeCov](https://codecov.io/gh/vkbo/novelWriter/branch/main/graph/badge.svg)](https://codecov.io/gh/vkbo/novelWriter)
+> **Plotwright is a fork of [novelWriter](https://github.com/vkbo/novelWriter)
+> by Veronica Berglyd Olsen and contributors.** novelWriter is licensed under
+> GPL-3.0-or-later; this fork is too. The two projects share editor DNA but
+> have **opposing positions on AI**: upstream novelWriter is explicitly
+> AI-free; Plotwright integrates optional, privacy-gated AI assistance for
+> plotters. We ship with AI off by default and a network-zero regression test
+> as a hard gate. See `docs/fork.md` for the full rationale and `docs/ai/`
+> for the privacy and architecture stance.
+
+## Status
+
+Plotwright is in early development. Sprint 1 (current): fork bootstrap and
+AI substrate (privacy-gated network module, provider abstraction, mock
+provider, tests). No live AI features ship in Sprint 1.
+
+Upstream baseline: see `.fork-baseline.json` for the pinned upstream commit
+and rebase strategy.
+
+## Attribution
+
+This fork is built on novelWriter. All editor and project-format work in this
+repository is the work of Veronica Berglyd Olsen and the novelWriter
+contributors listed in `CREDITS.md`. AI substrate, fork branding, and the
+plotter-focused redesign are fork-specific work.
+
+## License
+
+Plotwright is licensed under [GPL-3.0-or-later](LICENSE.md), inheriting from
+novelWriter. Bundled assets retain their original licenses (Apache-2.0,
+CC-BY-4.0, ISC where applicable). See `LICENSE.md` and
+`setup/LICENSE-Apache-2.0.txt`.
+
+## Upstream project links (novelWriter)
+
+* Website: [novelwriter.io](https://novelwriter.io)
+* Documentation: [docs.novelwriter.io](https://docs.novelwriter.io)
+* Internationalisation: [crowdin.com/project/novelwriter](https://crowdin.com/project/novelwriter)
+* PyPI: [pypi.org/project/novelWriter](https://pypi.org/project/novelWriter)
+* Social Media: [fosstodon.org/@novelwriter](https://fosstodon.org/@novelwriter)
+
+---
+
+## About the editor (from upstream)
 
 <img align="left" style="margin: 0 0 4px 0;" src="https://raw.githubusercontent.com/vkbo/novelWriter/main/setup/novelwriter_readme.png">
 
@@ -14,18 +52,7 @@ for comments, synopsis, and cross-referencing. It's designed to be a simple text
 for easy organisation of text and notes, using human readable text files as storage for robustness.
 The project format is well suited both for version control software and file synchronisation tools.
 
-For more details, and how to install and use novelWriter, please see the main website and
-documentation.
-
-**Project Links**
-
-* Website: [novelwriter.io](https://novelwriter.io)
-* Documentation: [docs.novelwriter.io](https://docs.novelwriter.io)
-* Internationalisation: [crowdin.com/project/novelwriter](https://crowdin.com/project/novelwriter)
-* PyPi Project: [pypi.org/project/novelWriter](https://pypi.org/project/novelWriter)
-* Social Media: [fosstodon.org/@novelwriter](https://fosstodon.org/@novelwriter)
-
-_This project is developed with care, and is 100% free of AI slop._
+For details on the editor, see the upstream documentation linked above.
 
 ## Sponsors
 

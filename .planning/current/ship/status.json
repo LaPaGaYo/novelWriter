@@ -1,0 +1,88 @@
+{
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "stage": "ship",
+  "execution_mode": "local_provider",
+  "primary_provider": "claude",
+  "provider_topology": "single_agent",
+  "workspace": {
+    "path": "/Users/henry/Documents/novelWriter/.nexus-worktrees/run-2026-04-26T08-32-35-381Z",
+    "kind": "worktree",
+    "branch": "codex/run-2026-04-26T08-32-35-381Z",
+    "source": "allocated:fresh_run",
+    "run_id": "run-2026-04-26T08-32-35-381Z",
+    "retirement_state": "active"
+  },
+  "session_root": {
+    "path": "/Users/henry",
+    "kind": "repo_root",
+    "source": "ccb_root"
+  },
+  "requested_execution_path": "claude-local-single_agent",
+  "actual_execution_path": "claude-local-single_agent",
+  "design_impact": "none",
+  "design_contract_path": null,
+  "design_verified": true,
+  "deploy_configured": false,
+  "deploy_config_source": "none",
+  "deploy_contract_path": null,
+  "state": "completed",
+  "decision": "ship_recorded",
+  "ready": true,
+  "inputs": [
+    {
+      "kind": "json",
+      "path": ".planning/current/review/status.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/plan/verification-matrix.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/qa/status.json"
+    }
+  ],
+  "outputs": [
+    {
+      "kind": "markdown",
+      "path": ".planning/current/ship/release-gate-record.md"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/ship/checklist.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/ship/deploy-readiness.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/ship/pull-request.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/ship/completion-advisor.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/ship/status.json"
+    }
+  ],
+  "started_at": "2026-04-27T07:45:45.734Z",
+  "completed_at": "2026-04-27T07:45:45.734Z",
+  "errors": [],
+  "pull_request": {
+    "provider": "github",
+    "status": "unavailable",
+    "number": null,
+    "url": null,
+    "state": null,
+    "head_branch": "codex/run-2026-04-26T08-32-35-381Z",
+    "head_sha": null,
+    "base_branch": null,
+    "reason": "pull request create failed: GraphQL: Head sha can't be blank, Base sha can't be blank, No commits between main and codex/run-2026-04-26T08-32-35-381Z, Head ref must be a branch (createPullRequest)"
+  },
+  "learning_candidates_path": null,
+  "learnings_recorded": false,
+  "local_persona_ship": null
+}

@@ -1,0 +1,17 @@
+{
+  "impact": "major",
+  "affected_surfaces": [
+    "project_shell",
+    "scene_card_view",
+    "character_panel",
+    "ai_inspector_dock",
+    "status_bar",
+    "preferences_ai_section",
+    "ai_review_pane",
+    "consistency_check_inline_markers"
+  ],
+  "design_system_source": "pyqt6_native",
+  "contract_required": true,
+  "verification_required": true,
+  "rationale": "Frame stage decision (4c): full UI redesign — new project shell, layout, and information architecture for the genre-fiction plotter workflow. Plus net-new surfaces for the two AI features (rewrite review pane, consistency-check inline markers, AI inspector dock) and a new Preferences section for provider/privacy. Design contract should be produced via /plan-design-review or /design-consultation before /plan locks the implementation packet."
+}

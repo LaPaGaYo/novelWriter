@@ -13,8 +13,10 @@ setup.iss
 /setup/macos/Info.plist
 /setup/windows/build
 .venv
+.venv-build
 /uv.lock
 /.pdm-python
+.nexus/
 
 # Translations
 /novelwriter/assets/i18n/*.qm

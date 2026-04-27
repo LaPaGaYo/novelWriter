@@ -1,0 +1,18 @@
+{
+  "outcome": "success",
+  "canonical_paths": [
+    ".planning/audits/current/codex.md",
+    ".planning/audits/current/gemini.md",
+    ".planning/audits/current/synthesis.md",
+    ".planning/audits/current/gate-decision.md",
+    ".planning/audits/current/meta.json",
+    ".planning/current/review/completion-advisor.json"
+  ],
+  "learning_candidates_path": null,
+  "learnings_recorded": false,
+  "status": {
+    "state": "completed",
+    "decision": "audit_recorded",
+    "ready": true
+  }
+}

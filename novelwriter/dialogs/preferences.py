@@ -34,6 +34,8 @@ from PyQt6.QtWidgets import (
 )
 
 from novelwriter import CONFIG, SHARED
+from novelwriter.ai.config import AIConfig
+from novelwriter.ai.persistence import load_ai_config, save_ai_config
 from novelwriter.common import compact, describeFont, processDialogSymbols, uniqueCompact
 from novelwriter.config import DEF_GUI_DARK, DEF_GUI_LIGHT, DEF_ICONS, DEF_TREECOL
 from novelwriter.constants import nwLabels, nwQuotes, nwUnicode, trConst
@@ -45,6 +47,7 @@ from novelwriter.extensions.modified import (
 )
 from novelwriter.extensions.pagedsidebar import NPagedSideBar
 from novelwriter.extensions.switch import NSwitch
+from novelwriter.preferences.ai_panel import AIPreferencesPanel
 from novelwriter.types import QtAlignCenter, QtRoleAccept, QtRoleReject
 
 logger = logging.getLogger(__name__)
@@ -54,10 +57,13 @@ class GuiPreferences(NDialog):
     """GUI: Preferences Dialog."""
 
     newPreferencesReady = pyqtSignal(bool, bool, bool, bool)
+    aiConfigChanged = pyqtSignal(AIConfig)
 
-    def __init__(self, parent: QWidget) -> None:
+    def __init__(self, parent: QWidget, gotoSection: str | None = None) -> None:
         super().__init__(parent=parent)
 
+        self._gotoSection = gotoSection
+        self._aiInitial = self._loadInitialAiConfig()
         logger.debug("Create: GuiPreferences")
         self.setObjectName("GuiPreferences")
         self.setWindowTitle(self.tr("Preferences"))
@@ -896,8 +902,21 @@ class GuiPreferences(NDialog):
             self.tr("Switch the editor to use Vim editor commands."),
         )
 
+        # AI
+        # ==
+        self.aiPanel = AIPreferencesPanel(
+            self,
+            initial=self._aiInitial,
+            project_bound=SHARED.hasProject and SHARED.project.storagePath is not None,
+        )
+        section += 1
+        self.aiPanel.build(section)
+
         self.mainForm.finalise()
-        self.sidebar.setSelected(1)
+        if self._gotoSection == "ai":
+            self.sidebar.setSelected(self.aiPanel.section_index)
+        else:
+            self.sidebar.setSelected(1)
 
     ##
     #  Events
@@ -1175,8 +1194,29 @@ class GuiPreferences(NDialog):
         self.vimMode.setChecked(vimMode)
         CONFIG.vimMode = vimMode
 
+        # AI — only persist and broadcast when the panel was project-bound;
+        # otherwise the master toggle was disabled and no real change happened.
+        if self.aiPanel.project_bound:
+            aiCfg = self.aiPanel.applyTo(self.aiPanel.config)
+            if SHARED.hasProject and SHARED.project.storagePath is not None:
+                try:
+                    save_ai_config(SHARED.project.storagePath, aiCfg)
+                except OSError as exc:
+                    logger.warning("Could not save AI config: %s", exc)
+            self.aiConfigChanged.emit(aiCfg)
+
         # Finalise
         CONFIG.saveConfig()
         self.newPreferencesReady.emit(needsRestart, refreshTree, updateTheme, updateSyntax)
 
         self.close()
+
+    ##
+    #  AI helpers
+    ##
+
+    def _loadInitialAiConfig(self) -> AIConfig:
+        """Load the project's AI config, or a fresh default if no project."""
+        if SHARED.hasProject and SHARED.project.storagePath is not None:
+            return load_ai_config(SHARED.project.storagePath)
+        return AIConfig()

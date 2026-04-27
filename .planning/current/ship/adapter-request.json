@@ -1,0 +1,19 @@
+{
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "inputs": [
+    ".planning/current/review/status.json",
+    ".planning/current/plan/verification-matrix.json",
+    ".planning/current/qa/status.json"
+  ],
+  "adapter_chain": [
+    "superpowers"
+  ],
+  "workspace": {
+    "path": "/Users/henry/Documents/novelWriter/.nexus-worktrees/run-2026-04-26T08-32-35-381Z",
+    "kind": "worktree",
+    "branch": "codex/run-2026-04-26T08-32-35-381Z",
+    "source": "allocated:fresh_run",
+    "run_id": "run-2026-04-26T08-32-35-381Z",
+    "retirement_state": "active"
+  }
+}
