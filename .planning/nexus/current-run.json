@@ -2,11 +2,16 @@
   "run_id": "run-2026-04-26T08-32-35-381Z",
   "continuation_mode": "project_reset",
   "status": "active",
-  "current_command": "build",
-  "current_stage": "build",
-  "previous_stage": "handoff",
+  "current_command": "review",
+  "current_stage": "review",
+  "previous_stage": "build",
   "allowed_next_stages": [
-    "review"
+    "handoff",
+    "build",
+    "review",
+    "qa",
+    "ship",
+    "closeout"
   ],
   "command_history": [
     {
@@ -32,6 +37,11 @@
     {
       "command": "build",
       "at": "2026-04-27T05:45:34.801Z",
+      "via": null
+    },
+    {
+      "command": "review",
+      "at": "2026-04-27T06:23:52.791Z",
       "via": null
     }
   ],
@@ -115,6 +125,34 @@
     ".planning/current/build/status.json": {
       "kind": "json",
       "path": ".planning/current/build/status.json"
+    },
+    ".planning/audits/current/codex.md": {
+      "kind": "markdown",
+      "path": ".planning/audits/current/codex.md"
+    },
+    ".planning/audits/current/gemini.md": {
+      "kind": "markdown",
+      "path": ".planning/audits/current/gemini.md"
+    },
+    ".planning/audits/current/synthesis.md": {
+      "kind": "markdown",
+      "path": ".planning/audits/current/synthesis.md"
+    },
+    ".planning/audits/current/gate-decision.md": {
+      "kind": "markdown",
+      "path": ".planning/audits/current/gate-decision.md"
+    },
+    ".planning/audits/current/meta.json": {
+      "kind": "json",
+      "path": ".planning/audits/current/meta.json"
+    },
+    ".planning/current/review/completion-advisor.json": {
+      "kind": "json",
+      "path": ".planning/current/review/completion-advisor.json"
+    },
+    ".planning/current/review/status.json": {
+      "kind": "json",
+      "path": ".planning/current/review/status.json"
     }
   },
   "execution": {

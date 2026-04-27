@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "stage": "review",
+  "generated_at": "2026-04-27T06:23:52.791Z",
+  "stage_outcome": "ready",
+  "interaction_mode": "recommended_choice",
+  "summary": "Review passed cleanly. QA is the recommended governed next step.",
+  "requires_user_choice": false,
+  "choice_reason": null,
+  "default_action_id": "run_qa",
+  "primary_next_actions": [
+    {
+      "id": "run_qa",
+      "kind": "canonical_stage",
+      "surface": "/qa",
+      "invocation": "/qa",
+      "label": "Run `/qa`",
+      "description": "Record governed QA validation before the release gate.",
+      "recommended": true,
+      "visibility_reason": "Review passed cleanly and QA is the recommended governed continuation.",
+      "why_this_skill": null,
+      "evidence_signal": null
+    }
+  ],
+  "alternative_next_actions": [
+    {
+      "id": "run_ship",
+      "kind": "canonical_stage",
+      "surface": "/ship",
+      "invocation": "/ship",
+      "label": "Run `/ship`",
+      "description": "Skip directly to the release gate when that is the intended governed path.",
+      "recommended": false,
+      "visibility_reason": "QA is usually next, but the lifecycle still permits an intentional direct move to ship.",
+      "why_this_skill": null,
+      "evidence_signal": null
+    }
+  ],
+  "recommended_side_skills": [
+    {
+      "id": "run_benchmark",
+      "kind": "support_skill",
+      "surface": "/benchmark",
+      "invocation": "/benchmark",
+      "label": "Run `/benchmark`",
+      "description": "Attach performance evidence before the release gate if this change is perf-sensitive.",
+      "recommended": false,
+      "visibility_reason": "Performance success criteria are explicit and measurable; benchmark evidence should attach at QA. Checklist-backed rationale: performance review/specialists/performance.md - Performance checklist applies to frontend or backend execution paths where rendering, query, bundle, or latency regressions are plausible.",
+      "why_this_skill": "Use this because the verification matrix ties this run to the performance checklists.",
+      "evidence_signal": {
+        "kind": "verification_matrix",
+        "summary": "Verification matrix surfaced performance checklist coverage for this recommendation.",
+        "source_paths": [
+          "review/specialists/performance.md"
+        ],
+        "checklist_categories": [
+          "performance"
+        ]
+      }
+    },
+    {
+      "id": "run_design_review",
+      "kind": "support_skill",
+      "surface": "/design-review",
+      "invocation": "/design-review",
+      "label": "Run `/design-review`",
+      "description": "Polish the visual result before QA on a design-bearing run.",
+      "recommended": false,
+      "visibility_reason": "Frame design-intent flagged major design impact with 8 affected surfaces. Real design contract required before /handoff.",
+      "why_this_skill": "Frame design-intent flagged major design impact with 8 affected surfaces. Real design contract required before /handoff.",
+      "evidence_signal": {
+        "kind": "verification_matrix",
+        "summary": "Frame design-intent flagged major design impact with 8 affected surfaces. Real design contract required before /handoff.",
+        "source_paths": [],
+        "checklist_categories": []
+      }
+    },
+    {
+      "id": "run_cso",
+      "kind": "support_skill",
+      "surface": "/cso",
+      "invocation": "/cso",
+      "label": "Run `/cso`",
+      "description": "Audit security-sensitive changes before the release gate advances.",
+      "recommended": false,
+      "visibility_reason": "Cloud API key handling, single-egress network module, and privacy-gating contract benefit from a security review pass before ship.",
+      "why_this_skill": "Cloud API key handling, single-egress network module, and privacy-gating contract benefit from a security review pass before ship.",
+      "evidence_signal": {
+        "kind": "verification_matrix",
+        "summary": "Cloud API key handling, single-egress network module, and privacy-gating contract benefit from a security review pass before ship.",
+        "source_paths": [],
+        "checklist_categories": []
+      }
+    }
+  ],
+  "recommended_external_skills": [
+    {
+      "id": "run_external_gh_address_comments",
+      "kind": "external_installed_skill",
+      "surface": "/gh-address-comments",
+      "invocation": "/gh-address-comments",
+      "label": "Run installed skill `/gh-address-comments`",
+      "description": "Help address review/issue comments on the open GitHub PR for the current branch using gh CLI; verify gh auth first and prompt the user to authenticate if not logged in.",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /review because it is tagged security, code-review.",
+      "why_this_skill": "Use this because the installed skill matches security, code-review context for /review.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: security, code-review.",
+        "source_paths": [
+          "/Users/henry/.codex/skills/gh-address-comments/SKILL.md"
+        ],
+        "checklist_categories": [
+          "security"
+        ]
+      }
+    },
+    {
+      "id": "run_external_skill_authoring_workflow",
+      "kind": "external_installed_skill",
+      "surface": "/skill-authoring-workflow",
+      "invocation": "/skill-authoring-workflow",
+      "label": "Run installed skill `/skill-authoring-workflow`",
+      "description": "Turn raw PM content into a compliant, publish-ready skill by choosing build/add paths, running conformance checks, and updating docs before commit.",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /review because it is tagged security, audit.",
+      "why_this_skill": "Use this because the installed skill matches security, audit context for /review.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: security, audit.",
+        "source_paths": [
+          "/Users/henry/.claude/skills/skill-authoring-workflow/SKILL.md"
+        ],
+        "checklist_categories": [
+          "security"
+        ]
+      }
+    },
+    {
+      "id": "run_external_finance_metrics_quickref",
+      "kind": "external_installed_skill",
+      "surface": "/finance-metrics-quickref",
+      "invocation": "/finance-metrics-quickref",
+      "label": "Run installed skill `/finance-metrics-quickref`",
+      "description": "Fast lookup table for 32+ SaaS finance metrics with formulas, benchmarks, and when to use each. Includes red flags and decision frameworks.",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /review because it is tagged performance.",
+      "why_this_skill": "Use this because the installed skill matches performance context for /review.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: performance.",
+        "source_paths": [
+          "/Users/henry/.claude/skills/finance-metrics-quickref/SKILL.md"
+        ],
+        "checklist_categories": [
+          "performance"
+        ]
+      }
+    }
+  ],
+  "stop_action": {
+    "id": "stop_after_review",
+    "kind": "stop",
+    "surface": "stop",
+    "invocation": null,
+    "label": "Stop here",
+    "description": "Do not advance yet. Keep the current artifacts as-is and decide on the next step later.",
+    "recommended": false,
+    "visibility_reason": "Always available as the minimal non-advancing choice after a completed stage.",
+    "why_this_skill": null,
+    "evidence_signal": null
+  },
+  "project_setup_gaps": [],
+  "hidden_compat_aliases": [
+    "/office-hours",
+    "/autoplan",
+    "/plan-ceo-review",
+    "/plan-eng-review"
+  ],
+  "hidden_utility_skills": [
+    "/careful",
+    "/freeze",
+    "/guard",
+    "/unfreeze",
+    "/nexus-upgrade"
+  ],
+  "suppressed_surfaces": [
+    "/office-hours",
+    "/autoplan",
+    "/plan-ceo-review",
+    "/plan-eng-review",
+    "/careful",
+    "/freeze",
+    "/guard",
+    "/unfreeze",
+    "/nexus-upgrade"
+  ]
+}

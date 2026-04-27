@@ -1,0 +1,54 @@
+{
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "inputs": [
+    ".planning/current/build/status.json"
+  ],
+  "adapter_chain": [
+    "superpowers",
+    "local",
+    "local"
+  ],
+  "requested_route": {
+    "command": "build",
+    "governed": false,
+    "execution_mode": "local_provider",
+    "primary_provider": "claude",
+    "provider_topology": "single_agent",
+    "planner": "claude+pm-gsd",
+    "generator": "claude-local-single_agent",
+    "evaluator_a": "claude-local-single_agent-audit-a",
+    "evaluator_b": "claude-local-single_agent-audit-b",
+    "synthesizer": "claude",
+    "substrate": "superpowers-core",
+    "transport": "local",
+    "fallback_policy": "disabled"
+  },
+  "review_scope": {
+    "mode": "full_acceptance",
+    "source_stage": "plan",
+    "blocking_items": [],
+    "advisory_policy": "out_of_scope_advisory"
+  },
+  "workspace": {
+    "path": "/Users/henry/Documents/novelWriter/.nexus-worktrees/run-2026-04-26T08-32-35-381Z",
+    "kind": "worktree",
+    "branch": "codex/run-2026-04-26T08-32-35-381Z",
+    "source": "allocated:fresh_run",
+    "run_id": "run-2026-04-26T08-32-35-381Z",
+    "retirement_state": "active"
+  },
+  "requested_audit_routes": {
+    "codex": {
+      "provider": "claude",
+      "route": "claude-local-single_agent-audit-a",
+      "substrate": "superpowers-core",
+      "transport": "local"
+    },
+    "gemini": {
+      "provider": "claude",
+      "route": "claude-local-single_agent-audit-b",
+      "substrate": "superpowers-core",
+      "transport": "local"
+    }
+  }
+}

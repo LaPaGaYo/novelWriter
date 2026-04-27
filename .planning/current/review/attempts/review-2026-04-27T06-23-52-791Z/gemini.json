@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "review_attempt_id": "review-2026-04-27T06-23-52-791Z",
+  "provider": "gemini",
+  "request_id": null,
+  "generated_at": "2026-04-27T06:23:52.791Z",
+  "requested_route": {
+    "provider": "claude",
+    "route": "claude-local-single_agent-audit-b",
+    "substrate": "superpowers-core",
+    "transport": "local"
+  },
+  "actual_route": {
+    "provider": "claude",
+    "route": "claude-local-single_agent-audit-b",
+    "substrate": "superpowers-core",
+    "transport": "local",
+    "receipt_path": ".planning/current/review/adapter-output.json"
+  },
+  "verdict": "pass",
+  "markdown_path": ".planning/current/review/attempts/review-2026-04-27T06-23-52-791Z/gemini.md"
+}
