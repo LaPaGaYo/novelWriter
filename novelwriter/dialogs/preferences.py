@@ -904,7 +904,11 @@ class GuiPreferences(NDialog):
 
         # AI
         # ==
-        self.aiPanel = AIPreferencesPanel(self, initial=self._aiInitial)
+        self.aiPanel = AIPreferencesPanel(
+            self,
+            initial=self._aiInitial,
+            project_bound=SHARED.hasProject and SHARED.project.storagePath is not None,
+        )
         section += 1
         self.aiPanel.build(section)
 
@@ -1190,14 +1194,16 @@ class GuiPreferences(NDialog):
         self.vimMode.setChecked(vimMode)
         CONFIG.vimMode = vimMode
 
-        # AI
-        aiCfg = self.aiPanel.applyTo(self.aiPanel.config)
-        if SHARED.hasProject and SHARED.project.storagePath is not None:
-            try:
-                save_ai_config(SHARED.project.storagePath, aiCfg)
-            except OSError as exc:
-                logger.warning("Could not save AI config: %s", exc)
-        self.aiConfigChanged.emit(aiCfg)
+        # AI — only persist and broadcast when the panel was project-bound;
+        # otherwise the master toggle was disabled and no real change happened.
+        if self.aiPanel.project_bound:
+            aiCfg = self.aiPanel.applyTo(self.aiPanel.config)
+            if SHARED.hasProject and SHARED.project.storagePath is not None:
+                try:
+                    save_ai_config(SHARED.project.storagePath, aiCfg)
+                except OSError as exc:
+                    logger.warning("Could not save AI config: %s", exc)
+            self.aiConfigChanged.emit(aiCfg)
 
         # Finalise
         CONFIG.saveConfig()

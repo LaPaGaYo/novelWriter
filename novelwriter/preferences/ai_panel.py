@@ -38,10 +38,21 @@ class AIPreferencesPanel:
 
     SECTION_TITLE = "AI"
     NEXT_SPRINT_HELP = "Available in next sprint."
+    NO_PROJECT_HELP = (
+        "Open a project to enable AI features. AI configuration is per-project, "
+        "so the toggle is unavailable until a project is loaded."
+    )
 
-    def __init__(self, dialog: GuiPreferences, initial: AIConfig | None = None) -> None:
+    def __init__(
+        self,
+        dialog: GuiPreferences,
+        initial: AIConfig | None = None,
+        *,
+        project_bound: bool = True,
+    ) -> None:
         self._dialog = dialog
         self.config: AIConfig = initial or AIConfig()
+        self.project_bound = project_bound
 
         # Widgets — created lazily in build() so we can use the dialog's tr().
         self.aiEnabled: NSwitch | None = None
@@ -62,17 +73,21 @@ class AIPreferencesPanel:
         dialog.sidebar.addButton(title, section_index)
         dialog.mainForm.addGroupLabel(title, section_index)
 
-        # Master toggle
+        # Master toggle. When no project is open the toggle is disabled
+        # because AIConfig is per-project — silently dropping a save would
+        # mislead the user about whether their choice was persisted.
         self.aiEnabled = NSwitch(dialog)
         self.aiEnabled.setChecked(self.config.enabled)
+        self.aiEnabled.setEnabled(self.project_bound)
+        master_help = dialog.tr(
+            "Per-project opt-in. AI features remain disabled across all "
+            "projects unless you turn this on. With AI off, the application "
+            "performs zero outbound network requests."
+        ) if self.project_bound else dialog.tr(self.NO_PROJECT_HELP)
         dialog.mainForm.addRow(
             dialog.tr("Enable AI features"),
             self.aiEnabled,
-            dialog.tr(
-                "Per-project opt-in. AI features remain disabled across all "
-                "projects unless you turn this on. With AI off, the application "
-                "performs zero outbound network requests."
-            ),
+            master_help,
         )
 
         # Per-feature toggles — Sprint 1 keeps these greyed.
