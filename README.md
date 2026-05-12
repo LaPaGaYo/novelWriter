@@ -1,3 +1,20 @@
+# plotwright (a fork of novelWriter)
+
+> **This is a fork.** `plotwright` is a private GPL-3 fork of [novelWriter](https://github.com/vkbo/novelWriter)
+> by Veronica Berglyd Olsen, retargeted at genre-fiction plotters with two AI features
+> (inline rewrite and consistency check) bolted onto novelWriter's plain-text + structured-metadata
+> core. Upstream's stance is "100% free of AI slop"; this fork takes the opposite position
+> *with great care* — AI here only operates on text the user wrote and metadata the user
+> authored. We are not seeking upstream merge.
+>
+> Upstream credit, license, and design lineage are preserved. Branding (icon set, About
+> dialog, default user-data directory, PyPI distribution name) deliberately differs from
+> upstream so a fork install does not collide with an upstream install on the same machine.
+> See `docs/fork.md` for the full fork stance and `.fork-baseline.json` for the pinned
+> upstream baseline.
+
+---
+
 # novelWriter
 
 [![Linux](https://github.com/vkbo/novelWriter/actions/workflows/test_linux.yml/badge.svg)](https://github.com/vkbo/novelWriter/actions/workflows/test_linux.yml)

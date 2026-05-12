@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "run_id": "run-2026-05-12T01-45-20-695Z",
+  "boundary_kind": "fresh_run_phase",
+  "continuation_mode": "phase",
+  "lifecycle_can_continue_here": true,
+  "recommended_option": "fresh_session_continue",
+  "available_options": [
+    "continue_here",
+    "compact_then_continue",
+    "fresh_session_continue"
+  ],
+  "host_compact_supported": false,
+  "resume_artifacts": [
+    ".planning/current/discover/NEXT-RUN.md",
+    ".planning/current/discover/next-run-bootstrap.json"
+  ],
+  "supporting_context_artifacts": [
+    ".planning/archive/runs/run-2026-04-26T08-32-35-381Z/closeout/FOLLOW-ON-SUMMARY.md",
+    ".planning/archive/runs/run-2026-04-26T08-32-35-381Z/closeout/follow-on-summary.json"
+  ],
+  "recommended_next_command": "/frame",
+  "summary": "Nexus can continue in this session. Because this is a new phase boundary and host-managed compact is unavailable, a fresh session is recommended; manual compact remains an option.",
+  "generated_at": "2026-05-12T01:45:20.889Z"
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "previous_run_id": "run-2026-04-26T08-32-35-381Z",
+  "archived_run_root": ".planning/archive/runs/run-2026-04-26T08-32-35-381Z",
+  "previous_workspace": {
+    "path": "/Users/henry/Documents/novelWriter/.nexus-worktrees/run-2026-04-26T08-32-35-381Z",
+    "kind": "worktree",
+    "branch": "codex/run-2026-04-26T08-32-35-381Z",
+    "source": "allocated:fresh_run",
+    "run_id": "run-2026-04-26T08-32-35-381Z",
+    "retirement_state": "active"
+  },
+  "recommended_entrypoint": "discover",
+  "recommended_continuation_mode": "phase",
+  "landing_reentry": null,
+  "summary": "Completed governed run run-2026-04-26T08-32-35-381Z through /closeout. Review gate: pass. QA ready: yes. Ship ready: yes. Follow-on evidence summary recorded: yes. Ship canary evidence recorded: no. Deploy result evidence recorded: no. Documentation sync recorded: no. Landing re-entry guidance: not recorded. Start the next run from /discover, but continue from the repo-visible product artifacts and archived closeout record rather than rediscovering blind.",
+  "carry_forward_artifacts": [
+    {
+      "kind": "markdown",
+      "path": "docs/product/idea-brief.md"
+    },
+    {
+      "kind": "markdown",
+      "path": "docs/product/decision-brief.md"
+    },
+    {
+      "kind": "markdown",
+      "path": "docs/product/prd.md"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/archive/runs/run-2026-04-26T08-32-35-381Z/current-run.json"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/archive/runs/run-2026-04-26T08-32-35-381Z/closeout/CLOSEOUT-RECORD.md"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/archive/runs/run-2026-04-26T08-32-35-381Z/closeout/FOLLOW-ON-SUMMARY.md"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/archive/runs/run-2026-04-26T08-32-35-381Z/closeout/follow-on-summary.json"
+    }
+  ],
+  "generated_at": "2026-04-27T07:47:59.992Z"
+}

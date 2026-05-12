@@ -1,0 +1,11 @@
+{
+  "outcome": "success",
+  "canonical_paths": [
+    "docs/product/idea-brief.md"
+  ],
+  "status": {
+    "state": "completed",
+    "decision": "ready",
+    "ready": true
+  }
+}

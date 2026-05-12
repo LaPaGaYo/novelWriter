@@ -55,6 +55,19 @@ __date__       = "2026-04-13"
 __status__     = "Stable"
 __domain__     = "novelwriter.io"
 
+# Fork Identity (plotwright)
+# ==========================
+# This is a private GPL-3 fork of novelWriter retargeted at genre-fiction
+# plotters with AI-assisted writing features. Upstream credit is preserved
+# above; the fork-identity constants below are used for app branding and
+# user-data isolation so a fork install does not collide with an upstream
+# install on the same machine.
+__fork__          = "plotwright"
+__fork_app_name__ = "plotwright"
+__fork_user_dir__ = "plotwright"
+__fork_upstream__ = "vkbo/novelWriter"
+__fork_tagline__  = "An AI-assisted workbench for plotters"
+
 logger = logging.getLogger(__name__)
 
 

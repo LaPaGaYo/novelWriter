@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "generated_at": "2026-04-27T07:47:59.992Z",
+  "source_artifacts": [],
+  "evidence": {
+    "qa": {
+      "perf_verification_path": null
+    },
+    "ship": {
+      "canary_status_path": null,
+      "canary_status": null,
+      "deploy_result_path": null,
+      "deploy_status": null,
+      "verification_status": null,
+      "production_url": null,
+      "landing_reentry": null
+    },
+    "closeout": {
+      "documentation_sync_path": null
+    }
+  },
+  "summary": "No attached follow-on evidence was recorded for this run."
+}

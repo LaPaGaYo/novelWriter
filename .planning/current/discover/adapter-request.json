@@ -1,0 +1,16 @@
+{
+  "run_id": "run-2026-05-12T01-45-20-695Z",
+  "inputs": [
+    ".planning/current/discover/next-run-bootstrap.json",
+    ".planning/current/discover/NEXT-RUN.md"
+  ],
+  "adapter": "pm",
+  "stage": "discover",
+  "continuation_mode": "phase",
+  "requested_continuation_mode": null,
+  "effective_continuation_mode": "phase",
+  "contract_outputs": [
+    "docs/product/idea-brief.md",
+    ".planning/current/discover/status.json"
+  ]
+}

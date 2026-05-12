@@ -69,3 +69,5 @@ ToC.txt
 # IDE
 .vscode
 .ruff_cache
+.nexus/
+.nexus-worktrees/

@@ -1,0 +1,59 @@
+{
+  "run_id": "run-2026-05-12T01-45-20-695Z",
+  "stage": "frame",
+  "execution_mode": "local_provider",
+  "primary_provider": "claude",
+  "provider_topology": "single_agent",
+  "workspace": {
+    "path": "/Users/henry/Documents/novelWriter/.nexus-worktrees/run-2026-05-12T01-45-20-695Z",
+    "kind": "worktree",
+    "branch": "branch/run-2026-05-12T01-45-20-695Z",
+    "source": "allocated:fresh_run",
+    "run_id": "run-2026-05-12T01-45-20-695Z",
+    "retirement_state": "active"
+  },
+  "session_root": {
+    "path": "/Users/henry",
+    "kind": "repo_root",
+    "source": "ccb_root"
+  },
+  "requested_execution_path": "claude-local-single_agent",
+  "actual_execution_path": null,
+  "design_impact": "none",
+  "design_contract_required": false,
+  "design_verified": null,
+  "state": "completed",
+  "decision": "ready",
+  "ready": true,
+  "inputs": [
+    {
+      "kind": "markdown",
+      "path": "docs/product/idea-brief.md"
+    }
+  ],
+  "outputs": [
+    {
+      "kind": "markdown",
+      "path": "docs/product/decision-brief.md"
+    },
+    {
+      "kind": "markdown",
+      "path": "docs/product/prd.md"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/frame/design-intent.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/frame/completion-advisor.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/frame/status.json"
+    }
+  ],
+  "started_at": "2026-05-12T13:21:48.427Z",
+  "completed_at": "2026-05-12T13:21:48.427Z",
+  "errors": []
+}

@@ -1,0 +1,12 @@
+{
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "inputs": [
+    ".planning/current/review/status.json",
+    ".planning/current/qa/status.json",
+    ".planning/current/ship/status.json",
+    ".planning/audits/current/meta.json"
+  ],
+  "adapter": "gsd",
+  "stage": "closeout",
+  "archive_path": ".planning/audits/archive/run-2026-04-26T08-32-35-381Z"
+}

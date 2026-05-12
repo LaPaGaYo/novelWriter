@@ -1,0 +1,48 @@
+{
+  "run_id": "run-2026-05-12T01-45-20-695Z",
+  "stage": "discover",
+  "execution_mode": "local_provider",
+  "primary_provider": "claude",
+  "provider_topology": "single_agent",
+  "workspace": {
+    "path": "/Users/henry/Documents/novelWriter/.nexus-worktrees/run-2026-05-12T01-45-20-695Z",
+    "kind": "worktree",
+    "branch": "branch/run-2026-05-12T01-45-20-695Z",
+    "source": "allocated:fresh_run",
+    "run_id": "run-2026-05-12T01-45-20-695Z",
+    "retirement_state": "active"
+  },
+  "session_root": {
+    "path": "/Users/henry",
+    "kind": "repo_root",
+    "source": "ccb_root"
+  },
+  "requested_execution_path": "claude-local-single_agent",
+  "actual_execution_path": null,
+  "state": "completed",
+  "decision": "ready",
+  "ready": true,
+  "inputs": [
+    {
+      "kind": "json",
+      "path": ".planning/current/discover/next-run-bootstrap.json"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/current/discover/NEXT-RUN.md"
+    }
+  ],
+  "outputs": [
+    {
+      "kind": "markdown",
+      "path": "docs/product/idea-brief.md"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/discover/status.json"
+    }
+  ],
+  "started_at": "2026-05-12T01:45:20.889Z",
+  "completed_at": "2026-05-12T01:45:20.889Z",
+  "errors": []
+}

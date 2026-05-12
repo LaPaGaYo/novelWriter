@@ -1,6 +1,12 @@
 # Credits
 
-## Main Developer
+## Upstream Project (novelWriter)
+
+This project is a private GPL-3 fork of [novelWriter](https://github.com/vkbo/novelWriter).
+All upstream contribution rights and recognition are preserved. Fork-specific changes
+live primarily under `novelwriter/ai/`, `tests/test_ai/`, and `docs/ai/`.
+
+## Main Developer (Upstream)
 
 * Veronica Berglyd Olsen
 

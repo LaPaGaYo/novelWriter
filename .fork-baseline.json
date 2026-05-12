@@ -1,0 +1,27 @@
+{
+  "fork_name": "plotwright",
+  "fork_tagline": "An AI-assisted workbench for genre-fiction plotters",
+  "fork_purpose": "Private GPL-3 fork of novelWriter retargeted at plotters with AI rewrite + consistency-check features",
+  "upstream": {
+    "name": "novelWriter",
+    "owner": "vkbo",
+    "repo": "https://github.com/vkbo/novelWriter",
+    "homepage": "https://novelwriter.io",
+    "license": "GPL-3.0-or-later",
+    "maintainer": "Veronica Berglyd Olsen <code@vkbo.net>"
+  },
+  "baseline": {
+    "commit": "10c8a186e5ad40395c51b1f4140c2e8720605f85",
+    "ref": "main",
+    "version": "26.2a0",
+    "date": "2026-04-26",
+    "note": "novelWriter 26.2 Alpha 0; merge of release fixes (#2733)"
+  },
+  "rebase_strategy": {
+    "frequency": "per-milestone",
+    "policy": "merge upstream main quarterly; pin to a tagged release before each fork v* release",
+    "owner": "fork maintainer",
+    "conflict_resolution": "fork-specific code lives in novelwriter/ai/ and tests/test_ai/ to minimize merge conflicts; conflicts in shared files (__init__.py, config.py, statusbar.py, dialogs/preferences.py, README.md, CREDITS.md) get manual resolution per-merge."
+  },
+  "schema_version": 1
+}

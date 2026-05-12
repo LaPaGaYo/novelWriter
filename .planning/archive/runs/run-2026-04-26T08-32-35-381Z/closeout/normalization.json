@@ -1,0 +1,14 @@
+{
+  "outcome": "success",
+  "canonical_paths": [
+    ".planning/current/closeout/CLOSEOUT-RECORD.md",
+    ".planning/current/closeout/FOLLOW-ON-SUMMARY.md",
+    ".planning/current/closeout/follow-on-summary.json",
+    ".planning/current/closeout/completion-advisor.json"
+  ],
+  "status": {
+    "state": "completed",
+    "decision": "closeout_recorded",
+    "ready": true
+  }
+}

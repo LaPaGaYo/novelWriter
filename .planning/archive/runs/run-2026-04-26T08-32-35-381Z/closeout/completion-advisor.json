@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "stage": "closeout",
+  "generated_at": "2026-04-27T07:47:59.992Z",
+  "stage_outcome": "ready",
+  "interaction_mode": "recommended_choice",
+  "summary": "Closeout is complete. Start the next run or continue with follow-on work from the archived context.",
+  "requires_user_choice": false,
+  "choice_reason": null,
+  "default_action_id": "run_discover",
+  "primary_next_actions": [
+    {
+      "id": "run_discover",
+      "kind": "canonical_stage",
+      "surface": "/discover",
+      "invocation": "/discover",
+      "label": "Run `/discover`",
+      "description": "Start the next governed run from the archived closeout context.",
+      "recommended": true,
+      "visibility_reason": "Closeout completed successfully and a fresh discover is the canonical way to start the next governed run.",
+      "why_this_skill": null,
+      "evidence_signal": null
+    }
+  ],
+  "alternative_next_actions": [],
+  "recommended_side_skills": [
+    {
+      "id": "run_retro",
+      "kind": "support_skill",
+      "surface": "/retro",
+      "invocation": "/retro",
+      "label": "Run `/retro`",
+      "description": "Capture retrospective findings from this completed run.",
+      "recommended": false,
+      "visibility_reason": "This run is complete and ready for retrospective capture.",
+      "why_this_skill": "Use this because this run is complete and ready for retrospective capture.",
+      "evidence_signal": {
+        "kind": "stage_status",
+        "summary": "This run is complete and ready for retrospective capture.",
+        "source_paths": [],
+        "checklist_categories": []
+      }
+    },
+    {
+      "id": "run_learn",
+      "kind": "support_skill",
+      "surface": "/learn",
+      "invocation": "/learn",
+      "label": "Run `/learn`",
+      "description": "Review or export durable learnings from this run.",
+      "recommended": false,
+      "visibility_reason": "The canonical learnings have been written and can now be reviewed or exported.",
+      "why_this_skill": "Use this because the canonical learnings have been written and can now be reviewed or exported.",
+      "evidence_signal": {
+        "kind": "stage_status",
+        "summary": "The canonical learnings have been written and can now be reviewed or exported.",
+        "source_paths": [],
+        "checklist_categories": []
+      }
+    },
+    {
+      "id": "run_document_release",
+      "kind": "support_skill",
+      "surface": "/document-release",
+      "invocation": "/document-release",
+      "label": "Run `/document-release`",
+      "description": "Sync docs to match what was just shipped before the next cycle starts.",
+      "recommended": false,
+      "visibility_reason": "Documentation has not yet been synchronized for this completed run.",
+      "why_this_skill": "Use this because documentation has not yet been synchronized for this completed run.",
+      "evidence_signal": {
+        "kind": "stage_status",
+        "summary": "Documentation has not yet been synchronized for this completed run.",
+        "source_paths": [],
+        "checklist_categories": []
+      }
+    }
+  ],
+  "recommended_external_skills": [
+    {
+      "id": "run_external_pol_probe_advisor",
+      "kind": "external_installed_skill",
+      "surface": "/pol-probe-advisor",
+      "invocation": "/pol-probe-advisor",
+      "label": "Run installed skill `/pol-probe-advisor`",
+      "description": "Select the right Proof of Life (PoL) probe based on hypothesis, risk, and resources. Use this to match the validation method to the real learning goal, not tooling comfort.",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /closeout because it is tagged risk, learning.",
+      "why_this_skill": "Use this because the installed skill matches risk, learning context for /closeout.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: risk, learning.",
+        "source_paths": [
+          "/Users/henry/.claude/skills/pol-probe-advisor/SKILL.md"
+        ],
+        "checklist_categories": []
+      }
+    },
+    {
+      "id": "run_external_context_engineering_advisor",
+      "kind": "external_installed_skill",
+      "surface": "/context-engineering-advisor",
+      "invocation": "/context-engineering-advisor",
+      "label": "Run installed skill `/context-engineering-advisor`",
+      "description": "Diagnose context stuffing vs. context engineering. Assess practices, define boundaries, and advise on memory architecture, retrieval, and the Research→Plan→Reset→Implement cycle.",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /closeout because it is tagged learning.",
+      "why_this_skill": "Use this because the installed skill matches learning context for /closeout.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: learning.",
+        "source_paths": [
+          "/Users/henry/.claude/skills/context-engineering-advisor/SKILL.md"
+        ],
+        "checklist_categories": []
+      }
+    },
+    {
+      "id": "run_external_lean_ux_canvas",
+      "kind": "external_installed_skill",
+      "surface": "/lean-ux-canvas",
+      "invocation": "/lean-ux-canvas",
+      "label": "Run installed skill `/lean-ux-canvas`",
+      "description": "Guide product managers through Jeff Gothelf's Lean UX Canvas v2—a one-page tool that frames work around a business problem, exposes assumptions, and ensures learning every sprint.",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /closeout because it is tagged learning.",
+      "why_this_skill": "Use this because the installed skill matches learning context for /closeout.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: learning.",
+        "source_paths": [
+          "/Users/henry/.claude/skills/lean-ux-canvas/SKILL.md"
+        ],
+        "checklist_categories": []
+      }
+    }
+  ],
+  "stop_action": {
+    "id": "stop_after_closeout",
+    "kind": "stop",
+    "surface": "stop",
+    "invocation": null,
+    "label": "Stop here",
+    "description": "Do not advance yet. Keep the current artifacts as-is and decide on the next step later.",
+    "recommended": false,
+    "visibility_reason": "Always available as the minimal non-advancing choice after a completed stage.",
+    "why_this_skill": null,
+    "evidence_signal": null
+  },
+  "project_setup_gaps": [],
+  "hidden_compat_aliases": [
+    "/office-hours",
+    "/autoplan",
+    "/plan-ceo-review",
+    "/plan-eng-review"
+  ],
+  "hidden_utility_skills": [
+    "/careful",
+    "/freeze",
+    "/guard",
+    "/unfreeze",
+    "/nexus-upgrade"
+  ],
+  "suppressed_surfaces": [
+    "/office-hours",
+    "/autoplan",
+    "/plan-ceo-review",
+    "/plan-eng-review",
+    "/careful",
+    "/freeze",
+    "/guard",
+    "/unfreeze",
+    "/nexus-upgrade"
+  ]
+}

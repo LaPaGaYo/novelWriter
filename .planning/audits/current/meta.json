@@ -1,0 +1,125 @@
+{
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "review_attempt_id": "review-2026-04-27T06-23-52-791Z",
+  "execution_mode": "local_provider",
+  "primary_provider": "claude",
+  "provider_topology": "single_agent",
+  "workspace": {
+    "path": "/Users/henry/Documents/novelWriter/.nexus-worktrees/run-2026-04-26T08-32-35-381Z",
+    "kind": "worktree",
+    "branch": "codex/run-2026-04-26T08-32-35-381Z",
+    "source": "allocated:fresh_run",
+    "run_id": "run-2026-04-26T08-32-35-381Z",
+    "retirement_state": "active"
+  },
+  "implementation_provider": "claude",
+  "implementation_path": ".planning/current/build/build-result.md",
+  "implementation_route": "claude-local-single_agent",
+  "implementation_substrate": "superpowers-core",
+  "implementation": {
+    "path": ".planning/current/build/build-result.md",
+    "requested_route": {
+      "command": "build",
+      "governed": false,
+      "execution_mode": "local_provider",
+      "primary_provider": "claude",
+      "provider_topology": "single_agent",
+      "planner": "claude+pm-gsd",
+      "generator": "claude-local-single_agent",
+      "evaluator_a": "claude-local-single_agent-audit-a",
+      "evaluator_b": "claude-local-single_agent-audit-b",
+      "synthesizer": "claude",
+      "substrate": "superpowers-core",
+      "transport": "local",
+      "fallback_policy": "disabled"
+    },
+    "actual_route": {
+      "provider": "claude",
+      "route": "claude-local-single_agent",
+      "substrate": "superpowers-core",
+      "transport": "local",
+      "receipt_path": ".planning/current/build/adapter-output.json"
+    }
+  },
+  "audits": {
+    "codex": {
+      "provider": "claude",
+      "path": ".planning/audits/current/codex.md",
+      "requested_route": {
+        "provider": "claude",
+        "route": "claude-local-single_agent-audit-a",
+        "substrate": "superpowers-core",
+        "transport": "local"
+      },
+      "actual_route": {
+        "provider": "claude",
+        "route": "claude-local-single_agent-audit-a",
+        "substrate": "superpowers-core",
+        "transport": "local",
+        "receipt_path": ".planning/current/review/adapter-output.json"
+      },
+      "request_id": null,
+      "receipt": "local-review-a-claude-2026-04-27T06-27-54-314Z",
+      "receipt_markdown_path": ".planning/current/review/attempts/review-2026-04-27T06-23-52-791Z/codex.md",
+      "receipt_record_path": ".planning/current/review/attempts/review-2026-04-27T06-23-52-791Z/codex.json"
+    },
+    "gemini": {
+      "provider": "claude",
+      "path": ".planning/audits/current/gemini.md",
+      "requested_route": {
+        "provider": "claude",
+        "route": "claude-local-single_agent-audit-b",
+        "substrate": "superpowers-core",
+        "transport": "local"
+      },
+      "actual_route": {
+        "provider": "claude",
+        "route": "claude-local-single_agent-audit-b",
+        "substrate": "superpowers-core",
+        "transport": "local",
+        "receipt_path": ".planning/current/review/adapter-output.json"
+      },
+      "request_id": null,
+      "receipt": "local-review-b-claude-2026-04-27T06-26-37-456Z",
+      "receipt_markdown_path": ".planning/current/review/attempts/review-2026-04-27T06-23-52-791Z/gemini.md",
+      "receipt_record_path": ".planning/current/review/attempts/review-2026-04-27T06-23-52-791Z/gemini.json"
+    }
+  },
+  "review_discipline": {
+    "adapter": "superpowers",
+    "summary": "Nexus-owned review guidance for governed dual-audit completion, synthesis, and explicit gate state.; run dual audits through Nexus-owned review completion; verify implementation and audit provenance consistency; synthesize the audit set and record the gate decision; Advance to `/qa`, `/ship`, or `/closeout` only through Nexus-authored review completion state. Superpowers review discipline and CCB dual-audit transport remain subordinate runtime seams and never own lifecycle authority."
+  },
+  "codex_audit": {
+    "provider": "claude",
+    "path": ".planning/audits/current/codex.md",
+    "route": "claude-local-single_agent-audit-a",
+    "substrate": "superpowers-core",
+    "receipt_markdown_path": ".planning/current/review/attempts/review-2026-04-27T06-23-52-791Z/codex.md",
+    "receipt_record_path": ".planning/current/review/attempts/review-2026-04-27T06-23-52-791Z/codex.json"
+  },
+  "gemini_audit": {
+    "provider": "claude",
+    "path": ".planning/audits/current/gemini.md",
+    "route": "claude-local-single_agent-audit-b",
+    "substrate": "superpowers-core",
+    "receipt_markdown_path": ".planning/current/review/attempts/review-2026-04-27T06-23-52-791Z/gemini.md",
+    "receipt_record_path": ".planning/current/review/attempts/review-2026-04-27T06-23-52-791Z/gemini.json"
+  },
+  "pm_skill": "frame",
+  "execution_skill_chain": [
+    "plan",
+    "handoff",
+    "build",
+    "review"
+  ],
+  "lifecycle_stage": "review",
+  "handoff_from": ".planning/current/handoff/governed-handoff.md",
+  "handoff_to": ".planning/audits/current/",
+  "review_scope": {
+    "mode": "full_acceptance",
+    "source_stage": "plan",
+    "blocking_items": [],
+    "advisory_policy": "out_of_scope_advisory"
+  },
+  "local_persona_review": null
+}

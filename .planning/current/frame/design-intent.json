@@ -1,0 +1,23 @@
+{
+  "impact": "high",
+  "affected_surfaces": [
+    "preferences-ai-panel",
+    "status-bar-ai-widget",
+    "project-shell-tabs",
+    "marginalia-rail-primitive",
+    "ai-tab-empty-state",
+    "gemini-oauth-flow"
+  ],
+  "design_system_source": "DESIGN.md",
+  "contract_required": true,
+  "verification_required": true,
+  "recommended_review_path": "design-consultation",
+  "design_consultation_scope": [
+    "four-tab top-level IA component (tab-bar)",
+    "marginalia-rail empty-state component",
+    "auth-flow state machine component (idle, pending, error, signed-in)"
+  ],
+  "design_md_amendments_required": true,
+  "rationale": "S2 introduces the first multi-surface design work in the fork: four-tab IA, marginalia rail primitive (structural geometry per DESIGN.md), and Gemini OAuth UX flow. /plan-design-review (used for S1) is undersized for IA. /design-consultation is the formal vehicle for DESIGN.md component amendments. Must run in parallel with WS-1 finish, not sequentially.",
+  "schema_version": 1
+}

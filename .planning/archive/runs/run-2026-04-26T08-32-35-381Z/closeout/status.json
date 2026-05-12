@@ -1,0 +1,80 @@
+{
+  "run_id": "run-2026-04-26T08-32-35-381Z",
+  "stage": "closeout",
+  "execution_mode": "local_provider",
+  "primary_provider": "claude",
+  "provider_topology": "single_agent",
+  "workspace": {
+    "path": "/Users/henry/Documents/novelWriter/.nexus-worktrees/run-2026-04-26T08-32-35-381Z",
+    "kind": "worktree",
+    "branch": "codex/run-2026-04-26T08-32-35-381Z",
+    "source": "allocated:fresh_run",
+    "run_id": "run-2026-04-26T08-32-35-381Z",
+    "retirement_state": "retained"
+  },
+  "session_root": {
+    "path": "/Users/henry",
+    "kind": "repo_root",
+    "source": "ccb_root"
+  },
+  "requested_execution_path": "claude-local-single_agent",
+  "actual_execution_path": "claude-local-single_agent",
+  "state": "completed",
+  "decision": "closeout_recorded",
+  "ready": true,
+  "inputs": [
+    {
+      "kind": "json",
+      "path": ".planning/current/review/status.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/qa/status.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/ship/status.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/audits/current/meta.json"
+    }
+  ],
+  "outputs": [
+    {
+      "kind": "markdown",
+      "path": ".planning/current/closeout/CLOSEOUT-RECORD.md"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/current/closeout/FOLLOW-ON-SUMMARY.md"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/closeout/follow-on-summary.json"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/current/closeout/NEXT-RUN.md"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/closeout/next-run-bootstrap.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/closeout/completion-advisor.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/closeout/status.json"
+    }
+  ],
+  "started_at": "2026-04-27T07:47:59.992Z",
+  "completed_at": "2026-04-27T07:47:59.992Z",
+  "errors": [],
+  "learnings_recorded": false,
+  "archive_required": true,
+  "archive_state": "archived",
+  "provenance_consistent": true
+}

@@ -1,0 +1,14 @@
+{
+  "run_id": "run-2026-05-12T01-45-20-695Z",
+  "inputs": [
+    "docs/product/idea-brief.md"
+  ],
+  "adapter": "pm",
+  "stage": "frame",
+  "contract_outputs": [
+    "docs/product/decision-brief.md",
+    "docs/product/prd.md",
+    ".planning/current/frame/design-intent.json",
+    ".planning/current/frame/status.json"
+  ]
+}

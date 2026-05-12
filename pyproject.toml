@@ -3,9 +3,11 @@ requires = ["setuptools>=77.0.3"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "novelWriter"
-authors = [{ name = "Veronica Berglyd Olsen", email = "code@vkbo.net" }]
-description = "A plain text editor for planning and writing novels"
+name = "plotwright"
+authors = [
+    { name = "plotwright contributors" },
+]
+description = "An AI-assisted workbench for genre-fiction plotters. A private GPL-3 fork of novelWriter (vkbo/novelWriter) by Veronica Berglyd Olsen."
 readme = { file = "setup/description_pypi.md", content-type = "text/markdown" }
 license = "GPL-3.0-or-later AND Apache-2.0 AND CC-BY-4.0 AND ISC"
 license-files = ["LICENSE.md", "setup/LICENSE-Apache-2.0.txt"]
@@ -52,13 +54,12 @@ test = ["coverage>=7.2.0", "pytest-qt", "pytest-timeout", "pytest>=6.0.0"]
 lint = ["isort", "pyright", "ruff~=0.15.0"]
 
 [project.urls]
-Homepage = "https://novelwriter.io"
-Documentation = "https://docs.novelwriter.io"
-Repository = "https://github.com/vkbo/novelWriter"
-Issues = "https://github.com/vkbo/novelWriter/issues"
+"Upstream Homepage" = "https://novelwriter.io"
+"Upstream Documentation" = "https://docs.novelwriter.io"
+"Upstream Repository" = "https://github.com/vkbo/novelWriter"
 
 [project.gui-scripts]
-novelwriter = "novelwriter:main"
+plotwright = "novelwriter:main"
 
 [tool.setuptools.dynamic]
 version = { attr = "novelwriter.__init__.__version__" }
