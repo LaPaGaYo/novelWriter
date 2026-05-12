@@ -1,0 +1,365 @@
+{
+  "schema_version": 1,
+  "run_id": "run-2026-05-12T01-45-20-695Z",
+  "generated_at": "2026-05-12T13:49:19.314Z",
+  "design_impact": "high",
+  "verification_required": true,
+  "obligations": {
+    "build": {
+      "owner_stage": "build",
+      "required": true,
+      "gate_affecting": true,
+      "expected_artifacts": [
+        ".planning/current/build/build-result.md",
+        ".planning/current/build/status.json"
+      ]
+    },
+    "review": {
+      "owner_stage": "review",
+      "required": true,
+      "gate_affecting": true,
+      "mode": "full_acceptance",
+      "expected_artifacts": [
+        ".planning/audits/current/codex.md",
+        ".planning/audits/current/gemini.md",
+        ".planning/audits/current/synthesis.md",
+        ".planning/audits/current/gate-decision.md",
+        ".planning/audits/current/meta.json",
+        ".planning/current/review/status.json"
+      ]
+    },
+    "qa": {
+      "owner_stage": "qa",
+      "required": true,
+      "gate_affecting": true,
+      "design_verification_required": true,
+      "expected_artifacts": [
+        ".planning/current/qa/qa-report.md",
+        ".planning/current/qa/status.json"
+      ]
+    },
+    "ship": {
+      "owner_stage": "ship",
+      "required": true,
+      "gate_affecting": true,
+      "deploy_readiness_required": true,
+      "expected_artifacts": [
+        ".planning/current/ship/release-gate-record.md",
+        ".planning/current/ship/checklist.json",
+        ".planning/current/ship/deploy-readiness.json",
+        ".planning/current/ship/pull-request.json",
+        ".planning/current/ship/status.json"
+      ]
+    }
+  },
+  "attached_evidence": {
+    "benchmark": {
+      "supported": true,
+      "required": false
+    },
+    "canary": {
+      "supported": true,
+      "required": false
+    },
+    "qa_only": {
+      "supported": true,
+      "required": false
+    }
+  },
+  "checklists": {
+    "testing": {
+      "category": "testing",
+      "source_path": "review/specialists/testing.md",
+      "applies": true,
+      "rationale": "Testing checklist is always-on for negative paths, edge cases, isolation, and regression coverage.",
+      "triggers": [
+        "always_on"
+      ],
+      "support_surfaces": [
+        "/browse",
+        "/connect-chrome"
+      ]
+    },
+    "security": {
+      "category": "security",
+      "source_path": "review/specialists/security.md",
+      "applies": true,
+      "rationale": "Security checklist applies to auth, authorization, backend, webhook, secret, and trust-boundary changes.",
+      "triggers": [
+        "auth_surface",
+        "security_sensitive_surface"
+      ],
+      "support_surfaces": [
+        "/cso",
+        "/setup-browser-cookies"
+      ]
+    },
+    "maintainability": {
+      "category": "maintainability",
+      "source_path": "review/specialists/maintainability.md",
+      "applies": true,
+      "rationale": "Maintainability checklist is always-on for complexity, readability, and behavior-preserving cleanup.",
+      "triggers": [
+        "always_on"
+      ],
+      "support_surfaces": [
+        "/simplify"
+      ]
+    },
+    "performance": {
+      "category": "performance",
+      "source_path": "review/specialists/performance.md",
+      "applies": false,
+      "rationale": "Performance checklist applies to frontend or backend execution paths where rendering, query, bundle, or latency regressions are plausible.",
+      "triggers": [],
+      "support_surfaces": [
+        "/benchmark"
+      ]
+    },
+    "accessibility": {
+      "category": "accessibility",
+      "source_path": "review/design-checklist.md",
+      "applies": true,
+      "rationale": "Accessibility checklist applies to S2's OAuth consent flow, the AI Preferences panel keyboard activation (setBuddy / accessibleName / Enter+Space on the status-bar widget), and WS-4's four-tab IA keyboard navigation. Browser-facing UI is in scope via the Gemini sign-in handoff.",
+      "triggers": [
+        "browser_facing_ui",
+        "keyboard_focus",
+        "oauth_flow"
+      ],
+      "support_surfaces": [
+        "/browse",
+        "/connect-chrome",
+        "/setup-browser-cookies",
+        "/design-review"
+      ]
+    },
+    "design": {
+      "category": "design",
+      "source_path": "review/design-checklist.md",
+      "applies": true,
+      "rationale": "S2 ships first multi-surface design work: WS-4 four-tab top-level IA, marginalia rail primitive, status-bar pulse animation, AI Preferences panel layout, and the OAuth-flow state machine. DESIGN.md must be amended with three new component specs via /design-consultation, and a real design-contract.md is required before /handoff.",
+      "triggers": [
+        "design_bearing_ui",
+        "design_md_amendments_required"
+      ],
+      "support_surfaces": [
+        "/design-review",
+        "/plan-design-review"
+      ]
+    }
+  },
+  "support_skill_signals": {
+    "design_review": {
+      "suggested": true,
+      "reason": "S2 ships first multi-surface design work (WS-4: four-tab IA + marginalia rail primitive + Gemini OAuth flow). /design-consultation is the contract path.",
+      "checklist_rationale": [
+        {
+          "category": "design",
+          "source_path": "review/design-checklist.md",
+          "rationale": "S2 ships first multi-surface design work: WS-4 four-tab IA, marginalia rail primitive, status-bar pulse animation, AI Preferences panel, OAuth-flow state machine."
+        },
+        {
+          "category": "accessibility",
+          "source_path": "review/design-checklist.md",
+          "rationale": "OAuth browser handoff plus keyboard activation across the AI Preferences panel and four-tab IA require accessibility coverage."
+        }
+      ]
+    },
+    "browse": {
+      "suggested": false,
+      "reason": null,
+      "checklist_rationale": []
+    },
+    "benchmark": {
+      "suggested": false,
+      "reason": null,
+      "checklist_rationale": []
+    },
+    "simplify": {
+      "suggested": true,
+      "reason": "Maintainability review supports a behavior-preserving simplification pass when complexity advisories appear. Checklist-backed rationale: maintainability review/specialists/maintainability.md - Maintainability checklist is always-on for complexity, readability, and behavior-preserving cleanup.",
+      "checklist_rationale": [
+        {
+          "category": "maintainability",
+          "source_path": "review/specialists/maintainability.md",
+          "rationale": "Maintainability checklist is always-on for complexity, readability, and behavior-preserving cleanup."
+        }
+      ]
+    },
+    "cso": {
+      "suggested": true,
+      "reason": "Auth, permission, webhook, or security-sensitive surfaces changed, so `/cso` should be available. Checklist-backed rationale: security review/specialists/security.md - Security checklist applies to auth, authorization, backend, webhook, secret, and trust-boundary changes.",
+      "checklist_rationale": [
+        {
+          "category": "security",
+          "source_path": "review/specialists/security.md",
+          "rationale": "Security checklist applies to auth, authorization, backend, webhook, secret, and trust-boundary changes."
+        }
+      ]
+    },
+    "connect_chrome": {
+      "suggested": false,
+      "reason": null,
+      "checklist_rationale": []
+    },
+    "setup_browser_cookies": {
+      "suggested": false,
+      "reason": null,
+      "checklist_rationale": []
+    }
+  },
+  "s2_success_criteria": [
+    {
+      "id": "SC-1",
+      "summary": "Plotter Pat opens Preferences -> AI, sees master toggle off and three provider options (Ollama / Anthropic / Gemini).",
+      "owner_stage": "qa",
+      "evidence_artifact": "tests/test_ai/test_preferences_ai_panel.py + manual qa-report.md walkthrough screenshot",
+      "slip_indicator_day": 5,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-2",
+      "summary": "Sign in with Google in Preferences -> AI -> Gemini completes OAuth and status bar shows `AI: ready (gemini)`.",
+      "owner_stage": "qa",
+      "evidence_artifact": "tests/test_ai/test_oauth_flow.py + qa-report.md smoke screenshot of status bar",
+      "slip_indicator_day": 4,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-3",
+      "summary": "Toggle AI on for the rewrite feature flag (feature itself ships in S3). AIConfig schema bumped 1->2; forward-compat unknown-key tolerance verified.",
+      "owner_stage": "build",
+      "evidence_artifact": "tests/test_ai/test_config_persistence.py: per-feature opt-in round-trip + _SCHEMA_VERSION=2 assertion + unknown-key forward-compat test",
+      "slip_indicator_day": 3,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-4",
+      "summary": "Dry-run button returns a staged result via Gemini with a token estimate shown before the call; 20% accuracy bound holds.",
+      "owner_stage": "qa",
+      "evidence_artifact": "tests/test_ai/test_tokens_accuracy.py + manual smoke entry in qa-report.md",
+      "slip_indicator_day": 6,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-5",
+      "summary": "AI tab shows the EDITOR'S NOTES empty state with Design-specified copy, Foxing kind line, and left-aligned layout.",
+      "owner_stage": "review",
+      "evidence_artifact": ".planning/current/plan/design-contract.md cross-check + tests/test_gui/test_ai_tab_empty_state.py",
+      "slip_indicator_day": 7,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-6",
+      "summary": "Toggle AI off returns status bar to `AI: off` and the network goes silent.",
+      "owner_stage": "qa",
+      "evidence_artifact": "tests/test_ai/test_privacy.py (extended) + qa-report.md network-silence verification",
+      "slip_indicator_day": 8,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-7",
+      "summary": "test_privacy.py passes with three providers registered, AI off, and no SDK modules in sys.modules after import novelwriter.ai.",
+      "owner_stage": "review",
+      "evidence_artifact": "tests/test_ai/test_privacy.py (sys.modules assertion)",
+      "slip_indicator_day": 2,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-8",
+      "summary": "CI privacy assertion: no `import httpx` / `import requests` outside novelwriter/ai/transport.py.",
+      "owner_stage": "review",
+      "evidence_artifact": "CI lint rule + tests/test_ai/test_transport_isolation.py",
+      "slip_indicator_day": 2,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-9",
+      "summary": "Window title says plotwright; About dialog says 'About plotwright' with GPL-3 upstream attribution preserved; appHandle renamed (user-data dir migration not needed since rename ships before first fork release).",
+      "owner_stage": "ship",
+      "evidence_artifact": "tests/test_branding.py + release-gate-record.md screenshot + make i18n .pot diff committed in qa-report.md",
+      "slip_indicator_day": 1,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-10",
+      "summary": "Migrator Mira opens existing project; four tabs visible; AI off by default; appHandle already renamed so no migration burden.",
+      "owner_stage": "qa",
+      "evidence_artifact": "tests/test_migration/test_existing_project_open.py + qa-report.md walkthrough",
+      "slip_indicator_day": 7,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-11",
+      "summary": "test_oauth_flow.py passes (PKCE handshake + refresh-token round-trip + revoke-on-disable + state-parameter CSRF check).",
+      "owner_stage": "build",
+      "evidence_artifact": "tests/test_ai/test_oauth_flow.py",
+      "slip_indicator_day": 4,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-12",
+      "summary": "test_tokens_accuracy.py passes against the committed corpus at the 20% accuracy bound.",
+      "owner_stage": "build",
+      "evidence_artifact": "tests/test_ai/test_tokens_accuracy.py + tests/fixtures/token_corpus/",
+      "slip_indicator_day": 6,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-13",
+      "summary": "test_provider_contract.py passes parametrized over Mock + Ollama + Anthropic + Gemini.",
+      "owner_stage": "build",
+      "evidence_artifact": "tests/test_ai/test_provider_contract.py (httpx.MockTransport)",
+      "slip_indicator_day": 5,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-14",
+      "summary": "test_auth_strategies.py passes (NoAuth / ApiKeyAuth / OAuthCreds behavior in isolation).",
+      "owner_stage": "build",
+      "evidence_artifact": "tests/test_ai/test_auth_strategies.py",
+      "slip_indicator_day": 3,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-15",
+      "summary": "test_keychain_oauth.py passes (JSON-blob round-trip through OSKeyChainStore via FakeKeyStore).",
+      "owner_stage": "build",
+      "evidence_artifact": "tests/test_ai/test_keychain_oauth.py",
+      "slip_indicator_day": 4,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-16",
+      "summary": "test_provider_construction_offline.py passes (every cloud provider constructs inside network_sentinel without socket activity).",
+      "owner_stage": "build",
+      "evidence_artifact": "tests/test_ai/test_provider_construction_offline.py",
+      "slip_indicator_day": 5,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-17",
+      "summary": "Manual smoke: real Anthropic + Gemini calls work end-to-end with real keys; staging produces a usable StagedRewrite.",
+      "owner_stage": "qa",
+      "evidence_artifact": "qa-report.md smoke section + ship/deploy-readiness.json sign-off",
+      "slip_indicator_day": 8,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-18",
+      "summary": "Real design-contract.md exists for WS-4 surfaces; DESIGN.md extended with the three new component specs (four-tab IA, marginalia-rail empty state, auth-flow state machine).",
+      "owner_stage": "review",
+      "evidence_artifact": ".planning/current/plan/design-contract.md + DESIGN.md amendments via /design-consultation",
+      "slip_indicator_day": 6,
+      "gate_blocking": true
+    },
+    {
+      "id": "SC-19",
+      "summary": "Keyboard accessibility: Cmd/Ctrl+1..4 cycles the four-tab IA; status-bar AI widget Enter/Space activates Preferences; AI Preferences panel sets accessibleName for every QComboBox and QPushButton; Sign in with Google button has tab order after radio group and visible focus ring.",
+      "owner_stage": "qa",
+      "evidence_artifact": "tests/test_gui/test_keyboard_a11y.py + qa-report.md keyboard walkthrough section",
+      "slip_indicator_day": 7,
+      "gate_blocking": true
+    }
+  ]
+}

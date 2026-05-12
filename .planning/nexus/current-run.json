@@ -2,11 +2,11 @@
   "run_id": "run-2026-05-12T01-45-20-695Z",
   "continuation_mode": "phase",
   "status": "active",
-  "current_command": "frame",
-  "current_stage": "frame",
-  "previous_stage": "discover",
+  "current_command": "plan",
+  "current_stage": "plan",
+  "previous_stage": "frame",
   "allowed_next_stages": [
-    "plan"
+    "handoff"
   ],
   "command_history": [
     {
@@ -17,6 +17,11 @@
     {
       "command": "frame",
       "at": "2026-05-12T13:21:48.427Z",
+      "via": null
+    },
+    {
+      "command": "plan",
+      "at": "2026-05-12T13:49:19.314Z",
       "via": null
     }
   ],
@@ -64,6 +69,26 @@
     ".planning/current/frame/status.json": {
       "kind": "json",
       "path": ".planning/current/frame/status.json"
+    },
+    ".planning/current/plan/execution-readiness-packet.md": {
+      "kind": "markdown",
+      "path": ".planning/current/plan/execution-readiness-packet.md"
+    },
+    ".planning/current/plan/sprint-contract.md": {
+      "kind": "markdown",
+      "path": ".planning/current/plan/sprint-contract.md"
+    },
+    ".planning/current/plan/verification-matrix.json": {
+      "kind": "json",
+      "path": ".planning/current/plan/verification-matrix.json"
+    },
+    ".planning/current/plan/completion-advisor.json": {
+      "kind": "json",
+      "path": ".planning/current/plan/completion-advisor.json"
+    },
+    ".planning/current/plan/status.json": {
+      "kind": "json",
+      "path": ".planning/current/plan/status.json"
     }
   },
   "execution": {

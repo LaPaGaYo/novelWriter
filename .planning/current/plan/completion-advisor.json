@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "run_id": "run-2026-05-12T01-45-20-695Z",
+  "stage": "plan",
+  "generated_at": "2026-05-12T13:49:19.314Z",
+  "stage_outcome": "ready",
+  "interaction_mode": "recommended_choice",
+  "summary": "Planning is complete. Governed routing is the next canonical step.",
+  "requires_user_choice": false,
+  "choice_reason": null,
+  "default_action_id": "run_handoff",
+  "primary_next_actions": [
+    {
+      "id": "run_handoff",
+      "kind": "canonical_stage",
+      "surface": "/handoff",
+      "invocation": "/handoff",
+      "label": "Run `/handoff`",
+      "description": "Freeze governed routing and provider intent before bounded execution.",
+      "recommended": true,
+      "visibility_reason": "Planning is complete and governed handoff is the canonical next lifecycle step.",
+      "why_this_skill": null,
+      "evidence_signal": null
+    }
+  ],
+  "alternative_next_actions": [],
+  "recommended_side_skills": [],
+  "recommended_external_skills": [
+    {
+      "id": "run_external_user_story_splitting",
+      "kind": "external_installed_skill",
+      "surface": "/user-story-splitting",
+      "invocation": "/user-story-splitting",
+      "label": "Run installed skill `/user-story-splitting`",
+      "description": "Break down large user stories, epics, or features into smaller, independently deliverable stories using systematic splitting patterns. Use this to make work more manageable, reduce risk, enable faster",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /plan because it is tagged architecture, stories, breakdown, risk.",
+      "why_this_skill": "Use this because the installed skill matches architecture, stories, breakdown, risk context for /plan.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: architecture, stories, breakdown, risk.",
+        "source_paths": [
+          "/Users/henry/.claude/skills/user-story-splitting/SKILL.md"
+        ],
+        "checklist_categories": []
+      }
+    },
+    {
+      "id": "run_external_user_story_mapping_workshop",
+      "kind": "external_installed_skill",
+      "surface": "/user-story-mapping-workshop",
+      "invocation": "/user-story-mapping-workshop",
+      "label": "Run installed skill `/user-story-mapping-workshop`",
+      "description": "Guide product managers through creating a user story map by asking adaptive questions about the system, users, workflow, and priorities—then generating a two-dimensional map with backbone (activitie",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /plan because it is tagged planning, architecture, stories.",
+      "why_this_skill": "Use this because the installed skill matches planning, architecture, stories context for /plan.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: planning, architecture, stories.",
+        "source_paths": [
+          "/Users/henry/.claude/skills/user-story-mapping-workshop/SKILL.md"
+        ],
+        "checklist_categories": []
+      }
+    },
+    {
+      "id": "run_external_context_engineering_advisor",
+      "kind": "external_installed_skill",
+      "surface": "/context-engineering-advisor",
+      "invocation": "/context-engineering-advisor",
+      "label": "Run installed skill `/context-engineering-advisor`",
+      "description": "Diagnose context stuffing vs. context engineering. Assess practices, define boundaries, and advise on memory architecture, retrieval, and the Research→Plan→Reset→Implement cycle.",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /plan because it is tagged planning, architecture.",
+      "why_this_skill": "Use this because the installed skill matches planning, architecture context for /plan.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: planning, architecture.",
+        "source_paths": [
+          "/Users/henry/.claude/skills/context-engineering-advisor/SKILL.md"
+        ],
+        "checklist_categories": []
+      }
+    }
+  ],
+  "stop_action": {
+    "id": "stop_after_plan",
+    "kind": "stop",
+    "surface": "stop",
+    "invocation": null,
+    "label": "Stop here",
+    "description": "Do not advance yet. Keep the current artifacts as-is and decide on the next step later.",
+    "recommended": false,
+    "visibility_reason": "Always available as the minimal non-advancing choice after a completed stage.",
+    "why_this_skill": null,
+    "evidence_signal": null
+  },
+  "project_setup_gaps": [],
+  "hidden_compat_aliases": [
+    "/office-hours",
+    "/autoplan",
+    "/plan-ceo-review",
+    "/plan-eng-review"
+  ],
+  "hidden_utility_skills": [
+    "/careful",
+    "/freeze",
+    "/guard",
+    "/unfreeze",
+    "/nexus-upgrade"
+  ],
+  "suppressed_surfaces": [
+    "/office-hours",
+    "/autoplan",
+    "/plan-ceo-review",
+    "/plan-eng-review",
+    "/careful",
+    "/freeze",
+    "/guard",
+    "/unfreeze",
+    "/nexus-upgrade"
+  ]
+}
