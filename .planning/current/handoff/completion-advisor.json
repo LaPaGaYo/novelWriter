@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "run_id": "run-2026-05-12T01-45-20-695Z",
+  "stage": "handoff",
+  "generated_at": "2026-05-12T14:07:13.109Z",
+  "stage_outcome": "ready",
+  "interaction_mode": "summary_only",
+  "summary": "Governed handoff is complete. Bounded implementation is the next step.",
+  "requires_user_choice": false,
+  "choice_reason": null,
+  "default_action_id": "run_build",
+  "primary_next_actions": [
+    {
+      "id": "run_build",
+      "kind": "canonical_stage",
+      "surface": "/build",
+      "invocation": "/build",
+      "label": "Run `/build`",
+      "description": "Execute the bounded governed implementation contract.",
+      "recommended": true,
+      "visibility_reason": "Governed handoff is complete and build is the canonical continuation.",
+      "why_this_skill": null,
+      "evidence_signal": null
+    }
+  ],
+  "alternative_next_actions": [],
+  "recommended_side_skills": [],
+  "recommended_external_skills": [],
+  "stop_action": null,
+  "project_setup_gaps": [],
+  "hidden_compat_aliases": [
+    "/office-hours",
+    "/autoplan",
+    "/plan-ceo-review",
+    "/plan-eng-review"
+  ],
+  "hidden_utility_skills": [
+    "/careful",
+    "/freeze",
+    "/guard",
+    "/unfreeze",
+    "/nexus-upgrade"
+  ],
+  "suppressed_surfaces": [
+    "/office-hours",
+    "/autoplan",
+    "/plan-ceo-review",
+    "/plan-eng-review",
+    "/careful",
+    "/freeze",
+    "/guard",
+    "/unfreeze",
+    "/nexus-upgrade"
+  ]
+}

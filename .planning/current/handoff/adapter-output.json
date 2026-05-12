@@ -1,0 +1,40 @@
+{
+  "adapter_id": "local",
+  "outcome": "success",
+  "raw_output": {
+    "available": true,
+    "provider": "claude",
+    "topology": "single_agent",
+    "verification_command": "which claude",
+    "verification_output": "/Users/henry/.local/bin/claude"
+  },
+  "requested_route": {
+    "command": "build",
+    "governed": false,
+    "execution_mode": "local_provider",
+    "primary_provider": "claude",
+    "provider_topology": "single_agent",
+    "planner": "claude+pm-gsd",
+    "generator": "claude-local-single_agent",
+    "evaluator_a": "claude-local-single_agent-audit-a",
+    "evaluator_b": "claude-local-single_agent-audit-b",
+    "synthesizer": "claude",
+    "substrate": "superpowers-core",
+    "transport": "local",
+    "fallback_policy": "disabled"
+  },
+  "actual_route": {
+    "provider": "claude",
+    "route": "claude-local-single_agent",
+    "substrate": "superpowers-core",
+    "transport": "local",
+    "receipt_path": ".planning/current/handoff/adapter-output.json"
+  },
+  "notices": [],
+  "conflict_candidates": [],
+  "traceability": {
+    "nexus_stage_pack": "nexus-build-pack",
+    "absorbed_capability": "local-provider-routing",
+    "source_map": []
+  }
+}

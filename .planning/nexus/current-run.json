@@ -2,11 +2,12 @@
   "run_id": "run-2026-05-12T01-45-20-695Z",
   "continuation_mode": "phase",
   "status": "active",
-  "current_command": "plan",
-  "current_stage": "plan",
-  "previous_stage": "frame",
+  "current_command": "handoff",
+  "current_stage": "handoff",
+  "previous_stage": "plan",
   "allowed_next_stages": [
-    "handoff"
+    "handoff",
+    "build"
   ],
   "command_history": [
     {
@@ -22,6 +23,11 @@
     {
       "command": "plan",
       "at": "2026-05-12T13:49:19.314Z",
+      "via": null
+    },
+    {
+      "command": "handoff",
+      "at": "2026-05-12T14:07:13.109Z",
       "via": null
     }
   ],
@@ -89,6 +95,22 @@
     ".planning/current/plan/status.json": {
       "kind": "json",
       "path": ".planning/current/plan/status.json"
+    },
+    ".planning/current/handoff/governed-execution-routing.md": {
+      "kind": "markdown",
+      "path": ".planning/current/handoff/governed-execution-routing.md"
+    },
+    ".planning/current/handoff/governed-handoff.md": {
+      "kind": "markdown",
+      "path": ".planning/current/handoff/governed-handoff.md"
+    },
+    ".planning/current/handoff/completion-advisor.json": {
+      "kind": "json",
+      "path": ".planning/current/handoff/completion-advisor.json"
+    },
+    ".planning/current/handoff/status.json": {
+      "kind": "json",
+      "path": ".planning/current/handoff/status.json"
     }
   },
   "execution": {
@@ -112,12 +134,36 @@
     "actual_path": null
   },
   "route_intent": {
-    "planner": null,
-    "generator": null,
-    "evaluator_a": null,
-    "evaluator_b": null,
-    "synthesizer": null,
-    "substrate": null,
+    "planner": "claude+pm-gsd",
+    "generator": "claude-local-single_agent",
+    "evaluator_a": "claude-local-single_agent-audit-a",
+    "evaluator_b": "claude-local-single_agent-audit-b",
+    "synthesizer": "claude",
+    "substrate": "superpowers-core",
     "fallback_policy": "disabled"
+  },
+  "route_check": {
+    "checked_at": "2026-05-12T14:07:13.109Z",
+    "requested_route": {
+      "command": "build",
+      "governed": false,
+      "execution_mode": "local_provider",
+      "primary_provider": "claude",
+      "provider_topology": "single_agent",
+      "planner": "claude+pm-gsd",
+      "generator": "claude-local-single_agent",
+      "evaluator_a": "claude-local-single_agent-audit-a",
+      "evaluator_b": "claude-local-single_agent-audit-b",
+      "synthesizer": "claude",
+      "substrate": "superpowers-core",
+      "transport": "local",
+      "fallback_policy": "disabled"
+    },
+    "route_validation": {
+      "transport": "local",
+      "available": true,
+      "approved": true,
+      "reason": "Nexus approved the requested local provider route"
+    }
   }
 }
