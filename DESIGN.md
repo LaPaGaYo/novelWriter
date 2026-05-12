@@ -180,10 +180,17 @@ token for dark.
 - Right: chapter/scene location, word counts, AI state.
 - AI state pattern: dot + label.
   - `● AI: off` (Foxing color, dot Foxing)
-  - `● AI: ready (local)` (Hooker's Green dot, label Foxing)
-  - `● AI: ready (cloud)` (Hooker's Green dot, label Foxing)
-  - `● AI: working...` (Vermilion dot pulsing 1Hz, label Foxing)
-- Click on the AI state opens the AI Preferences pane.
+  - `● AI: ready (provider)` (Hooker's Green dot, label Foxing) — provider name is
+    lowercase, no model name, no version: `(ollama)`, `(anthropic)`, `(gemini)`. When
+    multiple features use different providers: `(mixed)`.
+  - `● AI: working...` (Vermilion dot pulsing 1Hz via `QPropertyAnimation` on opacity
+    0.4 ↔ 1.0 ease-in-out, label Foxing)
+  - `● AI: error (provider)` (Error `#7A2222` dot — NOT Vermilion; error semantic, not
+    AI-activity semantic; label Foxing)
+- Click on the AI state opens the AI Preferences pane focused on the relevant section.
+- Hover tooltip uses Qt-default style (no custom popup). Content varies by state.
+- Keyboard reachable: `setFocusPolicy(Qt.FocusPolicy.TabFocus)`, Enter/Space activates,
+  `accessibleName="AI status. Press Enter to configure."`
 
 ### Marginalia entry
 
@@ -209,6 +216,92 @@ token for dark.
 - Selection: Hooker's Green background, Cotton text.
 - AI inline marker: wavy Vermilion underline 1.5px, 4px underline-offset, cursor pointer.
   Click opens the corresponding marginalia entry.
+
+### Tab bar (top-level IA, S2)
+
+- Four tabs at the top of the main window, below menu, above content: **Outline /
+  Manuscript / Notes / AI**. Cmd/Ctrl+1..4 shortcuts wired.
+- Plain-text labels only. No icons, no badges, no "✨ AI". Title case.
+- Type: IBM Plex Sans 13px / 500 / Ink.
+- Cells: 8px vertical / 16px horizontal padding, abutting (no gap).
+- Active-tab indicator: **2px Hooker's Green underline** 2px below the baseline. The
+  underline does the whole job. No background-color change between states.
+- Hover: 1px Foxing underline at the same baseline.
+- Focus (keyboard): 1px Hooker's Green outline at 2px offset around the cell.
+- Bottom border of the tab bar: 1px Foxing across full width, broken by the active
+  underline.
+- No motion on tab switch. Tabs are navigation, not narrative.
+
+### Marginalia rail empty-state (S2)
+
+- The 280-320px right column (use 300px) on Vellum surface, 1px Foxing left divider.
+- Empty state has three top-aligned text blocks, left-aligned (NEVER centered):
+  1. Kind line: `EDITOR'S NOTES` — IBM Plex Mono 10px uppercase, **Foxing** (NOT
+     Vermilion — empty state has no AI activity). 0.1em tracking. 24px from top, 20px
+     left padding.
+  2. Body: Source Serif 4 14px italic Ink, copy = "No notes yet. When you ask the AI
+     to review a passage, its observations land here as marginalia, alongside the
+     manuscript, never on top of it." 16px below kind line.
+  3. Caption: IBM Plex Mono 11px Foxing, copy = "Inline rewrite arrives in the next
+     release. Consistency check follows." 24px below body.
+- No illustration, no CTA button, no "create your first entry" affordance.
+- When populated (S3+), the rail renders Marginalia entries per the existing component
+  spec, which IS where Vermilion appears.
+
+### Auth flow (Gemini OAuth, S2)
+
+Lives in `Preferences → AI → Gemini` when "Sign in with Google" radio is selected.
+Four states. **Vermilion never appears in this flow.** Authentication is chrome, not
+AI activity.
+
+- **IDLE (signed out):** Secondary button "Sign in with Google" (transparent, 1px
+  Foxing border, Ink label, 2px radius). Helper text below in Foxing 11px. Plain text
+  label only — no Google branded artwork.
+- **PENDING (browser opened):** Button transforms in place to "Waiting for browser..."
+  with Hooker's Green border. Below: 1px Hooker's Green progress strip, indeterminate
+  animation (no spinner per the motion rule). "Cancel" tertiary action right of the
+  button. Helper text becomes "Approve access in your browser. We'll keep waiting. If
+  you closed the tab, click here to retry."
+- **SIGNED IN:** Replace button with row: `● user@gmail.com [ Sign out ]`. Green dot
+  (Hooker's Green) before the email. Email in IBM Plex Mono 11px Foxing (data role).
+  Sign out is Secondary chrome, right-aligned. Status line below: "Signed in. Token
+  refreshes automatically."
+- **ERROR:** Button reverts to IDLE chrome. Helper text becomes 11px Error `#7A2222`
+  (NOT Vermilion). Three sub-cases: network error, user cancelled, auth failed. Tone
+  is matter-of-fact. No modal. No toast.
+
+State transitions: IDLE → PENDING (user clicks Sign in); PENDING → SIGNED IN (callback
+delivers valid code); PENDING → ERROR or IDLE (cancel or failure); SIGNED IN → IDLE
+(user clicks Sign out, which revokes); SIGNED IN → ERROR (background refresh fails);
+ERROR → PENDING (user retries).
+
+Disabled state when "API key" radio is selected: button disabled (NOT hidden) — Foxing
+text on Cotton, no border.
+
+### AI Preferences panel (S2)
+
+`Preferences → AI` pane. Comfortable density (24-32px padding, 1.5 line-height). Max
+720px wide.
+
+Structure (top to bottom):
+
+1. Header — "AI features" (IBM Plex Sans 14px / 600 / Ink). Subhead: "Off until you
+   say otherwise." (Source Serif 4 14px italic Foxing).
+2. Per-project opt-in — master toggle "Enable AI for this project".
+3. Features — per-feature toggles ("Inline rewrite", "Consistency check"). Disabled
+   until master is on. Each feature has a provider dropdown next to it.
+4. Providers — collapsible rows for Ollama, Anthropic, Gemini. Expand on click to
+   reveal per-provider auth fields. Gemini additionally shows the OAuth radio + flow
+   described above.
+5. Privacy — copy block restating the privacy posture: "Off until you say otherwise.
+   Each feature is opt-in per project. Token estimates appear before every cloud
+   call. No prompts or outputs are logged to disk unless you enable the debug log."
+
+Zero vermilion in the pane. Provider-ready uses Hooker's Green. Provider-error uses
+Error `#7A2222`.
+
+`setBuddy` wires every QLabel to its QLineEdit / QComboBox for click-to-focus.
+Every input sets `accessibleName` matching the visible label.
 
 ## i18n
 
@@ -247,6 +340,11 @@ break.
 - No stock-photo hero shots in marketing surfaces (About dialog, README hero).
 - No decorative blobs, waves, or "abstract shapes" for visual padding.
 - No centered everything. Asymmetry is the default.
+- No Google (or any provider) branded button artwork. Plain text labels only on auth
+  affordances. Google's branding guidelines permit unmodified artwork; the design
+  system disallows it.
+- No success modals on auth flow completion. The signed-in row IS the confirmation.
+  No "✅ Connected!", no celebratory toast.
 
 ## Decisions Log
 
@@ -258,6 +356,13 @@ break.
 | 2026-04-26 | Vermilion locked as AI-exclusive | Justifies the fork's "opposite of AI slop" positioning at first glance |
 | 2026-04-26 | Manuscript theme canonical, dark secondary | One-second visual differentiation from Obsidian/iA Writer/upstream novelWriter |
 | 2026-04-26 | Codex outside voice unavailable | `gpt-5.5 requires newer Codex CLI`; proposal proceeded with Claude main + Claude subagent only, tagged `[single-model]` |
+| 2026-05-12 | Tab bar uses underline indicator, not pill backgrounds | Editorial aesthetic; avoids "button-fight" feel; matches DESIGN.md asymmetry/density rules. S2 WS-4. |
+| 2026-05-12 | Marginalia rail empty-state uses Foxing kind line, not Vermilion | Empty state has no AI activity; Vermilion in empty state would falsely advertise. S2 WS-4. |
+| 2026-05-12 | OAuth flow uses Foxing/Hooker's Green/Error palette only | Authentication is chrome, not AI activity. Preserves Vermilion's "sacred for AI" status. S2 WS-1. |
+| 2026-05-12 | No Google branded button artwork for Sign in with Google | Anti-slop rule extension. Plain text label serves equally. S2 WS-1. |
+| 2026-05-12 | OAuth pending state uses 1px Hooker's Green progress strip, not spinner | DESIGN.md motion rule "no spinners" extended to all chrome auth surfaces. S2 WS-1. |
+| 2026-05-12 | Status bar gains `AI: error (provider)` state in Error `#7A2222` | S2 introduces real network failures; provider failure UX needs a status-bar surface. S2 WS-1. |
+| 2026-05-12 | Codex outside voice skipped per local_provider policy | `_PRIMARY_PROVIDER=claude` policy disallows Codex; component-spec work is low-ROI for outside voice; proceeded single-agent with explicit DESIGN.md anchor adherence. |
 
 ## Implementation pointers
 
