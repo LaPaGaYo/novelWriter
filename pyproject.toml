@@ -30,6 +30,22 @@ dependencies = [
     "pyqt6>=6.4",
     "pyenchant>=3.3.0",
     "pyobjc; sys_platform == 'darwin'",
+    # plotwright fork — Sprint 2 AI substrate runtime deps.
+    # `httpx` is the single HTTP egress point (transport.py); `keyring` backs
+    # the OS keychain store. Both are GPL-3 compatible.
+    "httpx>=0.27",
+    "keyring>=24.0",
+]
+
+[project.optional-dependencies]
+# Cloud-provider SDKs are optional extras. The provider modules import them
+# lazily, so a plotwright install without the extras still has the substrate
+# (privacy gate, registry, transport) and the local Ollama provider available.
+# `pip install plotwright[ai-cloud]` opts in to the cloud features.
+ai-cloud = [
+    "anthropic>=0.40",
+    "google-generativeai>=0.8",
+    "tiktoken>=0.7",
 ]
 
 [dependency-groups]

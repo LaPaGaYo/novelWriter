@@ -9,12 +9,20 @@ substrate makes ZERO outbound network connections. We enforce that by
 monkey-patching `socket.socket.connect` at module load and asserting it's
 never invoked while the substrate exercises its surface.
 
-If this test fails, Sprint 1 is BLOCKED regardless of any other green check.
+Sprint 2 extension (SC-7, SC-8): after `import novelwriter.ai` no provider
+SDK module is allowed to appear in `sys.modules`. The provider modules
+import their SDK lazily inside the call sites that need it; the privacy
+test asserts that the substrate's package import does NOT trigger an SDK
+import as a side effect (which a future contributor might introduce
+accidentally by adding a top-level `import anthropic` to `provider/anthropic.py`).
+
+If this test fails, Sprint 2 is BLOCKED regardless of any other green check.
 The whole "100% NOT AI slop" positioning of the fork rests on this guarantee.
 """
 from __future__ import annotations
 
 import socket
+import sys
 
 from contextlib import contextmanager
 
@@ -23,6 +31,18 @@ import pytest
 from novelwriter.ai.config import AIConfig, AIFeature
 from novelwriter.ai.network import NetworkGate, PrivacyGatingError
 from novelwriter.ai.provider.mock import MockProvider
+
+
+# SDK modules that MUST stay out of sys.modules after `import novelwriter.ai`.
+# Top-level package names only — `import anthropic.beta` would put both
+# `anthropic` and `anthropic.beta` in sys.modules; we check the parent.
+_FORBIDDEN_SDK_MODULES = (
+    "anthropic",
+    "google",
+    "google.generativeai",
+    "openai",
+    "tiktoken",
+)
 
 
 @contextmanager
@@ -104,3 +124,42 @@ def test_default_aiconfig_is_off():
         assert config.providers[feature] is None, (
             f"AIConfig.providers[{feature}] must default to None"
         )
+
+
+def test_no_provider_sdk_in_sys_modules_after_import():
+    """Sprint 2 SC-7: importing the substrate must NOT pull provider SDKs.
+
+    We do this with a subprocess so the test is hermetic — running it
+    inside the same interpreter that has already loaded test fixtures could
+    yield a misleading result if a different test polluted `sys.modules`.
+    """
+    import subprocess
+    import textwrap
+
+    script = textwrap.dedent(
+        """
+        import sys
+        import novelwriter.ai  # noqa: F401  — side-effect import only
+        forbidden = ("anthropic", "google", "google.generativeai", "openai", "tiktoken")
+        present = [m for m in forbidden if m in sys.modules]
+        if present:
+            raise SystemExit(f"SDK leak: {present!r}")
+        """
+    )
+    result = subprocess.run(
+        [sys.executable, "-c", script],
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    assert result.returncode == 0, (
+        f"SC-7 privacy assertion failed: {result.stdout}{result.stderr}"
+    )
+
+
+def test_registry_resolves_known_providers():
+    """The registry surfaces the four S2 providers + mock as known ids."""
+    from novelwriter.ai.provider.registry import available_providers
+    ids = available_providers()
+    for required in ("mock", "ollama", "anthropic", "gemini"):
+        assert required in ids, f"Provider id {required!r} missing from registry"

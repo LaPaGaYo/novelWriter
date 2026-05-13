@@ -1,11 +1,18 @@
 """
-novelWriter – Init File
-=======================
+plotwright – Init File
+======================
+
+plotwright is a private GPL-3 fork of novelWriter retargeted at genre-fiction
+plotters with AI-assisted writing features. Upstream credit and license terms
+are preserved verbatim below; the package name on disk remains ``novelwriter``
+for import-path compatibility, while the user-facing app identity is
+``plotwright`` (see ``__fork__`` / ``__fork_app_name__`` constants).
 
 File History:
-Created: 2018-09-22 [0.0.1]  main
+Created: 2018-09-22 [0.0.1]  main (upstream novelWriter)
+Forked:  2026-04-15           plotwright
 
-This file is a part of novelWriter
+This file is a part of novelWriter (upstream) and plotwright (this fork).
 Copyright (C) 2018 Veronica Berglyd Olsen and novelWriter contributors
 
 This program is free software: you can redistribute it and/or modify
