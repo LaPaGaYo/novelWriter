@@ -1,13 +1,13 @@
 {
+  "schema_version": 1,
   "run_id": "run-2026-05-12T01-45-20-695Z",
   "continuation_mode": "phase",
   "status": "active",
-  "current_command": "handoff",
-  "current_stage": "handoff",
-  "previous_stage": "plan",
+  "current_command": "build",
+  "current_stage": "build",
+  "previous_stage": "handoff",
   "allowed_next_stages": [
-    "handoff",
-    "build"
+    "review"
   ],
   "command_history": [
     {
@@ -28,6 +28,11 @@
     {
       "command": "handoff",
       "at": "2026-05-12T14:07:13.109Z",
+      "via": null
+    },
+    {
+      "command": "build",
+      "at": "2026-05-12T15:28:07.392Z",
       "via": null
     }
   ],
@@ -111,6 +116,22 @@
     ".planning/current/handoff/status.json": {
       "kind": "json",
       "path": ".planning/current/handoff/status.json"
+    },
+    ".planning/current/build/build-request.json": {
+      "kind": "json",
+      "path": ".planning/current/build/build-request.json"
+    },
+    ".planning/current/build/build-result.md": {
+      "kind": "markdown",
+      "path": ".planning/current/build/build-result.md"
+    },
+    ".planning/current/build/completion-advisor.json": {
+      "kind": "json",
+      "path": ".planning/current/build/completion-advisor.json"
+    },
+    ".planning/current/build/status.json": {
+      "kind": "json",
+      "path": ".planning/current/build/status.json"
     }
   },
   "execution": {
@@ -131,7 +152,7 @@
       "source": "ccb_root"
     },
     "requested_path": "claude-local-single_agent",
-    "actual_path": null
+    "actual_path": "claude-local-single_agent"
   },
   "route_intent": {
     "planner": "claude+pm-gsd",

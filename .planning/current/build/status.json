@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "run_id": "run-2026-05-12T01-45-20-695Z",
+  "stage": "build",
+  "execution_mode": "local_provider",
+  "primary_provider": "claude",
+  "provider_topology": "single_agent",
+  "workspace": {
+    "path": "/Users/henry/Documents/novelWriter/.nexus-worktrees/run-2026-05-12T01-45-20-695Z",
+    "kind": "worktree",
+    "branch": "branch/run-2026-05-12T01-45-20-695Z",
+    "source": "allocated:fresh_run",
+    "run_id": "run-2026-05-12T01-45-20-695Z",
+    "retirement_state": "active"
+  },
+  "session_root": {
+    "path": "/Users/henry",
+    "kind": "repo_root",
+    "source": "ccb_root"
+  },
+  "requested_execution_path": "claude-local-single_agent",
+  "actual_execution_path": "claude-local-single_agent",
+  "design_impact": "high",
+  "design_contract_required": true,
+  "design_contract_path": ".planning/current/plan/design-contract.md",
+  "design_verified": null,
+  "state": "completed",
+  "decision": "build_recorded",
+  "ready": true,
+  "inputs": [
+    {
+      "kind": "json",
+      "path": ".planning/current/handoff/status.json"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/current/handoff/governed-handoff.md"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/current/plan/execution-readiness-packet.md"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/current/plan/sprint-contract.md"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/plan/verification-matrix.json"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/current/plan/design-contract.md"
+    }
+  ],
+  "outputs": [
+    {
+      "kind": "json",
+      "path": ".planning/current/build/build-request.json"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/current/build/build-result.md"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/build/completion-advisor.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/build/status.json"
+    }
+  ],
+  "started_at": "2026-05-12T15:28:07.392Z",
+  "completed_at": "2026-05-12T15:28:07.392Z",
+  "errors": [],
+  "requested_route": {
+    "command": "build",
+    "governed": false,
+    "execution_mode": "local_provider",
+    "primary_provider": "claude",
+    "provider_topology": "single_agent",
+    "planner": "claude+pm-gsd",
+    "generator": "claude-local-single_agent",
+    "evaluator_a": "claude-local-single_agent-audit-a",
+    "evaluator_b": "claude-local-single_agent-audit-b",
+    "synthesizer": "claude",
+    "substrate": "superpowers-core",
+    "transport": "local",
+    "fallback_policy": "disabled"
+  },
+  "actual_route": {
+    "provider": "claude",
+    "route": "claude-local-single_agent",
+    "substrate": "superpowers-core",
+    "transport": "local",
+    "receipt_path": ".planning/current/build/adapter-output.json"
+  },
+  "review_scope": {
+    "mode": "full_acceptance",
+    "source_stage": "plan",
+    "blocking_items": [],
+    "advisory_policy": "out_of_scope_advisory"
+  }
+}
