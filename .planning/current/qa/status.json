@@ -1,0 +1,81 @@
+{
+  "run_id": "run-2026-05-12T01-45-20-695Z",
+  "stage": "qa",
+  "execution_mode": "local_provider",
+  "primary_provider": "claude",
+  "provider_topology": "agent_team",
+  "workspace": {
+    "path": "/Users/henry/Documents/novelWriter/.nexus-worktrees/run-2026-05-12T01-45-20-695Z",
+    "kind": "worktree",
+    "branch": "branch/run-2026-05-12T01-45-20-695Z",
+    "source": "allocated:fresh_run",
+    "run_id": "run-2026-05-12T01-45-20-695Z",
+    "retirement_state": "active"
+  },
+  "session_root": {
+    "path": "/Users/henry",
+    "kind": "repo_root",
+    "source": "ccb_root"
+  },
+  "requested_execution_path": "claude-local-agent_team",
+  "actual_execution_path": "claude-local-agent_team",
+  "qa_attempt_id": "qa-2026-05-17T17-00-00-000Z",
+  "state": "completed",
+  "decision": "qa_recorded",
+  "ready": true,
+  "verdict": "ready_with_findings",
+  "verdict_reason": "All four primary-flow health checks green (test suite 112/112, import hermeticity, Qt UI surfaces construct, privacy gate empirically enforced). Zero P0 findings. Zero new console errors vs baseline. 17 findings recorded: 15 carry-forward from /review Pass 2 advisories (S-4..S-18) + 2 new QA-stage nits (Q-1 set_working state auto-revert, Q-2 update_from_config provider_label derivation). All P2 or P3 severity; none block /ship per Iron Law 2 verdict ladder.",
+  "findings": {
+    "total": 17,
+    "p0": 0,
+    "p1": 0,
+    "p2": 4,
+    "p3": 13,
+    "p2_ids": ["S-4", "S-5", "S-6", "S-9"],
+    "p3_ids": ["S-7", "S-8", "S-10", "S-11", "S-12", "S-13", "S-14", "S-15", "S-16", "S-17", "S-18", "Q-1", "Q-2"],
+    "new_in_qa": ["Q-1", "Q-2"],
+    "carry_forward_from_review": ["S-4", "S-5", "S-6", "S-7", "S-8", "S-9", "S-10", "S-11", "S-12", "S-13", "S-14", "S-15", "S-16", "S-17", "S-18"]
+  },
+  "health_checks": {
+    "test_suite": {"command": "QT_QPA_PLATFORM=offscreen .venv/bin/python -m pytest tests/test_ai/ -q", "result": "112 passed in 0.69s", "exit_code": 0, "verdict": "green"},
+    "import_hermeticity": {"forbidden_sdks_in_sys_modules": 0, "modules_added": 143, "verdict": "green"},
+    "qt_ui_surfaces": {"surfaces_verified": ["AIPreferencesPanel", "StatusBarAI"], "log_errors": 0, "log_warnings": 0, "qt_font_warnings": 1, "verdict": "green"},
+    "privacy_contract": {"command": "QT_QPA_PLATFORM=offscreen .venv/bin/python -m pytest tests/test_ai/test_provider_gating.py -v", "result": "12 passed in 0.28s", "verdict": "green"}
+  },
+  "cluster_detection": {
+    "clusters_found": 1,
+    "clusters": [
+      {
+        "ids": ["S-4", "S-5", "S-6"],
+        "root_cause": "Gemini OAuth UI partially implemented (sign-in/revoke/PENDING-UX all stubs in _GeminiConfigRow)",
+        "disposition": "expected_known_deferral",
+        "disposition_note": "build-result.md explicitly defers OAuth E2E wiring to follow-on /build. Cluster bundle is tracked, not new; no /investigate route needed."
+      }
+    ]
+  },
+  "law3_3_strike_routed_to_investigate": false,
+  "law3_3_strike_disposition": "expected_known_deferral",
+  "qa_provenance_kind": "operator_attested",
+  "qa_provenance_note": "./bin/nexus qa not invoked (nested-claude recursion same as /build and /review). QA dispatched as in-controller smoke + targeted pytest re-runs + design-contract grep audit + state-machine inspection of Qt UI offscreen. Test evidence reproducible.",
+  "inputs": [
+    {"kind": "json", "path": ".planning/current/review/status.json"},
+    {"kind": "markdown", "path": ".planning/audits/current/synthesis.md"},
+    {"kind": "markdown", "path": ".planning/audits/current/gate-decision.md"},
+    {"kind": "markdown", "path": ".planning/current/plan/design-contract.md"},
+    {"kind": "json", "path": ".planning/current/plan/verification-matrix.json"}
+  ],
+  "outputs": [
+    {"kind": "markdown", "path": ".planning/current/qa/qa-report.md"},
+    {"kind": "markdown", "path": ".planning/current/qa/design-verification.md"},
+    {"kind": "json", "path": ".planning/current/qa/status.json"}
+  ],
+  "design_impact": "high",
+  "design_contract_path": ".planning/current/plan/design-contract.md",
+  "design_verified": "partial-pass",
+  "design_verification_notes": "Implemented surfaces (status bar widget, AI Preferences panel) honor every locked rule that applies. Two design-contract deviations (S-6 PENDING UX, S-18 hide-vs-disable) are recorded /review advisories. Components 1 (four-tab IA) and 2 (marginalia rail) are deferred per build-result.md. Zero vermilion violations in chrome. All anti-slop rules clean.",
+  "started_at": "2026-05-17T17:00:00.000Z",
+  "completed_at": "2026-05-17T17:00:00.000Z",
+  "errors": [],
+  "next_allowed_stages": ["ship"],
+  "next_required_action": "Verdict ready_with_findings — /ship can proceed. The 17 findings (4 P2, 13 P3, zero P0/P1) are recorded for /ship's pre-merge checklist and for the follow-on /build that ships WS-4."
+}

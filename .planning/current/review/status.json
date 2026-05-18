@@ -20,7 +20,7 @@
   "requested_execution_path": "claude-local-single_agent",
   "actual_execution_path": "claude-local-agent_team",
   "review_attempt_id": "review-2026-05-17T15-00-00-000Z",
-  "pass_round": 1,
+  "pass_round": 2,
   "audit_request_ids": {
     "codex": null,
     "gemini": null
