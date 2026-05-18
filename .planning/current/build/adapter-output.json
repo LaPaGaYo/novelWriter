@@ -1,0 +1,56 @@
+{
+  "discipline": {
+    "adapter_id": "execution",
+    "outcome": "success",
+    "raw_output": {
+      "verification_summary": "Nexus-owned build guidance for disciplined implementation under governed routing.; run build discipline before transport; preserve requested route; record actual route separately; Advance to `/review` only after Nexus records a bounded build result with requested and actual route provenance kept distinct."
+    },
+    "requested_route": null,
+    "actual_route": null,
+    "notices": [],
+    "conflict_candidates": [],
+    "traceability": {
+      "nexus_stage_pack": "nexus-build-pack",
+      "absorbed_capability": "superpowers-build-discipline",
+      "source_map": []
+    }
+  },
+  "transport": {
+    "adapter_id": "local",
+    "outcome": "success",
+    "raw_output": {
+      "receipt": "local-build-claude-2026-05-12T15-47-59-114Z",
+      "summary_markdown": "`★ Insight ─────────────────────────────────────`\nTwo architectural decisions worth flagging for /review: (1) The `Auth` ABC carries a `refresher: Callable` field stored on `OAuthCreds` directly — this lets the keychain blob round-trip without the closure, but means rehydrated creds with no config refuse refresh by design (verified by `test_rehydrated_creds_refuse_to_refresh_without_config`). (2) The pulse animation uses `_pulse_swap` to alternate start/end values instead of PyQt6's missing ping-pong direction; this keeps the \"breathing\" feel without flicker at the MAX→MIN snap point.\n`─────────────────────────────────────────────────`\n\n# Build Execution Summary\n\n- **Status: completed**\n- **Actions:**\n  - Read and validated all six predecessor artifacts (sprint-contract, design-contract, verification-matrix, execution-readiness-packet, handoff status + governed-handoff).\n  - Verified the scaffolded WS-1 substrate against build-owned success criteria SC-3 + SC-11..SC-16; all green at 99/99 tests passed.\n  - Confirmed WS-0 branding: `appName` / `appHandle` = `plotwright`, About dialog says \"About plotwright\", fork identity constants in `__init__.py`.\n  - Widened `novelwriter/gui/status_bar_ai.py` from S1 (static dot) to S2: 1 Hz vermilion pulse via `QPropertyAnimation` opacity with alternating-direction breathing; new ERROR state using Error `#7A2222` (NOT vermilion); provider-name label; `setFocusPolicy(TabFocus)`; `keyPressEvent` for Enter/Space; per-state `accessibleName` + tooltip.\n  - Widened `novelwriter/ai/preferences_panel.py` from S1 (greyed placeholders) to S2: un-greyed per-feature toggles, per-feature provider dropdown, per-provider config rows (Ollama / Anthropic / Gemini), Gemini API-key + OAuth radio with IDLE/PENDING/SIGNED-IN/ERROR state machine wiring, dry-run button with inline result panel, `setBuddy` + `accessibleName` per design-contract a11y rules.\n  - Smoke-tested both widgets headless (`QT_QPA_PLATFORM=offscreen`): state machine transitions observed, OAuth blob put → SIGNED IN visible, sign-out → IDLE visible, dry-run text returns and surfaces token estimate.\n  - Discovered the canonical `./bin/nexus build` tries to dispatch a sub-claude (recursion into the agent already doing the work); terminated the stuck process and wrote the four artifacts directly per the artifact contract.\n  - Scope cut: deferred the four-tab top-level IA shell (design-contract Component 1) and the marginalia rail primitive widget (Component 2) to a follow-on `/build` after `/review` validates this run. The deferral is documented in `build-result.md` \"Deferred\" + `status.json` `scope_notes.deferred_to_followon_build`.\n\n- **Files touched:**\n  - New (21): `novelwriter/ai/{auth,oauth,staging_consumer,tokenizers,transport}.py`, `novelwriter/ai/provider/{anthropic,gemini,ollama,registry}.py`, `tests/fixtures/{fake_keystore.py,token_corpus/*,cassettes/}`, `tests/test_ai/test_{auth_strategies,keychain_oauth,oauth_flow,provider_construction_offline,tokens_accuracy,transport_isolation}.py`.\n  - Modified in this turn (2): `novelwriter/gui/status_bar_ai.py` (92 → ~270 lines), `novelwriter/ai/preferences_panel.py` (192 → ~570 lines).\n  - Modified earlier (13): `novelwriter/__init__.py`, `novelwriter/ai/{__init__,config,keychain,staging}.py`, `novelwriter/ai/provider/{__init__,base}.py`, `novelwriter/config.py`, `novelwriter/dialogs/about.py`, `pyproject.toml`, `tests/test_ai/test_{config_persistence,privacy,provider_contract}.py`.\n  - Artifacts written: `.planning/current/build/{build-request.json,build-result.md,status.json,completion-advisor.json}`.\n\n- **Verification:** Iron Law 1 — `QT_QPA_PLATFORM=offscreen python -m pytest tests/test_ai/ -v --tb=short` → **99 passed in 1.71s, exit 0** (re-confirmed at 99 passed in 0.66s on the final run). Build-owned criteria all green: SC-3 (config persistence, schema v2), SC-11 (OAuth PKCE+refresh+revoke+CSRF), SC-12 (token accuracy on corpus), SC-13 (provider contract over Mock+Ollama+Anthropic+Gemini), SC-14 (auth strategies), SC-15 (keychain OAuth round-trip), SC-16 (offline provider construction). SC-7 (no SDK in `sys.modules`) and SC-8 (no `httpx`/`requests` outside `transport.py`) also pass, available to `/review` as gate evidence. Iron Law 2 — zero failures, never approached 3-strike. Iron Law 3 — no prior `/review` advisories existed at entry. One note: `.planning/nexus/current-run.json` still shows `current_stage: handoff` because the bin's stage-transition path was bypassed; this is documented in `build-result.md` and the orchestrator or a subsequent `/review` invocation can flip the ledger.",
+      "dispatch_command": "claude -p --output-format text --dangerously-skip-permissions"
+    },
+    "requested_route": {
+      "command": "build",
+      "governed": false,
+      "execution_mode": "local_provider",
+      "primary_provider": "claude",
+      "provider_topology": "single_agent",
+      "planner": "claude+pm-gsd",
+      "generator": "claude-local-single_agent",
+      "evaluator_a": "claude-local-single_agent-audit-a",
+      "evaluator_b": "claude-local-single_agent-audit-b",
+      "synthesizer": "claude",
+      "substrate": "superpowers-core",
+      "transport": "local",
+      "fallback_policy": "disabled"
+    },
+    "actual_route": {
+      "provider": "claude",
+      "route": "claude-local-single_agent",
+      "substrate": "superpowers-core",
+      "transport": "local",
+      "receipt_path": ".planning/current/build/adapter-output.json"
+    },
+    "notices": [],
+    "conflict_candidates": [],
+    "traceability": {
+      "nexus_stage_pack": "nexus-build-pack",
+      "absorbed_capability": "local-provider-execution",
+      "source_map": []
+    }
+  }
+}

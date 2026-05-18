@@ -1,0 +1,136 @@
+{
+  "run_id": "run-2026-05-12T01-45-20-695Z",
+  "stage": "review",
+  "execution_mode": "local_provider",
+  "primary_provider": "claude",
+  "provider_topology": "agent_team",
+  "workspace": {
+    "path": "/Users/henry/Documents/novelWriter/.nexus-worktrees/run-2026-05-12T01-45-20-695Z",
+    "kind": "worktree",
+    "branch": "branch/run-2026-05-12T01-45-20-695Z",
+    "source": "allocated:fresh_run",
+    "run_id": "run-2026-05-12T01-45-20-695Z",
+    "retirement_state": "active"
+  },
+  "session_root": {
+    "path": "/Users/henry",
+    "kind": "repo_root",
+    "source": "ccb_root"
+  },
+  "requested_execution_path": "claude-local-single_agent",
+  "actual_execution_path": "claude-local-agent_team",
+  "review_attempt_id": "review-2026-05-17T15-00-00-000Z",
+  "pass_round": 2,
+  "audit_request_ids": {
+    "codex": null,
+    "gemini": null
+  },
+  "state": "completed",
+  "decision": "audit_recorded",
+  "ready": true,
+  "gate_verdict": "pass_with_advisories",
+  "gate_reason": "Pass 2 closure. Pass 1 found one block (S-1: privacy contract gap) plus two must-fix-before-/qa advisories (S-2 repr leak, S-3 SC-12 waiver). Disposition (A) fix_before_qa selected. Pass 2 build added NetworkGate.guard() enforcement to cloud + Ollama providers, staging.stage() belt-and-suspenders gating, dataclass field(repr=False) on secrets, and formal SC-12 waiver invocation. 112/112 tests pass (99 prior + 13 new). 15 open advisories/nits are eligible for normal disposition through /qa.",
+  "pass_1_verdict": "fail",
+  "pass_1_blocking": ["S-1"],
+  "must_fix_closed": ["S-1", "S-2", "S-3"],
+  "open_advisories": ["S-4", "S-5", "S-6", "S-7", "S-8", "S-9", "S-10", "S-11", "S-12", "S-13", "S-14", "S-15"],
+  "open_nits": ["S-16", "S-17", "S-18"],
+  "advisory_count": 12,
+  "nit_count": 3,
+  "test_evidence": {
+    "command": "QT_QPA_PLATFORM=offscreen python -m pytest tests/test_ai/ --tb=short",
+    "python": ".venv/bin/python (3.12.12)",
+    "pass_1_result": "99 passed in 0.90s",
+    "pass_2_result": "112 passed in 0.74s",
+    "pass_2_added_tests": 13,
+    "exit_code": 0,
+    "run_in_review_turn": true
+  },
+  "law3_disagreements_enumerated": 4,
+  "review_provenance_kind": "operator_attested",
+  "review_provenance_note": "Audit slots dispatched as parallel Claude subagents via Agent tool (agent_team topology). ./bin/nexus review bin not invoked (nested-claude recursion hangs in Bash-tool context, same as /build). Audit artifacts authored from real file/test inspection; test evidence run by controller.",
+  "inputs": [
+    {
+      "kind": "json",
+      "path": ".planning/current/build/status.json"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/current/build/build-result.md"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/current/handoff/governed-handoff.md"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/current/plan/sprint-contract.md"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/plan/verification-matrix.json"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/current/plan/design-contract.md"
+    }
+  ],
+  "outputs": [
+    {
+      "kind": "markdown",
+      "path": ".planning/audits/current/codex.md"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/audits/current/gemini.md"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/audits/current/synthesis.md"
+    },
+    {
+      "kind": "markdown",
+      "path": ".planning/audits/current/gate-decision.md"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/audits/current/meta.json"
+    },
+    {
+      "kind": "json",
+      "path": ".planning/current/review/status.json"
+    }
+  ],
+  "design_impact": "high",
+  "design_contract_required": true,
+  "design_contract_path": ".planning/current/plan/design-contract.md",
+  "design_verified": "partial",
+  "design_verification_notes": "Status bar honors contract (vermilion pulse on working state only; Error #7A2222 for error state). Preferences panel honors zero-vermilion rule. PENDING state UX (progress strip, Cancel) not implemented per spec (S-6). Components 1 & 2 (tabs, marginalia rail) deferred entirely to follow-on /build.",
+  "started_at": "2026-05-17T15:00:00.000Z",
+  "completed_at": "2026-05-17T15:00:00.000Z",
+  "errors": [],
+  "requested_route": {
+    "command": "review",
+    "governed": false,
+    "execution_mode": "local_provider",
+    "primary_provider": "claude",
+    "provider_topology": "agent_team",
+    "planner": "claude+pm-gsd",
+    "generator": "claude-local-agent_team",
+    "evaluator_a": "claude-local-single_agent-audit-a",
+    "evaluator_b": "claude-local-single_agent-audit-b",
+    "synthesizer": "claude",
+    "substrate": "superpowers-core",
+    "transport": "local",
+    "fallback_policy": "disabled"
+  },
+  "actual_route": {
+    "provider": "claude",
+    "route": "claude-local-agent_team",
+    "substrate": "superpowers-core",
+    "transport": "local",
+    "receipt_path": ".planning/audits/current/meta.json"
+  },
+  "next_allowed_stages": ["qa"],
+  "next_required_action": "Pass 2 closed all must-fix items. Advance to /qa with disposition continue_to_qa. The 15 open advisories/nits are eligible for normal address-or-dispute disposition through /qa or the follow-on /build that ships WS-4."
+}

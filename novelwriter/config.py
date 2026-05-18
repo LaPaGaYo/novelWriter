@@ -110,8 +110,11 @@ class Config:
         self._splash = None
 
         # Set Application Variables
-        self.appName   = "novelWriter"
-        self.appHandle = "novelwriter"
+        # plotwright fork branding — see SC-9 in plan/verification-matrix.json.
+        # `appHandle` flows into the user-data directory path; renamed before
+        # any fork release so no migration probe is needed downstream.
+        self.appName   = "plotwright"
+        self.appHandle = "plotwright"
         # Set Paths
         confRoot = Path(QStandardPaths.writableLocation(
             QStandardPaths.StandardLocation.ConfigLocation)

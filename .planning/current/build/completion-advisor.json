@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "run_id": "run-2026-05-12T01-45-20-695Z",
+  "stage": "build",
+  "generated_at": "2026-05-12T15:28:07.392Z",
+  "stage_outcome": "ready",
+  "interaction_mode": "recommended_choice",
+  "summary": "Build is ready. Formal review is the canonical next stage.",
+  "requires_user_choice": false,
+  "choice_reason": null,
+  "default_action_id": "run_review",
+  "primary_next_actions": [
+    {
+      "id": "run_review",
+      "kind": "canonical_stage",
+      "surface": "/review",
+      "invocation": "/review",
+      "label": "Run `/review`",
+      "description": "Persist the formal audit set before moving deeper into the governed tail.",
+      "recommended": true,
+      "visibility_reason": "Build completed successfully and review is the canonical next stage.",
+      "why_this_skill": null,
+      "evidence_signal": null
+    }
+  ],
+  "alternative_next_actions": [],
+  "recommended_side_skills": [
+    {
+      "id": "run_design_review",
+      "kind": "support_skill",
+      "surface": "/design-review",
+      "invocation": "/design-review",
+      "label": "Run `/design-review`",
+      "description": "Do a focused visual audit on a design-bearing implementation before formal review.",
+      "recommended": false,
+      "visibility_reason": "S2 ships first multi-surface design work (WS-4: four-tab IA + marginalia rail primitive + Gemini OAuth flow). /design-consultation is the contract path. Checklist-backed rationale: design review/design-checklist.md - S2 ships first multi-surface design work: WS-4 four-tab IA, marginalia rail primitive, status-bar pulse animation, AI Preferences panel, OAuth-flow state machine.; accessibility review/design-checklist.md - OAuth browser handoff plus keyboard activation across the AI Preferences panel and four-tab IA require accessibility coverage.",
+      "why_this_skill": "Use this because the verification matrix ties this run to the design and accessibility checklists.",
+      "evidence_signal": {
+        "kind": "verification_matrix",
+        "summary": "Verification matrix surfaced design and accessibility checklist coverage for this recommendation.",
+        "source_paths": [
+          "review/design-checklist.md"
+        ],
+        "checklist_categories": [
+          "design",
+          "accessibility"
+        ]
+      }
+    }
+  ],
+  "recommended_external_skills": [
+    {
+      "id": "run_external_finance_based_pricing_advisor",
+      "kind": "external_installed_skill",
+      "surface": "/finance-based-pricing-advisor",
+      "invocation": "/finance-based-pricing-advisor",
+      "label": "Run installed skill `/finance-based-pricing-advisor`",
+      "description": "Evaluate pricing changes using financial impact analysis - ARPU/ARPA, conversion, churn risk, NRR, and payback. Recommends go/no-go on pricing decisions.",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /build because it is tagged risk.",
+      "why_this_skill": "Use this because the installed skill matches risk context for /build.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: risk.",
+        "source_paths": [
+          "/Users/henry/.claude/skills/finance-based-pricing-advisor/SKILL.md"
+        ],
+        "checklist_categories": []
+      }
+    },
+    {
+      "id": "run_external_gh_address_comments",
+      "kind": "external_installed_skill",
+      "surface": "/gh-address-comments",
+      "invocation": "/gh-address-comments",
+      "label": "Run installed skill `/gh-address-comments`",
+      "description": "Help address review/issue comments on the open GitHub PR for the current branch using gh CLI; verify gh auth first and prompt the user to authenticate if not logged in.",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /build because it is tagged security.",
+      "why_this_skill": "Use this because the installed skill matches security context for /build.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: security.",
+        "source_paths": [
+          "/Users/henry/.codex/skills/gh-address-comments/SKILL.md"
+        ],
+        "checklist_categories": [
+          "security"
+        ]
+      }
+    },
+    {
+      "id": "run_external_pol_probe_advisor",
+      "kind": "external_installed_skill",
+      "surface": "/pol-probe-advisor",
+      "invocation": "/pol-probe-advisor",
+      "label": "Run installed skill `/pol-probe-advisor`",
+      "description": "Select the right Proof of Life (PoL) probe based on hypothesis, risk, and resources. Use this to match the validation method to the real learning goal, not tooling comfort.",
+      "recommended": false,
+      "visibility_reason": "Installed skill matches /build because it is tagged risk.",
+      "why_this_skill": "Use this because the installed skill matches risk context for /build.",
+      "evidence_signal": {
+        "kind": "installed_skill",
+        "summary": "Installed skill tags matched: risk.",
+        "source_paths": [
+          "/Users/henry/.claude/skills/pol-probe-advisor/SKILL.md"
+        ],
+        "checklist_categories": []
+      }
+    }
+  ],
+  "stop_action": {
+    "id": "stop_after_build",
+    "kind": "stop",
+    "surface": "stop",
+    "invocation": null,
+    "label": "Stop here",
+    "description": "Do not advance yet. Keep the current artifacts as-is and decide on the next step later.",
+    "recommended": false,
+    "visibility_reason": "Always available as the minimal non-advancing choice after a completed stage.",
+    "why_this_skill": null,
+    "evidence_signal": null
+  },
+  "project_setup_gaps": [],
+  "hidden_compat_aliases": [
+    "/office-hours",
+    "/autoplan",
+    "/plan-ceo-review",
+    "/plan-eng-review"
+  ],
+  "hidden_utility_skills": [
+    "/careful",
+    "/freeze",
+    "/guard",
+    "/unfreeze",
+    "/nexus-upgrade"
+  ],
+  "suppressed_surfaces": [
+    "/office-hours",
+    "/autoplan",
+    "/plan-ceo-review",
+    "/plan-eng-review",
+    "/careful",
+    "/freeze",
+    "/guard",
+    "/unfreeze",
+    "/nexus-upgrade"
+  ],
+  "recommended_skills": [
+    {
+      "name": "browse",
+      "surface": "/browse",
+      "namespace": "nexus_support",
+      "summary": "Headless browser for QA testing and dogfooding.",
+      "why_relevant": "Declared as relevant to build stage in nexus.skill.yaml.",
+      "score": 5,
+      "manifest_backed": true
+    },
+    {
+      "name": "build",
+      "surface": "/build",
+      "namespace": "nexus_canonical",
+      "summary": "Bounded implementation per the sprint contract.",
+      "why_relevant": "Declared as relevant to build stage in nexus.skill.yaml.",
+      "score": 5,
+      "manifest_backed": true
+    },
+    {
+      "name": "design-html",
+      "surface": "/design-html",
+      "namespace": "nexus_support",
+      "summary": "Production-quality HTML/CSS finalization from design-shotgun mockup.",
+      "why_relevant": "Declared as relevant to build stage in nexus.skill.yaml.",
+      "score": 5,
+      "manifest_backed": true
+    },
+    {
+      "name": "investigate",
+      "surface": "/investigate",
+      "namespace": "nexus_support",
+      "summary": "Systematic debugging: investigate / analyze / hypothesize / implement.",
+      "why_relevant": "Declared as relevant to build stage in nexus.skill.yaml.",
+      "score": 5,
+      "manifest_backed": true
+    },
+    {
+      "name": "simplify",
+      "surface": "/simplify",
+      "namespace": "nexus_support",
+      "summary": "Behavior-preserving review follow-on: remove duplication, dead code, complexity.",
+      "why_relevant": "Declared as relevant to build stage in nexus.skill.yaml.",
+      "score": 5,
+      "manifest_backed": true
+    }
+  ]
+}

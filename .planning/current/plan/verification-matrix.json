@@ -299,11 +299,13 @@
     },
     {
       "id": "SC-12",
-      "summary": "test_tokens_accuracy.py passes against the committed corpus at the 20% accuracy bound.",
+      "summary": "test_tokens_accuracy.py passes against the committed corpus at the S2-relaxed accuracy bound. 20% bound deferred to S6.",
       "owner_stage": "build",
       "evidence_artifact": "tests/test_ai/test_tokens_accuracy.py + tests/fixtures/token_corpus/",
       "slip_indicator_day": 6,
-      "gate_blocking": true
+      "gate_blocking": true,
+      "waiver_invoked": "day-10",
+      "waiver_notes": "S2 ships at relaxed bound (avg ±50%, per-file -60%/+150%) per sprint-contract day-10 slip indicator. Reason: no freely-available offline tokenizer for Gemini; tiktoken approximation for Anthropic. S6 hardening tightens to 20% bound when Anthropic ships an offline tokenizer and a Gemini-supplied counter lands. See build-result.md Pass 2 addendum (2026-05-17) for the formal invocation."
     },
     {
       "id": "SC-13",

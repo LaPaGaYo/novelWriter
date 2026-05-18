@@ -46,7 +46,7 @@ logger = logging.getLogger(__name__)
 
 
 class GuiAbout(NDialog):
-    """GUI: About novelWriter Dialog."""
+    """GUI: About plotwright Dialog (fork of novelWriter; upstream attributed)."""
 
     def __init__(self, parent: QWidget) -> None:
         super().__init__(parent=parent)
@@ -54,7 +54,7 @@ class GuiAbout(NDialog):
         logger.debug("Create: GuiAbout")
         self.setObjectName("GuiAbout")
 
-        self.setWindowTitle(self.tr("About novelWriter"))
+        self.setWindowTitle(self.tr("About plotwright"))
         self.resize(700, 500)
 
         # Logo and Banner

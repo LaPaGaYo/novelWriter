@@ -1017,7 +1017,12 @@ class GuiMainMenu(QMenuBar):
         self.helpMenu = qtAddMenu(self, self.tr("&Help"))
 
         # Help > About
-        self.aAboutNW = qtAddAction(self.helpMenu, self.tr("About novelWriter"))
+        # plotwright fork: the visible label tracks the fork app name; the
+        # internal action variable retains its upstream-derived identifier
+        # (`aAboutNW`) to minimise merge churn against upstream novelWriter.
+        # The "About" dialog itself already renders "About plotwright" with
+        # upstream GPL-3 attribution preserved (see GuiAbout).
+        self.aAboutNW = qtAddAction(self.helpMenu, self.tr("About plotwright"))
         self.aAboutNW.setMenuRole(QAction.MenuRole.AboutRole)
         self.aAboutNW.triggered.connect(self.mainGui.showAboutNWDialog)
 
