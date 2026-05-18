@@ -18,32 +18,58 @@ out of `sys.modules` even though the registry itself is imported.
 """
 from __future__ import annotations
 
-from typing import Any, Callable
+from typing import TYPE_CHECKING, Any, Callable
 
 from novelwriter.ai.provider.base import Provider, ProviderError
 
-
-# Factory: takes the per-provider settings dict + a KeyStore-or-None and
-# returns an instantiated `Provider`. Returning `None` is reserved for
-# "configuration is incomplete, surface an error in the panel".
-ProviderFactory = Callable[[dict[str, Any], Any], Provider]
+if TYPE_CHECKING:
+    from novelwriter.ai.config import AIFeature
+    from novelwriter.ai.network import NetworkGate
 
 
-def _make_mock(settings: dict[str, Any], keystore: Any) -> Provider:
-    # MockProvider takes no config; settings are ignored.
+# Factory: takes the per-provider settings dict, a KeyStore-or-None, and
+# optional gate + feature kwargs, returning an instantiated `Provider`. The
+# gate is threaded through to cloud providers so generate() can call
+# `gate.guard(feature)` before any client work (S-1 privacy contract).
+ProviderFactory = Callable[..., Provider]
+
+
+def _make_mock(
+    settings: dict[str, Any],
+    keystore: Any,
+    *,
+    gate: "NetworkGate | None" = None,
+    feature: "AIFeature | None" = None,
+) -> Provider:
+    # MockProvider takes no config and no gate; settings + gate are ignored.
+    # Mock is test-only and never makes a real network call.
     from novelwriter.ai.provider.mock import MockProvider
     return MockProvider()
 
 
-def _make_ollama(settings: dict[str, Any], keystore: Any) -> Provider:
+def _make_ollama(
+    settings: dict[str, Any],
+    keystore: Any,
+    *,
+    gate: "NetworkGate | None" = None,
+    feature: "AIFeature | None" = None,
+) -> Provider:
     from novelwriter.ai.provider.ollama import OllamaProvider
     return OllamaProvider(
         base_url=settings.get("base_url", "http://127.0.0.1:11434"),
         model=settings.get("model", "llama3.1"),
+        gate=gate,
+        feature=feature,
     )
 
 
-def _make_anthropic(settings: dict[str, Any], keystore: Any) -> Provider:
+def _make_anthropic(
+    settings: dict[str, Any],
+    keystore: Any,
+    *,
+    gate: "NetworkGate | None" = None,
+    feature: "AIFeature | None" = None,
+) -> Provider:
     from novelwriter.ai.provider.anthropic import AnthropicProvider
     api_key = _read_api_key(keystore, "anthropic", settings)
     if not api_key:
@@ -51,10 +77,18 @@ def _make_anthropic(settings: dict[str, Any], keystore: Any) -> Provider:
     return AnthropicProvider(
         api_key=api_key,
         model=settings.get("model", "claude-sonnet-4-5"),
+        gate=gate,
+        feature=feature,
     )
 
 
-def _make_gemini(settings: dict[str, Any], keystore: Any) -> Provider:
+def _make_gemini(
+    settings: dict[str, Any],
+    keystore: Any,
+    *,
+    gate: "NetworkGate | None" = None,
+    feature: "AIFeature | None" = None,
+) -> Provider:
     from novelwriter.ai.provider.gemini import GeminiProvider
     auth_mode = settings.get("auth_mode", "api_key")
     if auth_mode == "oauth":
@@ -76,6 +110,8 @@ def _make_gemini(settings: dict[str, Any], keystore: Any) -> Provider:
     return GeminiProvider(
         auth=auth,
         model=settings.get("model", "gemini-2.5-flash"),
+        gate=gate,
+        feature=feature,
     )
 
 
@@ -116,15 +152,23 @@ def make_provider(
     *,
     settings: dict[str, Any] | None = None,
     keystore: Any = None,
+    gate: "NetworkGate | None" = None,
+    feature: "AIFeature | None" = None,
 ) -> Provider:
     """Instantiate a provider by id.
 
     `settings` is the per-provider slice of `AIConfig.provider_configs`.
     `keystore` is the keychain reader; pass `FakeKeyStore()` in tests.
 
-    Raises `ProviderError` if the id is unknown or required secrets are
-    missing. The caller (AI Preferences panel, dry-run handler) surfaces the
-    error to the user.
+    `gate` + `feature` thread through to the provider so `generate()` calls
+    `gate.guard(feature)` before any client work. Production sites (the AI
+    Preferences "Dry-run" handler, future feature handlers) MUST pass both
+    so the privacy contract is enforced. Tests may omit them; constructed
+    providers without a gate behave as before for test-only paths.
+
+    Raises `ProviderError` if the id is unknown, required secrets are
+    missing, or gate+feature are partially configured (one without the
+    other is misconfiguration). The caller surfaces the error to the user.
     """
     settings = dict(settings or {})
     base = provider_id.split(":", 1)[0].lower()
@@ -134,7 +178,7 @@ def make_provider(
             f"Unknown provider {provider_id!r}; registered providers: "
             f"{sorted(_FACTORIES)}",
         )
-    return factory(settings, keystore)
+    return factory(settings, keystore, gate=gate, feature=feature)
 
 
 __all__ = [

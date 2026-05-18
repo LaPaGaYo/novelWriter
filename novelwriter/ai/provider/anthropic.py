@@ -17,6 +17,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from typing import TYPE_CHECKING
+
 from novelwriter.ai.auth import ApiKeyAuth, Auth
 from novelwriter.ai.provider.base import (
     Provider,
@@ -25,6 +27,10 @@ from novelwriter.ai.provider.base import (
     ProviderResponse,
 )
 from novelwriter.ai.tokenizers import for_provider
+
+if TYPE_CHECKING:
+    from novelwriter.ai.config import AIFeature
+    from novelwriter.ai.network import NetworkGate
 
 
 _DEFAULT_BASE_URL = "https://api.anthropic.com"
@@ -50,6 +56,8 @@ class AnthropicProvider(Provider):
         base_url: str = _DEFAULT_BASE_URL,
         transport: Any = None,
         max_tokens: int = _DEFAULT_MAX_TOKENS,
+        gate: "NetworkGate | None" = None,
+        feature: "AIFeature | None" = None,
     ) -> None:
         if not api_key:
             raise ProviderError("Anthropic provider requires a non-empty api_key")
@@ -60,6 +68,11 @@ class AnthropicProvider(Provider):
         self.auth: Auth = ApiKeyAuth(api_key=api_key, header_name="x-api-key")
         self._tokenize = for_provider("anthropic")
         self._client: Any = None  # lazily built
+        # Privacy gate: when both gate and feature are set, every generate()
+        # call routes through gate.guard(feature) before any client work.
+        # See provider/base.py::_enforce_privacy_gate for the contract.
+        self._gate = gate
+        self._feature = feature
 
     @property
     def name(self) -> str:
@@ -83,6 +96,12 @@ class AnthropicProvider(Provider):
         return self._client
 
     def generate(self, prompt: str, **opts: object) -> ProviderResponse:
+        # ENFORCE privacy gate BEFORE any client work. Raises
+        # PrivacyGatingError if master switch or per-feature flag is off.
+        # This is the load-bearing privacy contract — see provider/base.py
+        # gate plumbing block + tests/test_ai/test_provider_gating.py.
+        self._enforce_privacy_gate()
+
         # Refresh credentials defensively. ApiKeyAuth is a no-op, but if we
         # ever swap an OAuth-style auth in here, the call-start refresh
         # contract is honored without a code change.

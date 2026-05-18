@@ -75,6 +75,37 @@ class Provider(abc.ABC):
     def auth(self, value) -> None:
         self._auth = value
 
+    # ---- Privacy gate plumbing (S-1 fix, /review Pass 1) ----------------
+    # Concrete providers may set `self._gate` and `self._feature` at
+    # construction time. When both are set, `_enforce_privacy_gate()` calls
+    # `gate.guard(feature)` and raises `PrivacyGatingError` if the call is
+    # not allowed by the current `AIConfig`. When neither is set, the helper
+    # is a no-op (test-only construction shape). Misconfiguration (one
+    # without the other) raises `ProviderError` loudly rather than
+    # silently skipping the gate.
+    #
+    # Cloud providers MUST call `self._enforce_privacy_gate()` at the top of
+    # `generate()` before any client / network work. The Preferences
+    # "Dry-run" path (`preferences_panel._run_dry_run`) constructs each cloud
+    # provider with a gate + feature wired through `make_provider`, so the
+    # privacy contract is enforced on the only S2 user-facing call path.
+    def _enforce_privacy_gate(self) -> None:
+        """Enforce the configured privacy gate, or no-op if none set."""
+        gate = getattr(self, "_gate", None)
+        feature = getattr(self, "_feature", None)
+        if gate is not None:
+            if feature is None:
+                raise ProviderError(
+                    f"{type(self).__name__} has gate but no feature; "
+                    f"both required together",
+                )
+            gate.guard(feature)
+        elif feature is not None:
+            raise ProviderError(
+                f"{type(self).__name__} has feature but no gate; "
+                f"both required together",
+            )
+
     @property
     @abc.abstractmethod
     def name(self) -> str:

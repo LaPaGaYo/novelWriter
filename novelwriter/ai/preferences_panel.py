@@ -258,24 +258,50 @@ class AIPreferencesPanel(QWidget):
         per-provider settings come from ``AIConfig.provider_configs``. If
         no provider is configured the method returns a short helper string
         so the row can display it without raising.
+
+        Privacy gate (S-1 fix, /review Pass 1): the production Dry-run path
+        constructs a ``NetworkGate`` from the current ``AIConfig`` and
+        threads ``(gate, feature)`` through both the provider factory AND
+        ``staging.stage``. Defense-in-depth: provider.generate() gates
+        internally, AND staging.stage() gates at the orchestration layer.
+        Either layer alone catches a master-off / feature-off attempt; both
+        layers ensure no future refactor silently bypasses the contract.
         """
         provider_id = self._config.providers.get(feature)
         if not provider_id:
             return (self.tr("Pick a provider first."), 0)
+
+        # Build the gate from the current AIConfig. The gate will raise
+        # PrivacyGatingError if master switch is off or this feature is
+        # off, before provider.generate() runs any client work.
+        from novelwriter.ai.network import NetworkGate, PrivacyGatingError
+        gate = NetworkGate(self._config)
 
         # Resolve the factory: tests inject one; production uses the registry.
         factory = self._provider_factory
         if factory is None:
             from novelwriter.ai.provider.registry import make_provider as _real
 
-            def _factory(pid: str, settings: dict, keystore: "KeyStore | None") -> "Provider":
-                return _real(pid, settings=settings, keystore=keystore)
+            def _factory(
+                pid: str,
+                settings: dict,
+                keystore: "KeyStore | None",
+                *,
+                gate: "NetworkGate | None" = None,
+                feature: "AIFeature | None" = None,
+            ) -> "Provider":
+                return _real(pid, settings=settings, keystore=keystore, gate=gate, feature=feature)
 
             factory = _factory
 
         settings = self._config.provider_config(provider_id)
         try:
-            provider = factory(provider_id, settings, self._keystore)
+            # Try the gate-aware factory shape first (production path); fall
+            # back to the legacy shape for tests that inject older factories.
+            try:
+                provider = factory(provider_id, settings, self._keystore, gate=gate, feature=feature)
+            except TypeError:
+                provider = factory(provider_id, settings, self._keystore)
         except Exception as exc:  # noqa: BLE001 - boundary
             logger.warning("Dry-run could not build provider %s: %s", provider_id, exc)
             return (self.tr("Provider error: {0}").format(str(exc)), 0)
@@ -285,7 +311,19 @@ class AIPreferencesPanel(QWidget):
         from novelwriter.ai.staging import stage
 
         try:
-            staged = stage(_DRY_RUN_PROMPT, provider, transformation="dry-run")
+            staged = stage(
+                _DRY_RUN_PROMPT,
+                provider,
+                transformation="dry-run",
+                gate=gate,
+                feature=feature,
+            )
+        except PrivacyGatingError as exc:
+            # Privacy gate refused the call. Show the reason directly so the
+            # user knows whether the master switch or the per-feature toggle
+            # is the blocker.
+            logger.info("Dry-run gated by privacy contract: %s", exc)
+            return (self.tr("AI is off for this feature: {0}").format(str(exc)), 0)
         except Exception as exc:  # noqa: BLE001 - boundary
             logger.warning("Dry-run failed: %s", exc)
             return (self.tr("Dry-run failed: {0}").format(str(exc)), 0)

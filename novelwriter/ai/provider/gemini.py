@@ -17,7 +17,7 @@ Sprint 2 ships only a non-streaming `generateContent` call.
 """
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from novelwriter.ai.auth import ApiKeyAuth, Auth, OAuthCreds
 from novelwriter.ai.provider.base import (
@@ -26,6 +26,10 @@ from novelwriter.ai.provider.base import (
     ProviderResponse,
 )
 from novelwriter.ai.tokenizers import for_provider
+
+if TYPE_CHECKING:
+    from novelwriter.ai.config import AIFeature
+    from novelwriter.ai.network import NetworkGate
 
 
 _DEFAULT_BASE_URL = "https://generativelanguage.googleapis.com"
@@ -52,6 +56,8 @@ class GeminiProvider(Provider):
         model: str = _DEFAULT_MODEL,
         base_url: str = _DEFAULT_BASE_URL,
         transport: Any = None,
+        gate: "NetworkGate | None" = None,
+        feature: "AIFeature | None" = None,
     ) -> None:
         if not isinstance(auth, (ApiKeyAuth, OAuthCreds)):
             raise ProviderError(
@@ -64,6 +70,9 @@ class GeminiProvider(Provider):
         self._transport = transport
         self._tokenize = for_provider("gemini")
         self._client: Any = None
+        # Privacy gate: see provider/base.py::_enforce_privacy_gate.
+        self._gate = gate
+        self._feature = feature
 
     @property
     def name(self) -> str:
@@ -86,6 +95,11 @@ class GeminiProvider(Provider):
         return self._client
 
     def generate(self, prompt: str, **opts: object) -> ProviderResponse:
+        # ENFORCE privacy gate BEFORE any client work. Raises
+        # PrivacyGatingError if master switch or per-feature flag is off.
+        # See tests/test_ai/test_provider_gating.py for the contract.
+        self._enforce_privacy_gate()
+
         # Refresh OAuth tokens defensively at call-start. ApiKeyAuth is a
         # no-op; OAuthCreds checks expiry and refreshes if within
         # `REFRESH_WINDOW`. Refresh failures propagate as ProviderError so

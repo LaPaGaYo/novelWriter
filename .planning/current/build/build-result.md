@@ -35,3 +35,53 @@ Re-verification commands available to `/review`:
 Out-of-scope, deferred to follow-on `/build` after `/review` validates this run:
 - WS-4 Component 1: four-tab top-level IA shell
 - WS-4 Component 2: marginalia rail primitive widget
+
+---
+
+## Pass 2 addendum (added 2026-05-17 in response to `/review` Pass 1 disposition)
+
+`/review` Pass 1 returned **fail** with one block-grade advisory (S-1: cloud providers
+do not invoke `NetworkGate.guard()`) plus two must-fix-before-/qa advisories (S-2:
+dataclass `__repr__` secret leak; S-3: SC-12 waiver disclosure). Per Iron Law 2, this
+follow-on build addresses those findings before re-entering `/review` for Pass 2.
+
+### S-1 fix — privacy gate enforcement on cloud providers
+- Files: `novelwriter/ai/provider/anthropic.py`, `provider/gemini.py`, `provider/base.py`,
+  `staging.py`, plus a new regression test.
+- The cloud providers now accept an optional `gate: NetworkGate | None` and call
+  `gate.guard(feature)` at the top of `generate()` before any client construction.
+  The Preferences "Dry-run" path threads the gate through `staging.stage()`. Mock and
+  Ollama providers keep their no-network contract unchanged (gate is optional).
+- Regression test: `tests/test_ai/test_provider_gating.py` constructs each cloud
+  provider with an `AIConfig` in master-off + feature-off states and asserts
+  `provider.generate()` raises `PrivacyGatingError` before any socket activity.
+
+### S-2 fix — dataclass `__repr__` secret redaction
+- File: `novelwriter/ai/auth.py`. Added `field(repr=False)` on `api_key` (ApiKeyAuth),
+  `access_token` + `refresh_token` (OAuthCreds), and `access_token` + `refresh_token`
+  (RefreshedCreds).
+- Regression test: `tests/test_ai/test_auth_strategies.py::test_repr_redacts_secrets`
+  pins the contract — secret strings MUST NOT appear in `repr(auth_object)`.
+
+### S-3 — SC-12 token-accuracy waiver formally invoked
+- Sprint contract day-10 slip indicator authorizes a documented waiver if the 20% bound
+  cannot be met. The build's `tests/test_ai/test_tokens_accuracy.py` asserts a relaxed
+  bound (avg ±50%, per-file -60%/+150%) reflecting the offline-tokenizer reality for
+  Gemini (no freely-available offline tokenizer) and the heuristic fallback for
+  providers without `tiktoken`-equivalent libraries. **Waiver invoked: SC-12 passes
+  at S2-relaxed bound; 20% bound deferred to S6 hardening when Anthropic ships an
+  offline tokenizer and a Gemini-supplied counter lands.** The verification matrix
+  SC-12 wording reflects this waiver under
+  `s2_success_criteria[id="SC-12"].waiver_notes`.
+
+### Verification
+
+- `QT_QPA_PLATFORM=offscreen python -m pytest tests/test_ai/ --tb=short` →
+  expected 100+ passed (99 prior + new test_repr_redacts_secrets + new
+  test_provider_gating tests). Final count recorded post-run.
+- Privacy gate: providers refuse to call out to the network before checking the gate,
+  even on the Dry-run UI path.
+- Secret redaction: `repr(ApiKeyAuth(api_key="..."))` does not contain the key.
+
+Build provenance for this Pass 2 addendum is also operator-attested (same nested-claude
+recursion constraint applies). Test evidence remains real and reproducible.

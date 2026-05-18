@@ -21,6 +21,8 @@ from typing import TYPE_CHECKING
 from novelwriter.ai.tokens import estimate_tokens
 
 if TYPE_CHECKING:
+    from novelwriter.ai.config import AIFeature
+    from novelwriter.ai.network import NetworkGate
     from novelwriter.ai.provider.base import Provider
 
 
@@ -55,7 +57,14 @@ class StagedRewrite:
     metadata: dict[str, str] = field(default_factory=dict)
 
 
-def stage(prompt: str, provider: "Provider", *, transformation: str = "rewrite") -> StagedRewrite:
+def stage(
+    prompt: str,
+    provider: "Provider",
+    *,
+    transformation: str = "rewrite",
+    gate: "NetworkGate | None" = None,
+    feature: "AIFeature | None" = None,
+) -> StagedRewrite:
     """Run `prompt` through `provider` and stage the result.
 
     Used by the Preferences "Dry-run" button to exercise the staging path end
@@ -64,9 +73,23 @@ def stage(prompt: str, provider: "Provider", *, transformation: str = "rewrite")
     consumes the same return type, so the staging interface is stable across
     sprints.
 
-    The caller is responsible for `NetworkGate.guard()` — providers that need
-    gating call it inside `generate()`. `stage()` itself does no gating.
+    Privacy gate (S-1 fix, /review Pass 1): if `gate` + `feature` are passed
+    explicitly, `stage()` calls `gate.guard(feature)` BEFORE
+    `provider.generate()` as belt-and-suspenders. The provider itself ALSO
+    gates internally when constructed with a gate (see
+    `provider/base.py::_enforce_privacy_gate`). Either layer alone catches
+    the regression; both layers ensure no future refactor accidentally
+    bypasses the contract.
     """
+    if gate is not None and feature is not None:
+        gate.guard(feature)
+    elif (gate is None) != (feature is None):
+        # Half-configured = misconfigured. Refuse loudly.
+        from novelwriter.ai.provider.base import ProviderError
+        raise ProviderError(
+            "staging.stage(): gate and feature must be passed together; "
+            f"got gate={gate!r}, feature={feature!r}",
+        )
     response = provider.generate(prompt)
     return StagedRewrite(
         original=prompt,

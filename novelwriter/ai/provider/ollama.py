@@ -16,11 +16,15 @@ machine).
 """
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from novelwriter.ai.auth import NoAuth
 from novelwriter.ai.provider.base import Provider, ProviderError, ProviderResponse
 from novelwriter.ai.tokens import estimate_tokens
+
+if TYPE_CHECKING:
+    from novelwriter.ai.config import AIFeature
+    from novelwriter.ai.network import NetworkGate
 
 
 _DEFAULT_BASE_URL = "http://127.0.0.1:11434"
@@ -40,12 +44,19 @@ class OllamaProvider(Provider):
         base_url: str = _DEFAULT_BASE_URL,
         model: str = _DEFAULT_MODEL,
         transport: Any = None,
+        gate: "NetworkGate | None" = None,
+        feature: "AIFeature | None" = None,
     ) -> None:
         self._base_url = base_url.rstrip("/")
         self._model = model
         self._transport = transport
         self.auth = NoAuth()
         self._client: Any = None  # lazily built
+        # Privacy gate: even though Ollama is local, the master switch
+        # disables it too ("AI off" disables everything). See
+        # provider/base.py::_enforce_privacy_gate.
+        self._gate = gate
+        self._feature = feature
 
     @property
     def name(self) -> str:
@@ -68,6 +79,9 @@ class OllamaProvider(Provider):
         return self._client
 
     def generate(self, prompt: str, **opts: object) -> ProviderResponse:
+        # ENFORCE privacy gate. Local providers also honor the master switch
+        # so "AI off" disables them too.
+        self._enforce_privacy_gate()
         client = self._make_client()
         try:
             resp = client.post(

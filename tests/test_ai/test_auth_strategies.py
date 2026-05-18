@@ -173,3 +173,57 @@ def test_oauthcreds_naive_expiry_is_normalized_to_utc():
         refresher=_fake_refresher("rotated"),
     )
     assert creds.is_expiring_soon() is True
+
+
+def test_repr_redacts_secrets():
+    """S-2 regression: dataclass __repr__ MUST NOT expose secret-bearing fields.
+
+    Secrets must be suppressed because any `logger.X("...", auth)`,
+    f-string, or unhandled exception traceback involving these dataclasses
+    would otherwise write API keys / bearer tokens to stderr (and to disk
+    if the debug log is enabled). The fix is `field(repr=False)` on the
+    secret fields; this test pins that contract.
+    """
+    # ApiKeyAuth: api_key must NOT appear in repr; header_name MAY appear.
+    api_auth = ApiKeyAuth(api_key="sk-SECRET-ANTHROPIC-KEY-DO-NOT-LEAK", header_name="x-api-key")
+    api_repr = repr(api_auth)
+    assert "sk-SECRET-ANTHROPIC-KEY-DO-NOT-LEAK" not in api_repr
+    assert "api_key" not in api_repr  # field name itself absent when repr=False
+    # header_name remains visible for debugging — it's not a secret.
+    assert "x-api-key" in api_repr
+
+    # OAuthCreds: access_token + refresh_token must NOT appear; expiry + scope MAY.
+    creds = OAuthCreds(
+        access_token="SECRET_ACCESS_TOKEN_DO_NOT_LEAK",
+        refresh_token="SECRET_REFRESH_TOKEN_DO_NOT_LEAK",
+        expiry=datetime(2099, 1, 1, tzinfo=timezone.utc),
+        scope="test-scope-marker",
+        refresher=_fake_refresher("rotated"),
+    )
+    creds_repr = repr(creds)
+    assert "SECRET_ACCESS_TOKEN_DO_NOT_LEAK" not in creds_repr
+    assert "SECRET_REFRESH_TOKEN_DO_NOT_LEAK" not in creds_repr
+    assert "access_token" not in creds_repr  # field name itself absent
+    assert "refresh_token" not in creds_repr
+    # Non-secret fields remain visible.
+    assert "scope" in creds_repr
+    assert "test-scope-marker" in creds_repr
+
+    # RefreshedCreds: same contract — access_token + refresh_token suppressed.
+    refreshed = RefreshedCreds(
+        access_token="SECRET_NEW_ACCESS_DO_NOT_LEAK",
+        refresh_token="SECRET_NEW_REFRESH_DO_NOT_LEAK",
+        expiry=datetime(2099, 1, 1, tzinfo=timezone.utc),
+        scope="test-scope-marker",
+    )
+    refreshed_repr = repr(refreshed)
+    assert "SECRET_NEW_ACCESS_DO_NOT_LEAK" not in refreshed_repr
+    assert "SECRET_NEW_REFRESH_DO_NOT_LEAK" not in refreshed_repr
+    assert "access_token" not in refreshed_repr
+    assert "refresh_token" not in refreshed_repr
+    assert "test-scope-marker" in refreshed_repr
+
+    # Sanity: secrets are still present in headers() — the test isn't accidentally
+    # asserting against a broken `__init__` that silently dropped the values.
+    assert api_auth.headers() == {"x-api-key": "sk-SECRET-ANTHROPIC-KEY-DO-NOT-LEAK"}
+    assert creds.headers()["Authorization"] == "Bearer SECRET_ACCESS_TOKEN_DO_NOT_LEAK"

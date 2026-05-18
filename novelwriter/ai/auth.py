@@ -112,9 +112,13 @@ class ApiKeyAuth(Auth):
     Anthropic uses `x-api-key`; Gemini's API-key path uses
     `x-goog-api-key`. Providers know which header name to inject when
     instantiating this strategy, so the strategy itself stays generic.
+
+    `api_key` is suppressed from __repr__ to prevent secret leakage via
+    logging, tracebacks, and debug output. See `tests/test_ai/
+    test_auth_strategies.py::test_repr_redacts_secrets` for the contract.
     """
 
-    api_key: str
+    api_key: str = field(repr=False)
     header_name: str = "x-api-key"
 
     @property
@@ -127,10 +131,12 @@ class ApiKeyAuth(Auth):
 
 # Returned by an OAuthCreds.refresher. A plain dataclass so test refreshers
 # can construct one in a single literal without importing anything heavy.
+# `access_token` and `refresh_token` are suppressed from __repr__ to prevent
+# secret leakage via logging, tracebacks, and debug output.
 @dataclass(frozen=True, slots=True)
 class RefreshedCreds:
-    access_token: str
-    refresh_token: str
+    access_token: str = field(repr=False)
+    refresh_token: str = field(repr=False)
     expiry: datetime
     scope: str
 
@@ -150,10 +156,14 @@ class OAuthCreds(Auth):
     `refresh_if_needed()` re-raises it. Callers (status-bar widget,
     preferences pane) catch and surface the re-auth modal per
     `design-contract.md` Component 3 State 4.
+
+    `access_token` and `refresh_token` are suppressed from __repr__ to
+    prevent secret leakage via logging, tracebacks, and debug output. See
+    `tests/test_ai/test_auth_strategies.py::test_repr_redacts_secrets`.
     """
 
-    access_token: str
-    refresh_token: str
+    access_token: str = field(repr=False)
+    refresh_token: str = field(repr=False)
     expiry: datetime
     scope: str
     refresher: Callable[["OAuthCreds"], RefreshedCreds] = field(repr=False)
