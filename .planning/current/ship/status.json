@@ -1,0 +1,76 @@
+{
+  "run_id": "run-2026-05-12T01-45-20-695Z",
+  "stage": "ship",
+  "execution_mode": "local_provider",
+  "primary_provider": "claude",
+  "provider_topology": "agent_team",
+  "workspace": {
+    "path": "/Users/henry/Documents/novelWriter/.nexus-worktrees/run-2026-05-12T01-45-20-695Z",
+    "kind": "worktree",
+    "branch": "branch/run-2026-05-12T01-45-20-695Z",
+    "source": "allocated:fresh_run",
+    "run_id": "run-2026-05-12T01-45-20-695Z",
+    "retirement_state": "active"
+  },
+  "session_root": {
+    "path": "/Users/henry",
+    "kind": "repo_root",
+    "source": "ccb_root"
+  },
+  "requested_execution_path": "claude-local-agent_team",
+  "actual_execution_path": "claude-local-agent_team",
+  "ship_attempt_id": "ship-2026-05-18T00-00-00-000Z",
+  "state": "completed",
+  "decision": "ship_recorded",
+  "ready": true,
+  "release_gate": "ready",
+  "branch_outcome": "merge",
+  "design_impact": "high",
+  "design_contract_path": ".planning/current/plan/design-contract.md",
+  "design_verified": "partial-pass",
+  "deploy_configured": false,
+  "deploy_config_source": "none",
+  "deploy_contract_path": null,
+  "pr_handoff_status": "open",
+  "pr_url": "https://github.com/LaPaGaYo/novelWriter/pull/2",
+  "ship_provenance_kind": "operator_attested",
+  "ship_provenance_note": "./bin/nexus ship not invoked (nested-claude recursion same as /build, /review, /qa). Operating Claude session ran the 5 Law 1 checks with fresh evidence, surfaced the Iron Law 3 outcome question, created the PR via gh pr create, and authored the 5 canonical ship artifacts in-context. All test evidence reproducible.",
+  "law1_checks_summary": {
+    "1_tests_in_turn": "pass",
+    "2_ci_on_head_sha": "substituted",
+    "3_review_pass_round_current": "pass",
+    "4_qa_verdict": "pass",
+    "5_branch_up_to_date_with_base": "pass"
+  },
+  "law2_compliance": {
+    "no_silent_merge": true,
+    "no_force_push": true,
+    "no_skip_ci": true,
+    "exception_path_engaged": true,
+    "exception_recorded_in_release_gate_record": true
+  },
+  "law3_outcome": {
+    "operator_picked": "merge",
+    "auto_picked": false,
+    "ask_user_question_invoked": true
+  },
+  "inputs": [
+    {"kind": "json", "path": ".planning/current/review/status.json"},
+    {"kind": "json", "path": ".planning/current/qa/status.json"},
+    {"kind": "markdown", "path": ".planning/audits/current/synthesis.md"},
+    {"kind": "markdown", "path": ".planning/audits/current/gate-decision.md"},
+    {"kind": "markdown", "path": ".planning/current/plan/verification-matrix.json"}
+  ],
+  "outputs": [
+    {"kind": "markdown", "path": ".planning/current/ship/release-gate-record.md"},
+    {"kind": "json", "path": ".planning/current/ship/checklist.json"},
+    {"kind": "json", "path": ".planning/current/ship/deploy-readiness.json"},
+    {"kind": "json", "path": ".planning/current/ship/pull-request.json"},
+    {"kind": "json", "path": ".planning/current/ship/status.json"}
+  ],
+  "started_at": "2026-05-18T00:00:00.000Z",
+  "completed_at": "2026-05-18T00:00:00.000Z",
+  "errors": [],
+  "next_allowed_stages": ["land", "closeout"],
+  "next_required_action": "Recommended path: /land first (merges PR #2 to main, deletes branch per repo policy), then /closeout (final governed verification + archive). /deploy NOT applicable (no deploy surface). Alternative: /closeout directly if operator merges PR manually outside Nexus; pr_handoff_status: 'open' is acceptable for /closeout entry if /land is scheduled."
+}

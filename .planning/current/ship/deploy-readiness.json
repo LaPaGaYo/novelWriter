@@ -1,0 +1,19 @@
+{
+  "run_id": "run-2026-05-12T01-45-20-695Z",
+  "ship_attempt_id": "ship-2026-05-18T00-00-00-000Z",
+  "deploy_applicable": false,
+  "deploy_applicable_reason": "plotwright is a PyQt6 cross-platform desktop application (CLI / library / desktop-app class per Nexus v1.0.53 /land-vs-/deploy split). No production deploy surface, no production URL, no health check endpoint. The merge-only path is /land, not /land-and-deploy.",
+  "deploy_contract_configured": false,
+  "deploy_contract_path": null,
+  "deploy_platform": null,
+  "deploy_environments": [],
+  "setup_deploy_required": false,
+  "setup_deploy_required_reason": "Repo class does not have a deploy surface. /setup-deploy is not applicable.",
+  "post_ship_route": "land_only",
+  "post_ship_route_rationale": "Per Nexus v1.0.53 documentation: '/land is split from /land-and-deploy so PR landing and deployment become separate flows.' This repo's class (desktop app) explicitly fits the /land-only path: '/land — Use when a shipped PR should be merged without assuming deployment, or when the project is a CLI, library, desktop app, docs-only change, or otherwise has no production deploy surface.'",
+  "future_release_considerations": [
+    "When v1 ships externally, package the desktop app via the existing pyproject.toml console_scripts (`plotwright = novelwriter:main`).",
+    "Cross-platform packaging (Linux .deb, Windows .msi, macOS .dmg) deferred to S6 hardening per execution-readiness-packet.md.",
+    "No deploy contract needed for the GPL-3 fork; users install via `pip install plotwright` once published (PyPI placeholder TBD; sprint-contract risk register flags PyPI name conflict pre-check)."
+  ]
+}

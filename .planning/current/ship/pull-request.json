@@ -1,0 +1,35 @@
+{
+  "run_id": "run-2026-05-12T01-45-20-695Z",
+  "ship_attempt_id": "ship-2026-05-18T00-00-00-000Z",
+  "pr_handoff_status": "open",
+  "pr": {
+    "number": 2,
+    "url": "https://github.com/LaPaGaYo/novelWriter/pull/2",
+    "state": "OPEN",
+    "title": "feat(s2): Sprint 2 foundation phase — WS-0 branding + WS-1 AI substrate widening",
+    "base_branch": "main",
+    "head_branch": "branch/run-2026-05-12T01-45-20-695Z",
+    "repo": "LaPaGaYo/novelWriter",
+    "draft": false,
+    "created_via": "gh pr create (operator-attested ship)",
+    "created_at": "2026-05-18T00:00:00.000Z"
+  },
+  "branch_outcome": "merge",
+  "merge_method": "deferred_to_land",
+  "merge_method_rationale": "/ship records PR open state; actual merge is performed by /land (or operator manual) per Nexus v1.0.53 ship/land split. /ship does not auto-merge.",
+  "branch_deletion_policy": "to_be_confirmed_by_land",
+  "branch_push_state": "pushed",
+  "branch_push_target": "origin/branch/run-2026-05-12T01-45-20-695Z",
+  "branch_push_evidence": "git push -u origin returned [new branch] for 'branch/run-2026-05-12T01-45-20-695Z', tracking set up to 'origin/branch/run-2026-05-12T01-45-20-695Z'",
+  "commits_in_pr": [
+    {"sha": "40a020a7", "title": "feat(s2): WS-0 branding + WS-1 substrate widening (Sprint 2 build)"},
+    {"sha": "551d281f", "title": "chore: lock S2 build-stage artifacts (operator-attested run)"},
+    {"sha": "a524bab8", "title": "fix(s2): /review Pass 1 closure — S-1 privacy gate + S-2 repr leak + S-3 waiver"},
+    {"sha": "c8c3f488", "title": "chore(s2): /qa Pass — ready_with_findings (17 findings, zero P0)"}
+  ],
+  "next_required_action_for_closeout": "Run /land to merge PR #2 to main and verify branch state. /closeout cannot consume this run until the PR is merged (or operator explicitly defers via Iron Law 3 outcome change to 'Keep alive'). pr_handoff_status: 'open' is acceptable for /closeout entry as long as /land is scheduled.",
+  "follow_on_attestations_supported": [
+    "deploy-result.json (NOT applicable for this run — desktop app, no deploy contract)",
+    "canary-status.json (NOT applicable — no production URL to canary)"
+  ]
+}

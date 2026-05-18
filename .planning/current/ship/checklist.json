@@ -1,0 +1,78 @@
+{
+  "run_id": "run-2026-05-12T01-45-20-695Z",
+  "ship_attempt_id": "ship-2026-05-18T00-00-00-000Z",
+  "law1_checks": {
+    "1_tests_in_turn": {
+      "status": "pass",
+      "command": "QT_QPA_PLATFORM=offscreen .venv/bin/python -m pytest tests/test_ai/ -q",
+      "result": "112 passed in 0.71s",
+      "exit_code": 0,
+      "ran_in_ship_turn": true
+    },
+    "2_ci_on_head_sha": {
+      "status": "substituted",
+      "substitution": "operator-attested local pytest (Check 1)",
+      "rationale": "Private GPL-3 fork has no GitHub Actions workflow yet. Upstream CI runs on vkbo/novelWriter only. Documented per Law 2 exception path, not silently bypassed.",
+      "follow_on": "Configure GitHub Actions CI for the fork before next /ship so Check 2 returns pass directly."
+    },
+    "3_review_pass_round_current": {
+      "status": "pass",
+      "review_status_path": ".planning/current/review/status.json",
+      "gate_verdict": "pass_with_advisories",
+      "pass_round": 2,
+      "commits_since_pass_2": ["c8c3f488"],
+      "commits_since_pass_2_invalidate_review": false,
+      "commits_since_pass_2_rationale": "c8c3f488 contains only .planning/current/qa/* artifacts; zero code changes that would alter the review verdict."
+    },
+    "4_qa_verdict": {
+      "status": "pass",
+      "qa_status_path": ".planning/current/qa/status.json",
+      "verdict": "ready_with_findings",
+      "ready": true,
+      "findings_summary": {"p0": 0, "p1": 0, "p2": 4, "p3": 13, "total": 17}
+    },
+    "5_branch_up_to_date_with_base": {
+      "status": "pass",
+      "base": "origin/main",
+      "head": "branch/run-2026-05-12T01-45-20-695Z",
+      "ahead": 4,
+      "behind": 0,
+      "rebase_required": false
+    }
+  },
+  "law2_refuse_to_ship_broken": {
+    "silent_merges_past_failed_checks": false,
+    "force_push_to_base": false,
+    "skip_ci_or_no_verify": false,
+    "exception_path_engaged": true,
+    "exception_rationale": "Check 2 (CI) is substituted with operator-attested local pytest, documented in release-gate-record.md. Time-boxed follow-on: configure GitHub Actions before next ship."
+  },
+  "law3_branch_outcome": {
+    "operator_picked": "merge",
+    "alternatives_surfaced": ["merge", "keep_alive", "discard", "split"],
+    "ask_user_question_invoked": true,
+    "auto_picked": false
+  },
+  "merge_mechanics": {
+    "pr_url": "https://github.com/LaPaGaYo/novelWriter/pull/2",
+    "pr_number": 2,
+    "pr_state": "OPEN",
+    "base": "main",
+    "head": "branch/run-2026-05-12T01-45-20-695Z",
+    "merge_method": "deferred_to_land",
+    "branch_deletion_policy": "to_be_confirmed_by_land"
+  },
+  "design_contract_verification": {
+    "design_impact": "high",
+    "design_verified": "partial-pass",
+    "design_verification_path": ".planning/current/qa/design-verification.md",
+    "vermilion_grep_chrome_count": 1,
+    "vermilion_grep_chrome_location": "novelwriter/gui/status_bar_ai.py:working-state pulse (per DESIGN.md)",
+    "vermilion_grep_preferences_count": 0,
+    "anti_slop_audit": "clean"
+  },
+  "provenance_kind": "operator_attested",
+  "provenance_note": "./bin/nexus ship not invoked (nested-claude recursion). Operating Claude ran Step 1-7 in-context, dispatched gh pr create directly, authored canonical artifacts. Test evidence reproducible.",
+  "ready": true,
+  "release_gate": "ready"
+}
